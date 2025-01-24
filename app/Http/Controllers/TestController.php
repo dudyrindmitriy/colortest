@@ -121,7 +121,7 @@ class TestController extends Controller
         foreach ($userRectangles as $uRect) {
             foreach ($templateRectangles as $tRect) {
                 if (
-                    $this->areColorsSimilar($tRect->color, $uRect->color) &&
+                    $this->areColorsSimilar($tRect->color, $uRect->color == 'white' ? 'rgb(255, 255, 255)' : $uRect->color) &&
                     abs($tRect->x - $uRect->x) <= 1 &&
                     abs($tRect->y - $uRect->y) <= 1 &&
                     abs($tRect->z - $uRect->z) <= 3
