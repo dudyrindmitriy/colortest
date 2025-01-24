@@ -215,7 +215,7 @@
 
         <div class="coordinates-tooltip" id="coordinatesTooltip"></div>
         <div class="for_test"><h2>Выберите цвет</h2>
-        <input type="color" class="color-input" id="colorPicker" value="rgb(255, 0, 0)" onchange="setColor(this.value)"></div>
+        <input type="color" class="color-input" id="colorPicker" value="#ff0000" onchange="setColor(this.value)"></div>
     </div>
     <button id="saveResult">Сохранить результат</button>
     <script>
