@@ -218,7 +218,7 @@
     </div>
     <button id="saveResult">Сохранить результат</button>
     <script>
-        let currentColor = 'white';
+        let currentColor = 'rgb(255, 255, 255)';
 
         function setColor(color) {
             currentColor = color;
