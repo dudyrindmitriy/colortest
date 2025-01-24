@@ -10,7 +10,7 @@
     <header class="site-header">
         
         <nav>
-            <a href="/color-test-app/public/" class="nav-button">Главная</a>
+            <a href="/" class="nav-button">Главная</a>
             <a href="{{ route('profile') }}" class="nav-button">Личный профиль</a>
             <a href="{{ route('reviews') }}" class="nav-button">Отзывы</a>
             <a href="{{ route('test') }}" class="nav-button">Тестирование</a>
