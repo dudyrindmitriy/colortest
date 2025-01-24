@@ -5,12 +5,15 @@
     <h1>Регистрация</h1>
     <form method="POST" action="{{ route('register') }}">
         @csrf
+        @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
         <label for="name">Логин:</label>
         <input type="text" id="name" name="login"><br><br>
         <label for="name">Email:</label>
-        @error('address')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+       
         <input type="email" id="name" name="email"><br><br>
         <label for="password">Пароль:</label>
         <input type="password" id="password" name="password"><br><br>
