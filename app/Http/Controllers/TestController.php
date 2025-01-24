@@ -91,7 +91,7 @@ class TestController extends Controller
             }
             $match .= $isa->individual_style_of_activity . "-" . $matchPercentage . "     ";
             // $match .= $matchPercentage . "%     ";
-            var_dump($matchPercentage);
+      
             if ($matchPercentage > $highestMatch) {
                 $highestMatch = $matchPercentage;
                 $bestMatch = $isa;
