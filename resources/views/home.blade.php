@@ -26,13 +26,13 @@
     @foreach($isas as $index => $isa)
     <div class="isa-container" style="display: flex; align-items: center; margin-bottom: 10px;justify-content: flex-start;">
             <?= $isa->image; ?>
-            <p style="max-width: 500px;">{{$descriptions[$index]}}</p>
+            <p style="max-width: 60%;">{{$descriptions[$index]}}</p>
     </div>
     @endforeach
     @foreach($chess as $index => $ches)
     <div class="chess-container" style="display: flex;justify-content: center; align-items: center; margin-bottom: 10px;">
             <div style="max-width: 300px;  "><?= $ches->image; ?></div>
-            <p style="max-width: 500px;">Степень выраженности шахматной структуры - {{$ches->chess_structure}}</p>
+            <p style="max-width: 60%;">Степень выраженности шахматной структуры - {{$ches->chess_structure}}</p>
     </div>
     @endforeach
 </div>
