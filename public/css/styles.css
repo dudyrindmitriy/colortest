@@ -311,9 +311,9 @@ select:focus {
         margin: 5px 0;
     }
 
-    svg {
+    /* svg {
         width: 100%;
-    }
+    } */
 
     select {
         width: 100%;

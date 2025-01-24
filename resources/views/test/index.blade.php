@@ -32,7 +32,7 @@
             /* Достаточное расстояние для удобства */
             width: 90%;
             height: 200px;
-            border: solid 1px black;
+            /* border: solid 1px black; */
             /* Увеличиваем ширину для мобильного удобства */
         }
 
@@ -215,11 +215,11 @@
 
         <div class="coordinates-tooltip" id="coordinatesTooltip"></div>
         <div class="for_test"><h2>Выберите цвет</h2>
-        <input type="color" class="color-input" id="colorPicker" value="#ffffff" onchange="setColor(this.value)"></div>
+        <input type="color" class="color-input" id="colorPicker" value="rgb(255, 0, 0)" onchange="setColor(this.value)"></div>
     </div>
     <button id="saveResult">Сохранить результат</button>
     <script>
-        let currentColor = 'rgb(255, 255, 255)';
+        let currentColor = 'rgb(255, 0, 0)';
 
         function setColor(color) {
             currentColor = color;

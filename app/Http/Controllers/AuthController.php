@@ -45,8 +45,14 @@ class AuthController extends Controller
          $user->email = $request->input('email');
          $user->address = $request->input('address');
          $user->password = bcrypt($request->input('password'));
-         $user->save();
-         return redirect()->route('login');
+        if (User::where('email', $user->email)->first()) {
+            return redirect()->back()->with('error', 'Пользователь с таким email уже существует');
+        } else {
+            $user->save();
+            return redirect()->route('login');
+        }
+        //  $user->save();
+        //  return redirect()->route('login');
     
     }
 
