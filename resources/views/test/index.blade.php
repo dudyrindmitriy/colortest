@@ -263,7 +263,7 @@
 
             const loading = document.getElementById('loading');
 
-            fetch('/color-test-app/public/save-result', {
+            fetch('/save-result', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
