@@ -278,7 +278,7 @@
                 .then(data => {
                     alert('Результат сохранен!');
                     console.log(data);
-                    window.location.href = '/color-test-app/public/results';
+                    window.location.href = '/results';
                 })
                 .catch(error => console.error('Ошибка:', error))
                 .finally(() => {
