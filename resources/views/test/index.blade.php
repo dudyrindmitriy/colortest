@@ -264,7 +264,7 @@
 
             const loading = document.getElementById('loading');
 
-            fetch('/save-result', {
+            fetch('/colortest/public/save-result', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

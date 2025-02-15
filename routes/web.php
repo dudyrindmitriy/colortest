@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommentToReviewController;
 use App\Http\Controllers\GeneralPageController;
+use App\Http\Controllers\PHPMailerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TestController;
@@ -28,6 +30,8 @@ Route::get('/results/search', [TestController::class, 'search'])->name('results.
 // Профиль
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
 Route::post('/profile/update', [ProfileController::class, 'update'])->middleware('auth');
+//Чат
+Route::get("/chat", [ChatController::class, "index"])->name("chat")->middleware("auth");
 
 // Отзывы
 Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews')->middleware('auth');
@@ -53,3 +57,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/admin/results/{result}', [AdminController::class, 'updateResult'])->name('admin.results.update');
     Route::delete('/admin/results/{result}', [AdminController::class, 'destroyResult'])->name('admin.results.destroy');
 });
+
