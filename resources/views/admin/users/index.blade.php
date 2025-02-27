@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="main-content">
+
 <style>
          .table {
     border-collapse: collapse; 
@@ -26,6 +26,7 @@
                 <th>ID</th>
                 <th>Логин</th>
                 <th>Email</th>
+                <th>Написать</th>
                 <th>Редактирование</th>
                 <th>Удаление</th>
             </tr>
@@ -36,6 +37,9 @@
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->login }}</td>
                 <td>{{ $user->email }}</td>
+                <td>
+                    <a href="{{ route('admin.users.message', $user) }}" class="nav-button">Написать</a>
+                </td>
                 <td>
                     <a href="{{ route('admin.users.edit', $user) }}" class="nav-button">Редактировать</a>
                 </td>
@@ -50,5 +54,5 @@
             @endforeach
         </tbody>
     </table>
-</div>
+
 @endsection

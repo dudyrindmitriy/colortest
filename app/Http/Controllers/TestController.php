@@ -257,67 +257,67 @@ class TestController extends Controller
     }
 
 
-    public function showResults()
-    {
-        $userId = Auth::id();
+    // public function showResults()
+    // {
+    //     $userId = Auth::id();
 
-        $results = Results::where('user_id', $userId)->get();
-        if (!$results) {
-            return redirect()->route('profile.index')->with('error', 'Результаты не найдены');
-        }
-        return view('profile.results', compact('results'));
-    }
-    public function showResult($id)
-    {
-        $userId = Auth::id();
+    //     $results = Results::where('user_id', $userId)->get();
+    //     if (!$results) {
+    //         return redirect()->route('profile.index')->with('error', 'Результаты не найдены');
+    //     }
+    //     return view('profile.results', compact('results'));
+    // }
+    // public function showResult($id)
+    // {
+    //     $userId = Auth::id();
 
-        $result = Results::where('id', $id)
-            ->where('user_id', $userId)
-            ->first();
+    //     $result = Results::where('id', $id)
+    //         ->where('user_id', $userId)
+    //         ->first();
 
-        if (!$result) {
-            return redirect()->route('profile.results')->with('error', 'Результат не найден');
-        }
+    //     if (!$result) {
+    //         return redirect()->route('profile.results')->with('error', 'Результат не найден');
+    //     }
 
-        return view('profile.result', compact('result'));
-    }
-    public function search(Request $request)
-    {
-        $field = $request->input('field');
-        $query = $request->input('query');
-
-
-        $validFields = ['isa', 'chess_structure', 'created_at', 'recommendation'];
-
-        if (!in_array($field, $validFields)) {
-            return redirect()->route('results')->with('error', 'Неверное поле для поиска.');
-        }
+    //     return view('profile.result', compact('result'));
+    // }
+    // public function search(Request $request)
+    // {
+    //     $field = $request->input('field');
+    //     $query = $request->input('query');
 
 
-        $currentUserId = Auth::id();
+    //     $validFields = ['isa', 'chess_structure', 'created_at', 'recommendation'];
+
+    //     if (!in_array($field, $validFields)) {
+    //         return redirect()->route('results')->with('error', 'Неверное поле для поиска.');
+    //     }
 
 
-        if ($field === 'chess_structure') {
-            $results = Results::join('chesses', 'results.chess_structure_id', '=', 'chesses.id')
-                ->where('results.user_id', $currentUserId)
-                ->where('chesses.chess_structure', 'LIKE', "%{$query}%")
-                ->select('results.*')
-                ->get();
-        } elseif ($field === 'isa') {
-            $results = Results::join('isas', 'results.isa_id', '=', 'isas.id')
-                ->where('results.user_id', $currentUserId)
-                ->where('isas.individual_style_of_activity', 'LIKE', "%{$query}%")
-                ->select('results.*')
-                ->get();
-        } else {
-            $results = Results::where('user_id', $currentUserId)
-                ->where($field, 'LIKE', "%{$query}%")
-                ->get();
-        }
+    //     $currentUserId = Auth::id();
 
-        return view('profile.results', compact('results'));
-    }
-    public function sendMessage()
+
+    //     if ($field === 'chess_structure') {
+    //         $results = Results::join('chesses', 'results.chess_structure_id', '=', 'chesses.id')
+    //             ->where('results.user_id', $currentUserId)
+    //             ->where('chesses.chess_structure', 'LIKE', "%{$query}%")
+    //             ->select('results.*')
+    //             ->get();
+    //     } elseif ($field === 'isa') {
+    //         $results = Results::join('isas', 'results.isa_id', '=', 'isas.id')
+    //             ->where('results.user_id', $currentUserId)
+    //             ->where('isas.individual_style_of_activity', 'LIKE', "%{$query}%")
+    //             ->select('results.*')
+    //             ->get();
+    //     } else {
+    //         $results = Results::where('user_id', $currentUserId)
+    //             ->where($field, 'LIKE', "%{$query}%")
+    //             ->get();
+    //     }
+
+    //     return view('profile.results', compact('results'));
+    // }
+    private function sendMessage()
     {
         try {
             $user = Auth::user();
@@ -325,7 +325,7 @@ class TestController extends Controller
             $subject = 'Поздравляем с успешным прохождением тестирования';
             $body = 'Вы прошли тестирование на сайте colortest.ru. С результатами можно ознакомиться в личном кабинете.';
             $mailController = new PHPMailerController();
-            $mailController->composeEmail($emailTo, $subject, $body);
+            $mailController->send($emailTo, $subject, $body);
         } catch (Exception $e) {
             return response()->json(['message' => 'Ошибка: ' . $e->getMessage()], 500);
         }

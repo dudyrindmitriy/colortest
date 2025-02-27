@@ -47,8 +47,7 @@
 <div id="loading" style="display: none;">
     <div class="spinner"></div>
 </div>
-<div class="main-content">
-
+<h2>Тестирование</h2>
     <div class="box">
         <div class="for_test">
             <h2>Раскрасьте данный шаблон</h2>
@@ -279,7 +278,7 @@
                 .then(data => {
                     alert('Результат сохранен!');
                     console.log(data);
-                    window.location.href = '/results';
+                    window.location.href = '/colortest/public/results';
                 })
                 .catch(error => console.error('Ошибка:', error))
                 .finally(() => {
@@ -303,5 +302,5 @@
         }
     </script>
 
-</div>
+
 @endsection

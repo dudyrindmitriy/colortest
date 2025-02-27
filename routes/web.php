@@ -24,14 +24,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Тест
 Route::get('/test', [TestController::class, 'index'])->name('test')->middleware('auth');
 Route::post('/save-result', [TestController::class, 'store'])->name('save.result')->middleware('auth');
-Route::get('/results', [TestController::class, 'showResults'])->name('results')->middleware('auth');
-Route::get('/result/{id}', [TestController::class, 'showResult'])->name('result')->middleware('auth');
-Route::get('/results/search', [TestController::class, 'search'])->name('results.search')->middleware('auth');
+
 // Профиль
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
 Route::post('/profile/update', [ProfileController::class, 'update'])->middleware('auth');
-//Чат
-Route::get("/chat", [ChatController::class, "index"])->name("chat")->middleware("auth");
+Route::post('/profile/message', [ProfileController::class, 'sendMessage'])->name('profile.sendMessage')->middleware('auth');
+Route::get('/results', [ProfileController::class, 'showResults'])->name('results')->middleware('auth');
+Route::get('/result/{id}', [ProfileController::class, 'showResult'])->name('result')->middleware('auth');
+Route::get('/results/search', [ProfileController::class, 'search'])->name('results.search')->middleware('auth');
 
 // Отзывы
 Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews')->middleware('auth');
@@ -46,6 +46,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
     Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
     Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
+    Route::get('/admin/users/{user}/message', [AdminController::class, 'showMessageForm'])->name('admin.users.message');
+    Route::post('/admin/users/{user}/message', [AdminController::class, 'sendMessage'])->name('admin.users.message');
+    Route::post('/admin/users/message', [AdminController::class, 'replyMessage'])->name('admin.users.reply');
 
     Route::get('/admin/reviews', [AdminController::class, 'indexReviews'])->name('admin.reviews.index');
     Route::get('/admin/reviews/{review}/edit', [AdminController::class, 'editReview'])->name('admin.reviews.edit');
@@ -57,4 +60,3 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/admin/results/{result}', [AdminController::class, 'updateResult'])->name('admin.results.update');
     Route::delete('/admin/results/{result}', [AdminController::class, 'destroyResult'])->name('admin.results.destroy');
 });
-

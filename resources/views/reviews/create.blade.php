@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="main-content">
         <h2>Добавить новый отзыв</h2>
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
@@ -26,5 +25,5 @@
             </div>
             <button type="submit" class="btn btn-primary">Добавить отзыв</button>
         </form>
-    </div>
+
 @endsection

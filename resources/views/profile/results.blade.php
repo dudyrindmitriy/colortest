@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="main-content">
     <h1>Результаты тестирований</h1>
     <form action="{{ route('results.search') }}" class="input-group" method="GET">
     <select name="field" required>
@@ -30,5 +29,4 @@
     @endif
 
     <a href="{{ route('profile') }}" class="nav-button">Вернуться в профиль</a>
-</div>
 @endsection
