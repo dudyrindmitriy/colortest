@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Chess;
 use App\Models\Isa;
 use App\Models\Messages;
+use App\Models\Newsletter;
+use App\Models\NewsletterTopic;
 use App\Models\Results;
 use App\Models\User;
 use App\Models\Review;
@@ -17,8 +19,25 @@ class AdminController extends Controller
     public function index()
     {
         $messages = Messages::where("recipient_id", Auth::id())->get();
+        $topics = NewsletterTopic::all();
 
-        return view('admin.index', compact('messages'));
+        $topicStats = [];
+        foreach ($topics as $topic) {
+            $topicStats[$topic->id] = [
+                'name' => $topic->name,
+                'message_count' => 0,
+            ];
+        }
+
+        $newsletters = Newsletter::all(); 
+
+        foreach ($newsletters as $newsletter) {
+            if ($newsletter->topic) {
+                $topicId = $newsletter->topic->id;
+                $topicStats[$topicId]['message_count'] += Messages::where('newsletter_id', $newsletter->id)->count(); 
+            }
+        }
+        return view('admin.index', compact('messages','topicStats'));
     }
     public function indexUsers()
     {

@@ -12,11 +12,16 @@ class Messages extends Model
     protected $fillable = [
         'user_id',  
         'message',
-        'recipient_id'  
+        'recipient_id',
+        'newsletter_id'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function newsletter()
+    {
+        return $this->belongsTo(Newsletter::class, 'newsletter_id');
     }
 }

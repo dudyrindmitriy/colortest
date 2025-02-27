@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Messages;
+use App\Models\NewsletterTopic;
 use App\Models\Results;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -15,8 +16,10 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-
-        return view('profile.index', compact('user'));
+        $topics = NewsletterTopic::all();
+        $ut =  $user->topics;
+        $subscribedTopics = $user->topics ? $user->topics->pluck('id')->toArray() : [];
+        return view('profile.index', compact('user', 'topics', 'subscribedTopics'));
     }
 
     public function showResults()
@@ -116,5 +119,24 @@ class ProfileController extends Controller
         }
         $user->save();
         return redirect()->route('profile')->with('success', 'Профиль обновлен!');
+    }
+    public function updateSubscriptions(Request $request)
+    {
+        try {
+            $user = Auth::user();
+
+            $request->validate([
+                'topic_ids' => 'nullable|array',
+                'topic_ids.*' => 'exists:newsletter_topics,id',
+            ]);
+
+            $topicIds = $request->input('topic_ids', []);
+
+            $user->topics()->sync($topicIds);
+
+            return redirect()->back()->with('success', 'Подписки обновлены.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Ошибка: ' . $e->getMessage());
+        }
     }
 }

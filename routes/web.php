@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommentToReviewController;
 use App\Http\Controllers\GeneralPageController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PHPMailerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
@@ -29,9 +30,11 @@ Route::post('/save-result', [TestController::class, 'store'])->name('save.result
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
 Route::post('/profile/update', [ProfileController::class, 'update'])->middleware('auth');
 Route::post('/profile/message', [ProfileController::class, 'sendMessage'])->name('profile.sendMessage')->middleware('auth');
+Route::post('/profile/subscriptions', [ProfileController::class, 'updateSubscriptions'])->name('profile.updateSubscriptions')->middleware("auth");
 Route::get('/results', [ProfileController::class, 'showResults'])->name('results')->middleware('auth');
 Route::get('/result/{id}', [ProfileController::class, 'showResult'])->name('result')->middleware('auth');
 Route::get('/results/search', [ProfileController::class, 'search'])->name('results.search')->middleware('auth');
+
 
 // Отзывы
 Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews')->middleware('auth');
@@ -59,4 +62,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/results/{result}/edit', [AdminController::class, 'editResult'])->name('admin.results.edit');
     Route::put('/admin/results/{result}', [AdminController::class, 'updateResult'])->name('admin.results.update');
     Route::delete('/admin/results/{result}', [AdminController::class, 'destroyResult'])->name('admin.results.destroy');
+
+    Route::get('/admin/newsletter/create',[NewsletterController::class,'create'])->name('newsletter.create');
+    Route::post('/admin/newsletter/create',[NewsletterController::class,'store'])->name('newsletter.store');
+
 });

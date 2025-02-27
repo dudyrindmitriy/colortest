@@ -28,6 +28,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Results::class);
     }
+    public function topics() 
+    {
+        return $this->belongsToMany(NewsletterTopic::class, 'newsletter_topic_user');
+    }
 
     public function reviews() {
         return $this->hasMany(Review::class);

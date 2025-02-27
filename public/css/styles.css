@@ -247,14 +247,14 @@ path:hover {
     }
 }
 select {
-    width: 200px; 
+    /* width: 200px;  */
     padding: 10px; 
     border: 1px solid #ccc; 
     border-radius: 4px; 
     font-size: 16px; 
     background-color: #f9f9f9; 
-    appearance: none; 
-    background-image:  url('data:image/svg+xml,%3Csvg width="24" height="24" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath fill="none" stroke="%23333" d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E'); 
+    /* appearance: none; 
+    background-image:  url('data:image/svg+xml,%3Csvg width="24" height="24" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath fill="none" stroke="%23333" d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');  */
     background-repeat: no-repeat; 
     background-position: right 10px center; 
 }
