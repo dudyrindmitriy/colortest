@@ -173,21 +173,21 @@ a:hover {
     color: #2980b9;
 }
 
-svg {
+.svg svg {
     background-color: white;
 
     width: 50%;
     height: auto;
 }
 
-path {
+.svg path {
     stroke: black;
     stroke-width: 0.5;
     fill: white;
     cursor: pointer;
 }
 
-path:hover {
+.svg path:hover {
     fill: lightgray;
 }
 

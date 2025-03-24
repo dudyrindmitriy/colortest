@@ -51,6 +51,7 @@
     <div class="box">
         <div class="for_test">
             <h2>Раскрасьте данный шаблон</h2>
+            <div class="svg">
         <svg width="756" height="963" viewBox="0 0 756 963" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_2_545)">
                 <rect width="756" height="963" fill="white" />
@@ -209,7 +210,7 @@
                     <rect width="756" height="963" fill="white" />
                 </clipPath>
             </defs>
-        </svg></div>
+        </svg></div></div>
 
 
         <div class="coordinates-tooltip" id="coordinatesTooltip"></div>

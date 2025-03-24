@@ -8,8 +8,10 @@ use App\Models\Results;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\TestResult;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManager;
 
 class ProfileController extends Controller
 {

@@ -27,6 +27,12 @@
     @else
         <p>У вас пока нет результатов тестирований.</p>
     @endif
+    <a target="_blank" href="{{ route('results.downloadPDF') }}" class="btn btn-primary">
+    Сохранить результаты в PDF
+</a>
+<br>
+<br>
+<br>
 
     <a href="{{ route('profile') }}" class="nav-button">Вернуться в профиль</a>
 @endsection

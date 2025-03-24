@@ -26,6 +26,6 @@ class Results extends Model
     }
     public function chess()
     {
-      return $this->belongsTo(Chess::class);
+      return $this->belongsTo(Chess::class, 'chess_structure_id');
     }
 }

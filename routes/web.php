@@ -6,6 +6,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommentToReviewController;
 use App\Http\Controllers\GeneralPageController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PHPMailerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
@@ -35,6 +36,10 @@ Route::get('/results', [ProfileController::class, 'showResults'])->name('results
 Route::get('/result/{id}', [ProfileController::class, 'showResult'])->name('result')->middleware('auth');
 Route::get('/results/search', [ProfileController::class, 'search'])->name('results.search')->middleware('auth');
 
+//PDF
+Route::get('/result/{id}/download-pdf', [PDFController::class, 'downloadResultPDF'])->name('result.downloadPDF');
+Route::get('/results/download-pdf', [PDFController::class, 'downloadResultsPDF'])->name('results.downloadPDF');
+Route::get('/home/download-pdf', [PDFController::class, 'downloadHomePDF'])->name('home.downloadPDF');
 
 // Отзывы
 Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews')->middleware('auth');
