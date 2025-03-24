@@ -360,6 +360,19 @@ select:focus {
         margin: 5px 0;
     }
 }
+.reaction-btn {
+    background-color: #9f9f9f;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 5px;
+}
+.reaction-btn:hover {
+    background-color:#757575;
+
+
+    transform: scale(1.2);
+}
 
 /* Медиа-запрос для улучшения взаимодействия на тач-устройствах */
 @media (hover: none) {

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommentToReviewController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GeneralPageController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PDFController;
@@ -47,6 +48,14 @@ Route::get('/reviews/create', [ReviewController::class, 'create'])->name('review
 Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
 Route::get('/reviews/search', [ReviewController::class, 'search'])->name('reviews.search');
 Route::post('/comments/{reviewId}', [CommentToReviewController::class, 'store'])->name('comments.store');
+
+//Форум
+Route::prefix('forum')->group(function () {
+    Route::get('/', [ForumController::class, 'index'])->name('forum');
+    Route::post('/', [ForumController::class, 'store'])->name('forum.store');
+    Route::post('/react', [ForumController::class, 'react'])->name('forum.react');
+    Route::delete('/reaction/{messageId}', [ForumController::class, 'removeReaction'])->name('forum.reaction.remove');
+});
 // Администрирование 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');

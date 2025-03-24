@@ -17,6 +17,7 @@
             <a href="{{ route('profile') }}" class="nav-button">Личный профиль</a>
             <a href="{{ route('reviews') }}" class="nav-button">Отзывы</a>
             <a href="{{ route('test') }}" class="nav-button">Тестирование</a>
+            <a href="{{ route('forum') }}" class="nav-button">Форум</a>
 
         </nav>
     </header>
