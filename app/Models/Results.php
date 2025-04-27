@@ -18,7 +18,7 @@ class Results extends Model
 
     public function rectanglesForResult()
     {
-        return $this->hasMany(RectanglesForResult::class);
+        return $this->hasMany(RectanglesForResult::class, 'result_id');
     }
     public function isa()
     {

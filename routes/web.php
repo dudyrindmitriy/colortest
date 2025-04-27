@@ -6,6 +6,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommentToReviewController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GeneralPageController;
+use App\Http\Controllers\GenerateTestResultsController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PHPMailerController;
@@ -81,3 +82,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/newsletter/create',[NewsletterController::class,'store'])->name('newsletter.store');
 
 });
+//Генерация фейковых результатов
+Route::get('/generate-test-results', [GenerateTestResultsController::class, 'generate'])
+     ->middleware('auth'); // рекомендуется защитить маршрут
