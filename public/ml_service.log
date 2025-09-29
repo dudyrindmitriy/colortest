@@ -1,0 +1,704 @@
+2025-05-01 01:44:39,506 - INFO - Script started
+2025-05-01 01:44:39,506 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_F87E.tmp']
+2025-05-01 01:44:39,506 - ERROR - Critical error: cannot access local variable 'args' where it is not associated with a value
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 21, in main
+    if not os.path.exists(args.industry_model):
+                          ^^^^
+UnboundLocalError: cannot access local variable 'args' where it is not associated with a value
+2025-05-01 01:45:58,147 - INFO - Script started
+2025-05-01 01:45:58,163 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_2AE5.tmp']
+2025-05-01 01:45:58,163 - ERROR - Critical error: cannot access local variable 'args' where it is not associated with a value
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 21, in main
+    if not os.path.exists(args.industry_model):
+                          ^^^^
+UnboundLocalError: cannot access local variable 'args' where it is not associated with a value
+2025-05-01 01:49:40,640 - INFO - Script started
+2025-05-01 01:49:40,641 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_8E56.tmp']
+2025-05-01 01:49:40,642 - ERROR - Critical error: Industry model not found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 36, in main
+    raise FileNotFoundError(f"{name} not found: {path}")
+FileNotFoundError: Industry model not found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 01:49:58,853 - INFO - Script started
+2025-05-01 01:49:58,853 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_D573.tmp']
+2025-05-01 01:49:58,853 - ERROR - Critical error: Industry model not found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 36, in main
+    raise FileNotFoundError(f"{name} not found: {path}")
+FileNotFoundError: Industry model not found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 01:50:09,222 - INFO - Script started
+2025-05-01 01:50:09,222 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_7C.tmp']
+2025-05-01 01:50:09,222 - ERROR - Critical error: Industry model not found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 36, in main
+    raise FileNotFoundError(f"{name} not found: {path}")
+FileNotFoundError: Industry model not found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 01:50:45,703 - INFO - Script started
+2025-05-01 01:50:45,703 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_8EF3.tmp']
+2025-05-01 01:50:45,703 - ERROR - Critical error: Industry model not found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 36, in main
+    raise FileNotFoundError(f"{name} not found: {path}")
+FileNotFoundError: Industry model not found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:01:16,528 - INFO - Starting model training process
+2025-05-01 02:01:16,530 - ERROR - Training error: [Errno 2] No such file or directory: 'training_data.csv'
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 34, in train_model
+    df = pd.read_csv('training_data.csv')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'training_data.csv'
+2025-05-01 02:01:16,534 - ERROR - Critical error: [Errno 2] No such file or directory: 'training_data.csv'
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 22, in main
+    MLService.train_model()
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 34, in train_model
+    df = pd.read_csv('training_data.csv')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'training_data.csv'
+2025-05-01 02:01:57,121 - INFO - Starting model training process
+2025-05-01 02:01:57,121 - ERROR - Training error: [Errno 2] No such file or directory: 'training_data.csv'
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 34, in train_model
+    df = pd.read_csv('training_data.csv')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'training_data.csv'
+2025-05-01 02:01:57,121 - ERROR - Critical error: [Errno 2] No such file or directory: 'training_data.csv'
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 22, in main
+    MLService.train_model()
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 34, in train_model
+    df = pd.read_csv('training_data.csv')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'training_data.csv'
+2025-05-01 02:03:50,305 - INFO - Starting model training process
+2025-05-01 02:03:50,306 - ERROR - Training error: [Errno 2] No such file or directory: 'training_data.csv'
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 34, in train_model
+    df = pd.read_csv('training_data.csv')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'training_data.csv'
+2025-05-01 02:03:50,308 - ERROR - Critical error: [Errno 2] No such file or directory: 'training_data.csv'
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 22, in main
+    MLService.train_model()
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 34, in train_model
+    df = pd.read_csv('training_data.csv')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'training_data.csv'
+2025-05-01 02:05:21,449 - INFO - Starting model training process
+2025-05-01 02:05:21,449 - INFO - Looking for data at: D:\xampp\xampp\htdocs\colortest\app\Services\training_data.csv
+2025-05-01 02:05:21,606 - INFO - Model saved to app/Services/model_industry.pkl
+2025-05-01 02:05:21,615 - INFO - industry model accuracy: 0.86
+2025-05-01 02:05:21,694 - INFO - Model saved to app/Services/model_chess.pkl
+2025-05-01 02:05:21,702 - INFO - chess model accuracy: 0.79
+2025-05-01 02:05:21,702 - INFO - Training completed in 0.25 seconds
+2025-05-01 02:05:21,704 - INFO - Script started
+2025-05-01 02:05:21,705 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_EAB8.tmp']
+2025-05-01 02:05:21,705 - ERROR - Critical error: Industry model not found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 42, in main
+    raise FileNotFoundError(f"{name} not found: {path}")
+FileNotFoundError: Industry model not found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:06:16,394 - INFO - Starting model training process
+2025-05-01 02:06:16,394 - INFO - Looking for data at: D:\xampp\xampp\htdocs\colortest\app\Services\training_data.csv
+2025-05-01 02:06:16,489 - INFO - Model saved to app/Services/model_industry.pkl
+2025-05-01 02:06:16,489 - INFO - industry model accuracy: 0.64
+2025-05-01 02:06:16,575 - INFO - Model saved to app/Services/model_chess.pkl
+2025-05-01 02:06:16,583 - INFO - chess model accuracy: 0.64
+2025-05-01 02:06:16,583 - INFO - Training completed in 0.19 seconds
+2025-05-01 02:06:16,583 - INFO - Script started
+2025-05-01 02:06:16,583 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_C183.tmp']
+2025-05-01 02:06:16,583 - ERROR - Critical error: Industry model not found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 42, in main
+    raise FileNotFoundError(f"{name} not found: {path}")
+FileNotFoundError: Industry model not found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:12:54,620 - INFO - Starting model training process
+2025-05-01 02:12:54,621 - INFO - Looking for data at: D:\xampp\xampp\htdocs\colortest\app\Services\training_data.csv
+2025-05-01 02:12:54,881 - INFO - Model saved to D:\xampp\xampp\htdocs\colortest\app\Services\model_industry.pkl
+2025-05-01 02:12:54,902 - INFO - industry model accuracy: 0.64
+2025-05-01 02:12:55,030 - INFO - Model saved to D:\xampp\xampp\htdocs\colortest\app\Services\model_chess.pkl
+2025-05-01 02:12:55,037 - INFO - chess model accuracy: 0.50
+2025-05-01 02:12:55,037 - INFO - Training completed in 0.42 seconds
+2025-05-01 02:12:55,045 - INFO - Script started
+2025-05-01 02:12:55,046 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_CC55.tmp']
+2025-05-01 02:12:55,046 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:12:55,046 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 02:12:55,046 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_CC55.tmp
+2025-05-01 02:12:55,081 - INFO - Successfully loaded input data
+2025-05-01 02:12:55,081 - INFO - Starting prediction process
+2025-05-01 02:12:55,081 - INFO - Loading models: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl, D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 02:12:55,201 - ERROR - Prediction error: Feature shape mismatch, expected: 30, got 144
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 90, in predict
+    industry = model_industry.predict(feature_vector)[0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 729, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\sklearn.py", line 1718, in predict
+    class_probs = super().predict(
+                  ^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 729, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\sklearn.py", line 1327, in predict
+    predts = self.get_booster().inplace_predict(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 729, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 2677, in inplace_predict
+    raise ValueError(
+ValueError: Feature shape mismatch, expected: 30, got 144
+2025-05-01 02:12:55,208 - ERROR - Critical error: Prediction failed: Feature shape mismatch, expected: 30, got 144
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 57, in main
+    industry, chess = MLService.predict(
+                      ^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 90, in predict
+    industry = model_industry.predict(feature_vector)[0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 729, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\sklearn.py", line 1718, in predict
+    class_probs = super().predict(
+                  ^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 729, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\sklearn.py", line 1327, in predict
+    predts = self.get_booster().inplace_predict(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 729, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 2677, in inplace_predict
+    raise ValueError(
+ValueError: Feature shape mismatch, expected: 30, got 144
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 64, in main
+    raise RuntimeError(f"Prediction failed: {str(e)}")
+RuntimeError: Prediction failed: Feature shape mismatch, expected: 30, got 144
+2025-05-01 02:21:57,976 - INFO - Starting model training process
+2025-05-01 02:21:57,976 - INFO - Looking for data at: D:\xampp\xampp\htdocs\colortest\app\Services\training_data.csv
+2025-05-01 02:21:58,188 - INFO - Model saved to D:\xampp\xampp\htdocs\colortest\app\Services\model_industry.pkl
+2025-05-01 02:21:58,195 - INFO - industry model accuracy: 0.79
+2025-05-01 02:21:58,324 - INFO - Model saved to D:\xampp\xampp\htdocs\colortest\app\Services\model_chess.pkl
+2025-05-01 02:21:58,332 - INFO - chess model accuracy: 0.50
+2025-05-01 02:21:58,332 - INFO - Training completed in 0.36 seconds
+2025-05-01 02:21:58,332 - INFO - Script started
+2025-05-01 02:21:58,332 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_1A80.tmp']
+2025-05-01 02:21:58,332 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:21:58,332 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 02:21:58,332 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_1A80.tmp
+2025-05-01 02:21:58,332 - INFO - Successfully loaded input data
+2025-05-01 02:21:58,332 - INFO - Starting prediction process
+2025-05-01 02:21:58,340 - ERROR - Prediction error: name 're' is not defined
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 82, in predict
+    processed_features = MLService.preprocess_data(raw_features)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 110, in preprocess_data
+    rgb = MLService.extract_rgb(item['color'])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 123, in extract_rgb
+    match = re.match(r'rgb\((\d+),\s*(\d+),\s*(\d+)\)', color)
+            ^^
+NameError: name 're' is not defined. Did you forget to import 're'
+2025-05-01 02:21:58,342 - ERROR - Critical error: Prediction failed: name 're' is not defined
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 57, in main
+    industry, chess = MLService.predict(
+                      ^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 82, in predict
+    processed_features = MLService.preprocess_data(raw_features)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 110, in preprocess_data
+    rgb = MLService.extract_rgb(item['color'])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 123, in extract_rgb
+    match = re.match(r'rgb\((\d+),\s*(\d+),\s*(\d+)\)', color)
+            ^^
+NameError: name 're' is not defined. Did you forget to import 're'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 64, in main
+    raise RuntimeError(f"Prediction failed: {str(e)}")
+RuntimeError: Prediction failed: name 're' is not defined
+2025-05-01 02:22:40,946 - INFO - Starting model training process
+2025-05-01 02:22:40,946 - INFO - Looking for data at: D:\xampp\xampp\htdocs\colortest\app\Services\training_data.csv
+2025-05-01 02:22:41,107 - INFO - Model saved to D:\xampp\xampp\htdocs\colortest\app\Services\model_industry.pkl
+2025-05-01 02:22:41,107 - INFO - industry model accuracy: 0.71
+2025-05-01 02:22:41,233 - INFO - Model saved to D:\xampp\xampp\htdocs\colortest\app\Services\model_chess.pkl
+2025-05-01 02:22:41,248 - INFO - chess model accuracy: 0.57
+2025-05-01 02:22:41,248 - INFO - Training completed in 0.30 seconds
+2025-05-01 02:22:41,248 - INFO - Script started
+2025-05-01 02:22:41,248 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_C47D.tmp']
+2025-05-01 02:22:41,248 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:22:41,248 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 02:22:41,248 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_C47D.tmp
+2025-05-01 02:22:41,248 - INFO - Successfully loaded input data
+2025-05-01 02:22:41,248 - INFO - Starting prediction process
+2025-05-01 02:22:41,248 - ERROR - Prediction error: name 're' is not defined
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 82, in predict
+    processed_features = MLService.preprocess_data(raw_features)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 110, in preprocess_data
+    rgb = MLService.extract_rgb(item['color'])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 123, in extract_rgb
+    match = re.match(r'rgb\((\d+),\s*(\d+),\s*(\d+)\)', color)
+            ^^
+NameError: name 're' is not defined. Did you forget to import 're'
+2025-05-01 02:22:41,248 - ERROR - Critical error: Prediction failed: name 're' is not defined
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 57, in main
+    industry, chess = MLService.predict(
+                      ^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 82, in predict
+    processed_features = MLService.preprocess_data(raw_features)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 110, in preprocess_data
+    rgb = MLService.extract_rgb(item['color'])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 123, in extract_rgb
+    match = re.match(r'rgb\((\d+),\s*(\d+),\s*(\d+)\)', color)
+            ^^
+NameError: name 're' is not defined. Did you forget to import 're'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 64, in main
+    raise RuntimeError(f"Prediction failed: {str(e)}")
+RuntimeError: Prediction failed: name 're' is not defined
+2025-05-01 02:23:20,034 - INFO - Starting model training process
+2025-05-01 02:23:20,034 - INFO - Looking for data at: D:\xampp\xampp\htdocs\colortest\app\Services\training_data.csv
+2025-05-01 02:23:20,248 - INFO - Model saved to D:\xampp\xampp\htdocs\colortest\app\Services\model_industry.pkl
+2025-05-01 02:23:20,261 - INFO - industry model accuracy: 0.57
+2025-05-01 02:23:20,391 - INFO - Model saved to D:\xampp\xampp\htdocs\colortest\app\Services\model_chess.pkl
+2025-05-01 02:23:20,407 - INFO - chess model accuracy: 0.79
+2025-05-01 02:23:20,407 - INFO - Training completed in 0.37 seconds
+2025-05-01 02:23:20,407 - INFO - Script started
+2025-05-01 02:23:20,407 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_5CC8.tmp']
+2025-05-01 02:23:20,407 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:23:20,407 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 02:23:20,407 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_5CC8.tmp
+2025-05-01 02:23:20,407 - INFO - Successfully loaded input data
+2025-05-01 02:23:20,407 - INFO - Starting prediction process
+2025-05-01 02:23:20,407 - ERROR - Prediction error: name 're' is not defined
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 82, in predict
+    processed_features = MLService.preprocess_data(raw_features)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 110, in preprocess_data
+    rgb = MLService.extract_rgb(item['color'])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 123, in extract_rgb
+    match = re.match(r'rgb\((\d+),\s*(\d+),\s*(\d+)\)', color)
+            ^^
+NameError: name 're' is not defined. Did you forget to import 're'
+2025-05-01 02:23:20,422 - ERROR - Critical error: Prediction failed: name 're' is not defined
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 57, in main
+    industry, chess = MLService.predict(
+                      ^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 82, in predict
+    processed_features = MLService.preprocess_data(raw_features)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 110, in preprocess_data
+    rgb = MLService.extract_rgb(item['color'])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 123, in extract_rgb
+    match = re.match(r'rgb\((\d+),\s*(\d+),\s*(\d+)\)', color)
+            ^^
+NameError: name 're' is not defined. Did you forget to import 're'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 64, in main
+    raise RuntimeError(f"Prediction failed: {str(e)}")
+RuntimeError: Prediction failed: name 're' is not defined
+2025-05-01 02:25:30,039 - INFO - Starting model training process
+2025-05-01 02:25:30,039 - INFO - Looking for data at: D:\xampp\xampp\htdocs\colortest\app\Services\training_data.csv
+2025-05-01 02:25:30,246 - INFO - Model saved to D:\xampp\xampp\htdocs\colortest\app\Services\model_industry.pkl
+2025-05-01 02:25:30,261 - INFO - industry model accuracy: 0.93
+2025-05-01 02:25:30,506 - INFO - Model saved to D:\xampp\xampp\htdocs\colortest\app\Services\model_chess.pkl
+2025-05-01 02:25:30,511 - INFO - chess model accuracy: 0.71
+2025-05-01 02:25:30,511 - INFO - Training completed in 0.47 seconds
+2025-05-01 02:25:30,521 - INFO - Script started
+2025-05-01 02:25:30,521 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_56D5.tmp']
+2025-05-01 02:25:30,521 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:25:30,521 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 02:25:30,521 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_56D5.tmp
+2025-05-01 02:25:30,521 - INFO - Successfully loaded input data
+2025-05-01 02:25:30,524 - INFO - Starting prediction process
+2025-05-01 02:25:30,691 - INFO - Prediction completed successfully
+2025-05-01 02:26:07,328 - INFO - Starting model training process
+2025-05-01 02:26:07,328 - INFO - Looking for data at: D:\xampp\xampp\htdocs\colortest\app\Services\training_data.csv
+2025-05-01 02:26:07,537 - INFO - Model saved to D:\xampp\xampp\htdocs\colortest\app\Services\model_industry.pkl
+2025-05-01 02:26:07,537 - INFO - industry model accuracy: 0.71
+2025-05-01 02:26:07,761 - INFO - Model saved to D:\xampp\xampp\htdocs\colortest\app\Services\model_chess.pkl
+2025-05-01 02:26:07,768 - INFO - chess model accuracy: 0.71
+2025-05-01 02:26:07,768 - INFO - Training completed in 0.44 seconds
+2025-05-01 02:26:07,768 - INFO - Script started
+2025-05-01 02:26:07,768 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_E74F.tmp']
+2025-05-01 02:26:07,768 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:26:07,768 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 02:26:07,768 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_E74F.tmp
+2025-05-01 02:26:07,768 - INFO - Successfully loaded input data
+2025-05-01 02:26:07,768 - INFO - Starting prediction process
+2025-05-01 02:26:07,873 - INFO - Prediction completed successfully
+2025-05-01 02:38:42,698 - INFO - Starting model training process
+2025-05-01 02:38:42,773 - ERROR - Training error: Invalid classes inferred from unique values of `y`.  Expected: [0 1 2 3], got [0 1 2 4]
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 60, in train_model
+    model.fit(X_train, y_train)
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 729, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\sklearn.py", line 1640, in fit
+    raise ValueError(
+ValueError: Invalid classes inferred from unique values of `y`.  Expected: [0 1 2 3], got [0 1 2 4]
+2025-05-01 02:38:42,775 - ERROR - Critical error: Invalid classes inferred from unique values of `y`.  Expected: [0 1 2 3], got [0 1 2 4]
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app/Services/predict.py", line 22, in main
+    MLService.train_model()
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 60, in train_model
+    model.fit(X_train, y_train)
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 729, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\sklearn.py", line 1640, in fit
+    raise ValueError(
+ValueError: Invalid classes inferred from unique values of `y`.  Expected: [0 1 2 3], got [0 1 2 4]
+2025-05-01 02:39:18,866 - INFO - Starting model training process
+2025-05-01 02:39:19,036 - INFO - industry model accuracy: 0.71
+2025-05-01 02:39:19,167 - INFO - chess model accuracy: 0.79
+2025-05-01 02:39:19,167 - INFO - Training completed in 0.30 seconds
+2025-05-01 02:39:19,168 - INFO - Script started
+2025-05-01 02:39:19,168 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_FD90.tmp']
+2025-05-01 02:39:19,168 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:39:19,168 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 02:39:19,168 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_FD90.tmp
+2025-05-01 02:39:19,168 - INFO - Successfully loaded input data
+2025-05-01 02:39:19,355 - INFO - Prediction result: smeshanniy (industry), slabaya (chess)
+2025-05-01 02:39:19,355 - INFO - Prediction completed successfully
+2025-05-01 02:39:57,062 - INFO - Starting model training process
+2025-05-01 02:39:57,260 - INFO - industry model accuracy: 0.86
+2025-05-01 02:39:57,407 - INFO - chess model accuracy: 0.86
+2025-05-01 02:39:57,407 - INFO - Training completed in 0.34 seconds
+2025-05-01 02:39:57,407 - INFO - Script started
+2025-05-01 02:39:57,407 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_9260.tmp']
+2025-05-01 02:39:57,407 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:39:57,407 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 02:39:57,407 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_9260.tmp
+2025-05-01 02:39:57,407 - INFO - Successfully loaded input data
+2025-05-01 02:39:57,546 - INFO - Prediction result: smeshanniy (industry), slabaya (chess)
+2025-05-01 02:39:57,546 - INFO - Prediction completed successfully
+2025-05-01 02:40:39,698 - INFO - Starting model training process
+2025-05-01 02:40:39,968 - INFO - industry model accuracy: 0.93
+2025-05-01 02:40:40,099 - INFO - chess model accuracy: 0.57
+2025-05-01 02:40:40,099 - INFO - Training completed in 0.40 seconds
+2025-05-01 02:40:40,105 - INFO - Script started
+2025-05-01 02:40:40,105 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_39AE.tmp']
+2025-05-01 02:40:40,105 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:40:40,105 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 02:40:40,105 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_39AE.tmp
+2025-05-01 02:40:40,105 - INFO - Successfully loaded input data
+2025-05-01 02:40:40,237 - INFO - Prediction result: smeshanniy (industry), slabaya (chess)
+2025-05-01 02:40:40,243 - INFO - Prediction completed successfully
+2025-05-01 02:51:39,750 - INFO - Starting model training process
+2025-05-01 02:51:39,929 - INFO - industry model accuracy: 0.79
+2025-05-01 02:51:40,043 - INFO - chess model accuracy: 0.57
+2025-05-01 02:51:40,043 - INFO - Training completed in 0.29 seconds
+2025-05-01 02:51:40,053 - INFO - Script started
+2025-05-01 02:51:40,053 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_4A59.tmp']
+2025-05-01 02:51:40,053 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 02:51:40,053 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 02:51:40,053 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_4A59.tmp
+2025-05-01 02:51:40,053 - INFO - Successfully loaded input data
+2025-05-01 02:51:40,208 - INFO - Prediction result: smeshanniy (industry), slabaya (chess)
+2025-05-01 02:51:40,208 - INFO - Prediction completed successfully
+2025-05-01 03:01:17,967 - INFO - Starting model training process
+2025-05-01 03:01:18,204 - INFO - industry model accuracy: 0.64
+2025-05-01 03:01:18,335 - INFO - chess model accuracy: 0.64
+2025-05-01 03:01:18,335 - INFO - Training completed in 0.37 seconds
+2025-05-01 03:01:18,338 - INFO - Script started
+2025-05-01 03:01:18,338 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_1AF3.tmp']
+2025-05-01 03:01:18,338 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 03:01:18,338 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 03:01:18,338 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_1AF3.tmp
+2025-05-01 03:01:18,338 - INFO - Successfully loaded input data
+2025-05-01 03:01:18,474 - INFO - Prediction result: smeshanniy (industry), slabaya (chess)
+2025-05-01 03:01:18,482 - INFO - Prediction completed successfully
+2025-05-01 03:06:50,787 - INFO - Starting model training process
+2025-05-01 03:06:51,101 - INFO - industry model accuracy: 0.79
+2025-05-01 03:06:51,239 - INFO - chess model accuracy: 0.50
+2025-05-01 03:06:51,239 - INFO - Training completed in 0.45 seconds
+2025-05-01 03:06:51,239 - INFO - Script started
+2025-05-01 03:06:51,239 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_31E0.tmp']
+2025-05-01 03:06:51,239 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 03:06:51,239 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 03:06:51,247 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_31E0.tmp
+2025-05-01 03:06:51,248 - INFO - Successfully loaded input data
+2025-05-01 03:06:51,361 - INFO - Prediction result: smeshanniy (industry), slabaya (chess)
+2025-05-01 03:06:51,361 - INFO - Prediction completed successfully
+2025-05-01 03:09:21,432 - INFO - Starting model training process
+2025-05-01 03:09:21,687 - INFO - industry model accuracy: 0.79
+2025-05-01 03:09:21,865 - INFO - chess model accuracy: 0.86
+2025-05-01 03:09:21,865 - INFO - Training completed in 0.43 seconds
+2025-05-01 03:09:21,874 - INFO - Script started
+2025-05-01 03:09:21,874 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_7E05.tmp']
+2025-05-01 03:09:21,874 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 03:09:21,874 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 03:09:21,874 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_7E05.tmp
+2025-05-01 03:09:21,874 - INFO - Successfully loaded input data
+2025-05-01 03:09:22,006 - INFO - Prediction result: смешанный (industry), слабая (chess)
+2025-05-01 03:09:22,012 - INFO - Prediction completed successfully
+2025-05-01 03:12:39,021 - INFO - Starting model training process
+2025-05-01 03:12:39,207 - INFO - industry model accuracy: 0.71
+2025-05-01 03:12:39,339 - INFO - chess model accuracy: 0.71
+2025-05-01 03:12:39,339 - INFO - Training completed in 0.32 seconds
+2025-05-01 03:12:39,339 - INFO - Script started
+2025-05-01 03:12:39,339 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_8144.tmp']
+2025-05-01 03:12:39,339 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 03:12:39,339 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 03:12:39,339 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_8144.tmp
+2025-05-01 03:12:39,339 - INFO - Successfully loaded input data
+2025-05-01 03:12:39,459 - INFO - Prediction result: смешанный (industry), слабая (chess)
+2025-05-01 03:12:39,459 - INFO - Prediction completed successfully
+2025-05-01 03:22:30,419 - INFO - Starting model training process
+2025-05-01 03:22:30,631 - INFO - industry model accuracy: 0.79
+2025-05-01 03:22:30,753 - INFO - chess model accuracy: 0.71
+2025-05-01 03:22:30,753 - INFO - Training completed in 0.33 seconds
+2025-05-01 03:22:30,753 - INFO - Script started
+2025-05-01 03:22:30,753 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_86E8.tmp']
+2025-05-01 03:22:30,753 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 03:22:30,753 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 03:22:30,753 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_86E8.tmp
+2025-05-01 03:22:30,753 - INFO - Successfully loaded input data
+2025-05-01 03:22:30,870 - INFO - Prediction result: смешанный (industry), слабая (chess)
+2025-05-01 03:22:30,871 - INFO - Prediction completed successfully
+2025-05-01 03:25:29,103 - INFO - Starting model training process
+2025-05-01 03:25:29,511 - INFO - industry model accuracy: 0.64
+2025-05-01 03:25:29,708 - INFO - chess model accuracy: 0.71
+2025-05-01 03:25:29,710 - INFO - Training completed in 0.61 seconds
+2025-05-01 03:25:29,710 - INFO - Script started
+2025-05-01 03:25:29,710 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_3DEC.tmp']
+2025-05-01 03:25:29,710 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 03:25:29,710 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 03:25:29,710 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_3DEC.tmp
+2025-05-01 03:25:29,710 - INFO - Successfully loaded input data
+2025-05-01 03:25:29,826 - INFO - Prediction result: смешанный (industry), слабая (chess)
+2025-05-01 03:25:29,826 - INFO - Prediction completed successfully
+2025-05-01 03:25:51,214 - INFO - Starting model training process
+2025-05-01 03:25:51,419 - INFO - industry model accuracy: 0.79
+2025-05-01 03:25:51,558 - INFO - chess model accuracy: 0.64
+2025-05-01 03:25:51,558 - INFO - Training completed in 0.34 seconds
+2025-05-01 03:25:51,558 - INFO - Script started
+2025-05-01 03:25:51,558 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_9804.tmp']
+2025-05-01 03:25:51,558 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 03:25:51,558 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 03:25:51,565 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_9804.tmp
+2025-05-01 03:25:51,565 - INFO - Successfully loaded input data
+2025-05-01 03:25:51,674 - INFO - Prediction result: смешанный (industry), слабая (chess)
+2025-05-01 03:25:51,674 - INFO - Prediction completed successfully
+2025-05-01 04:19:38,462 - INFO - Starting model training process
+2025-05-01 04:19:38,756 - INFO - industry model accuracy: 1.00
+2025-05-01 04:19:39,036 - INFO - chess model accuracy: 0.45
+2025-05-01 04:19:39,036 - INFO - Training completed in 0.57 seconds
+2025-05-01 04:19:39,036 - INFO - Script started
+2025-05-01 04:19:39,036 - INFO - Received arguments: ['D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/predict.py', '--industry_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_industry.pkl', '--chess_model', 'D:\\xampp\\xampp\\htdocs\\colortest\\app/Services/model_chess.pkl', '--input', 'C:\\Users\\Dmitriy\\AppData\\Local\\Temp\\ml_D204.tmp']
+2025-05-01 04:19:39,036 - INFO - Industry model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_industry.pkl
+2025-05-01 04:19:39,036 - INFO - Chess model found: D:\xampp\xampp\htdocs\colortest\app/Services/model_chess.pkl
+2025-05-01 04:19:39,036 - INFO - Input file found: C:\Users\Dmitriy\AppData\Local\Temp\ml_D204.tmp
+2025-05-01 04:19:39,043 - INFO - Successfully loaded input data
+2025-05-01 04:19:39,164 - ERROR - Prediction error: feature_names mismatch: ['left_wall_color_var', 'left_wall_depth_grad', 'left_wall_lum_std', 'ceiling_color_var', 'ceiling_depth_grad', 'ceiling_lum_std', 'right_wall_color_var', 'right_wall_depth_grad', 'right_wall_lum_std', 'floor_color_var', 'floor_depth_grad', 'floor_lum_std', 'vertical_symmetry', 'horizontal_contrast', 'depth_contrast', 'pattern_consistency'] ['r_mean', 'r_std', 'r_min', 'r_max', 'r_median', 'g_mean', 'g_std', 'g_min', 'g_max', 'g_median', 'b_mean', 'b_std', 'b_min', 'b_max', 'b_median', 'x_mean', 'x_std', 'x_min', 'x_max', 'x_median', 'y_mean', 'y_std', 'y_min', 'y_max', 'y_median', 'z_mean', 'z_std', 'z_min', 'z_max', 'z_median']
+expected pattern_consistency, left_wall_lum_std, floor_color_var, depth_contrast, ceiling_depth_grad, left_wall_depth_grad, left_wall_color_var, right_wall_lum_std, floor_depth_grad, floor_lum_std, right_wall_color_var, ceiling_lum_std, right_wall_depth_grad, horizontal_contrast, vertical_symmetry, ceiling_color_var in input data
+training data did not have the following fields: z_min, x_median, b_max, x_std, b_mean, x_min, g_std, b_min, b_median, x_mean, z_mean, r_max, z_std, y_median, y_max, r_min, r_std, g_mean, r_mean, g_min, y_mean, g_max, y_std, y_min, z_max, b_std, g_median, r_median, z_median, x_max
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 92, in predict
+    industry_idx = model_industry.predict(feature_df)[0]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 729, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\sklearn.py", line 1718, in predict
+    class_probs = super().predict(
+                  ^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 729, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\sklearn.py", line 1327, in predict
+    predts = self.get_booster().inplace_predict(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 729, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 2667, in inplace_predict
+    self._validate_features(fns)
+  File "D:\python\Lib\site-packages\xgboost\core.py", line 3243, in _validate_features
+    raise ValueError(msg.format(self.feature_names, feature_names))
+ValueError: feature_names mismatch: ['left_wall_color_var', 'left_wall_depth_grad', 'left_wall_lum_std', 'ceiling_color_var', 'ceiling_depth_grad', 'ceiling_lum_std', 'right_wall_color_var', 'right_wall_depth_grad', 'right_wall_lum_std', 'floor_color_var', 'floor_depth_grad', 'floor_lum_std', 'vertical_symmetry', 'horizontal_contrast', 'depth_contrast', 'pattern_consistency'] ['r_mean', 'r_std', 'r_min', 'r_max', 'r_median', 'g_mean', 'g_std', 'g_min', 'g_max', 'g_median', 'b_mean', 'b_std', 'b_min', 'b_max', 'b_median', 'x_mean', 'x_std', 'x_min', 'x_max', 'x_median', 'y_mean', 'y_std', 'y_min', 'y_max', 'y_median', 'z_mean', 'z_std', 'z_min', 'z_max', 'z_median']
+expected pattern_consistency, left_wall_lum_std, floor_color_var, depth_contrast, ceiling_depth_grad, left_wall_depth_grad, left_wall_color_var, right_wall_lum_std, floor_depth_grad, floor_lum_std, right_wall_color_var, ceiling_lum_std, right_wall_depth_grad, horizontal_contrast, vertical_symmetry, ceiling_color_var in input data
+training data did not have the following fields: z_min, x_median, b_max, x_std, b_mean, x_min, g_std, b_min, b_median, x_mean, z_mean, r_max, z_std, y_median, y_max, r_min, r_std, g_mean, r_mean, g_min, y_mean, g_max, y_std, y_min, z_max, b_std, g_median, r_median, z_median, x_max
+2025-05-01 20:07:45,527 - ERROR - Training error: [Errno 2] No such file or directory: 'training_data.csv'
+Traceback (most recent call last):
+  File "D:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 215, in train_model
+    df = pd.read_csv('training_data.csv')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "D:\python\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'training_data.csv'
+2025-05-01 20:07:45,610 - ERROR - Prediction failed: [Errno 2] No such file or directory: 'training_data.csv'
+2025-05-01 20:45:06,878 - INFO - Starting prediction process
+2025-05-01 20:45:06,952 - INFO - Prediction result: {'style_class': 'творец', 'chess_structure': 'слабая'}
+2025-05-01 20:45:27,624 - INFO - Starting prediction process
+2025-05-01 20:45:27,671 - INFO - Prediction result: {'style_class': 'творец', 'chess_structure': 'слабая'}
+2025-05-01 20:49:22,186 - INFO - Starting prediction process
+2025-05-01 20:49:22,260 - INFO - Prediction result: {'style_class': 'творец', 'chess_structure': 'слабая'}
+2025-05-01 20:52:44,495 - INFO - Starting prediction process
+2025-05-01 20:52:44,551 - INFO - Prediction result: {'style_class': 'творец', 'chess_structure': 'слабая'}
+2025-05-01 20:56:26,760 - INFO - Starting prediction process
+2025-05-01 20:56:26,807 - INFO - Prediction result: {'style_class': 'творец', 'chess_structure': 'слабая'}
+2025-05-01 20:58:17,502 - INFO - Starting prediction process
+2025-05-01 20:58:17,585 - INFO - Prediction result: {'style_class': 'рационал', 'chess_structure': 'сильная'}
+2025-05-01 20:59:04,810 - INFO - Starting prediction process
+2025-05-01 20:59:04,857 - INFO - Prediction result: {'style_class': 'скептик', 'chess_structure': 'средняя'}
+2025-05-01 21:02:22,008 - INFO - Starting prediction process
+2025-05-01 21:02:22,054 - INFO - Prediction result: {'style_class': 'авангардист', 'chess_structure': 'сильная'}
+2025-05-01 21:06:49,396 - INFO - Starting prediction process
+2025-05-01 21:06:49,438 - INFO - Prediction result: {'style_class': 'смешанный', 'chess_structure': 'сильная'}
+2025-05-02 00:14:31,838 - INFO - Starting prediction process
+2025-05-02 00:14:31,888 - INFO - Prediction result: {'style_class': 'смешанный', 'chess_structure': 'сильная'}
+2025-05-29 09:54:38,964 - INFO - Starting prediction process
+2025-05-29 09:54:39,105 - INFO - Prediction result: {'style_class': 'смешанный', 'chess_structure': 'сильная'}
+2025-05-29 09:58:41,294 - INFO - Starting prediction process
+2025-05-29 09:58:41,353 - INFO - Prediction result: {'style_class': 'смешанный', 'chess_structure': 'сильная'}
+2025-05-29 12:16:51,035 - INFO - Starting prediction process
+2025-05-29 12:16:51,114 - INFO - Prediction result: {'style_class': 'смешанный', 'chess_structure': 'слабая'}
+2025-05-29 15:29:09,000 - INFO - Starting prediction process
+2025-05-29 15:29:09,110 - INFO - Prediction result: {'style_class': 'авангардист', 'chess_structure': 'сильная'}
+2025-05-30 02:02:51,295 - INFO - Starting prediction process
+2025-05-30 02:02:51,405 - INFO - Prediction result: {'style_class': 'авангардист', 'chess_structure': 'сильная'}
+2025-05-30 02:05:21,868 - INFO - Starting prediction process
+2025-05-30 02:05:21,907 - INFO - Prediction result: {'style_class': 'скептик', 'chess_structure': 'средняя'}
+2025-05-30 02:11:30,463 - INFO - Starting prediction process
+2025-05-30 02:11:30,496 - INFO - Prediction result: {'style_class': 'творец', 'chess_structure': 'слабая'}
+2025-05-30 02:15:07,275 - INFO - Starting prediction process
+2025-05-30 02:15:07,307 - INFO - Prediction result: {'style_class': 'рационал', 'chess_structure': 'сильная'}

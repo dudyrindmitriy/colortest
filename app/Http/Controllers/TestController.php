@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
-
-
+use App\Console\Commands\ExportTrainingData;
 use App\Models\Chess;
 use App\Models\Isa;
 use App\Models\RectanglesForIsa;
@@ -17,6 +15,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\ImageManager;
 use App\Http\Controllers\PHPMailerController;
+use App\Services\FeatureCalculator;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class TestController extends Controller
 {
@@ -61,57 +62,196 @@ class TestController extends Controller
 
             $this->analyzeResult($result, $request->svg);
             $this->sendMessage();
-            return response()->json(['message' => 'Результат успешно сохранен']);
+            return response()->json(
+                ['message' => 'Результат успешно сохранен'],
+                200,
+                ['Content-Type' => 'application/json; charset=UTF-8'],
+                JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_IGNORE
+            );
         } catch (Exception $e) {
-            return response()->json(['message' => 'Ошибка: ' . $e->getMessage()], 500);
+            return response()->json(
+                ['message' => 'Ошибка: ' . $e->getMessage()],
+                500,
+                ['Content-Type' => 'application/json; charset=UTF-8'],
+                JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_IGNORE
+            );
         }
     }
-    private function analyzeResult($result, $svg)
+
+    // private function analyzeResult($result, $svg)
+    // {
+
+    //     $userRectangles = RectanglesForResult::where('result_id', $result->id)->get();
+
+    //     $bestMatch = null;
+    //     $highestMatch = 0;
+    //     $match = '';
+
+    //     $isas = Isa::all();
+    //     foreach ($isas as $isa) {
+    //         $templateRectangles = RectanglesForIsa::where('isa_id', $isa->id)->get();
+
+
+
+    //         $matches = $this->compareRectangles($templateRectangles, $userRectangles);
+
+    //         $matchPercentage = $matches['count'];
+    //         if ($isa->individual_style_of_activity == 'авангардист') {
+    //             $matchPercentage *= 0.8;
+    //         }
+    //         $match .= $isa->individual_style_of_activity . "-" . $matchPercentage . "     ";
+
+    //         if ($matchPercentage > $highestMatch) {
+    //             $highestMatch = $matchPercentage;
+    //             $bestMatch = $isa;
+    //         }
+    //     }
+
+
+    //     $contrastScore = $this->calculateContrastScore($userRectangles);
+
+
+    //     $chessStructureLevel = $this->getChessStructureLevel($contrastScore);
+
+
+
+    //     $result->isa_id = $bestMatch->id;
+    //     $result->industry = $bestMatch->individual_style_of_activity;
+    //     $result->recommendation =  $this->generateRecommendation($bestMatch->individual_style_of_activity, $svg, $chessStructureLevel->chess_structure);
+    //     $result->chess_structure = $chessStructureLevel->chess_structure;
+    //     $result->chess_structure_id = $chessStructureLevel->id;
+    //     $result->match = $match;
+    //     $result->save();
+    // }
+    public function analyzeResult(Results $result, string $svgContent)
     {
+        try {
+            Log::debug('Raw features data', ['features' => $result->rectanglesForResult]);
 
-        $userRectangles = RectanglesForResult::where('result_id', $result->id)->get();
+            // Создаем временный файл
+            $rectangles = $result->rectanglesForResult;
 
-        $bestMatch = null;
-        $highestMatch = 0;
-        $match = '';
+            // Рассчитываем признаки
+            $features = FeatureCalculator::calculate($rectangles);
+            $chessScore = (new ExportTrainingData())->calculateChessStructureScore(
+                $features
+            );
+            $features['chess_structure'] = $chessScore;
 
-        $isas = Isa::all();
-        foreach ($isas as $isa) {
-            $templateRectangles = RectanglesForIsa::where('isa_id', $isa->id)->get();
+            $tempFile = tempnam(sys_get_temp_dir(), 'ml_data_');
+            file_put_contents($tempFile, json_encode($features));
+            Log::debug('Temp file content', [
+                'content' => file_get_contents($tempFile),
+                'size' => filesize($tempFile)
+            ]);
 
-
-
-            $matches = $this->compareRectangles($templateRectangles, $userRectangles);
-
-            $matchPercentage = $matches['count'];
-            if ($isa->individual_style_of_activity == 'авангардист') {
-                $matchPercentage *= 0.8;
+            $pythonScriptPath = base_path('app/Services/predict.py');
+            $modelIndustryPath = base_path('app/Services');
+            if (!file_exists($tempFile)) {
+                throw new Exception("Temp file not created: " . $tempFile);
             }
-            $match .= $isa->individual_style_of_activity . "-" . $matchPercentage . "     ";
+            // Формируем команду с передачей путей
+            $command = sprintf(
+                'python "%s" --model_dir "%s" --input "%s" 2>&1',
+                str_replace('\\', '/', $pythonScriptPath),
+                str_replace('\\', '/', $modelIndustryPath),
+                str_replace('\\', '/', $tempFile)
+            );
 
-            if ($matchPercentage > $highestMatch) {
-                $highestMatch = $matchPercentage;
-                $bestMatch = $isa;
+            Log::debug('Executing command', ['command' => $command]);
+
+            $output = [];
+            $returnVar = null;
+            // exec("{$command}", $output, $returnVar);
+            // // exec("{$command} 2>&1", $output, $returnVar);
+            // $pythonResponse = implode("\n", $output);
+            exec("{$command} 2>errors.log", $output, $returnVar); // Логи ошибок в файл
+            $pythonResponse = end($output);
+
+            // Логируем сырой ответ
+            Log::debug('Raw Python response', ['response' => $pythonResponse]);
+
+            // $response = json_decode($pythonResponse, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE || isset($response['error'])) {
+                throw new Exception("Ошибка Python: " . ($response['error'] ?? 'Invalid JSON'));
             }
+
+            // Удаляем временный файл
+            unlink($tempFile);
+            // Логирование полного вывода
+            Log::debug('Python output', [
+                'exit_code' => $returnVar,
+                'output' => $output,
+                'error' => ($returnVar !== 0) ? implode("\n", $output) : ''
+            ]);
+
+            if ($returnVar !== 0) {
+                throw new Exception("Python process failed: " . implode("\n", $output));
+            }
+
+            // Обработка результатов
+            $response = json_decode(implode("\n", $output), true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new Exception("Invalid JSON response from Python");
+            }
+            $industryName = $response['style_class'];
+            $chessStructureName = $response['chess_structure'];
+
+            $isa = Isa::where('individual_style_of_activity', $industryName)->first();
+            $chessStructure = Chess::where('chess_structure', $chessStructureName)->first();
+
+            if (!$isa || !$chessStructure) {
+                throw new Exception("Reference data not found for: " . ($isa ? '' : $industryName) . ($chessStructure ? '' : $chessStructureName));
+            }
+
+            $recommendation = $this->generateRecommendation(
+                $industryName,
+                $svgContent,
+                $chessStructureName
+            );
+
+            $result->update([
+                'isa_id' => $isa->id,
+                'industry' => $industryName,
+                'chess_structure_id' => $chessStructure->id,
+                'chess_structure' => $chessStructureName,
+                'recommendation' => $recommendation
+            ]);
+            // return $response;
+
+        } catch (Exception $e) {
+            Log::error('Temp file status', [
+                'exists' => file_exists($tempFile),
+                'path' => $tempFile,
+                'size' => file_exists($tempFile) ? filesize($tempFile) : 0
+            ]);
+            throw new Exception("Ошибка анализа данных: " . $e->getMessage());
         }
-
-
-        $contrastScore = $this->calculateContrastScore($userRectangles);
-
-
-        $chessStructureLevel = $this->getChessStructureLevel($contrastScore);
-
-
-
-        $result->isa_id = $bestMatch->id;
-        $result->industry = $bestMatch->individual_style_of_activity;
-        $result->recommendation =  $this->generateRecommendation($bestMatch->individual_style_of_activity, $svg, $chessStructureLevel->chess_structure);
-        $result->chess_structure = $chessStructureLevel->chess_structure;
-        $result->chess_structure_id = $chessStructureLevel->id;
-        $result->match = $match;
-        $result->save();
     }
 
+    private function validateOutput($value)
+    {
+        return preg_match('/^[\p{Cyrillic}a-zA-Z0-9_\- ]+$/u', $value)
+            ? $value
+            : 'неизвестно';
+    }
+    private function extractFeatures($rectangles)
+    {
+        $features = [];
+        foreach ($rectangles as $rect) {
+            $rgb = $this->extractRgb($rect->color);
+            $features[] = array_merge($rgb, [
+                'x' => $rect->x,
+                'y' => $rect->y,
+                'z' => $rect->z
+            ]);
+        }
+
+        // Агрегация признаков (первые 10 прямоугольков)
+        return $features;
+    }
     private function compareRectangles($templateRectangles, $userRectangles)
     {
         $matchCount = 0;

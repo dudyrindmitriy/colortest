@@ -7,11 +7,13 @@ use App\Http\Controllers\CommentToReviewController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GeneralPageController;
 use App\Http\Controllers\GenerateTestResultsController;
+use App\Http\Controllers\IsaController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PHPMailerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -78,10 +80,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/admin/results/{result}', [AdminController::class, 'updateResult'])->name('admin.results.update');
     Route::delete('/admin/results/{result}', [AdminController::class, 'destroyResult'])->name('admin.results.destroy');
 
-    Route::get('/admin/newsletter/create',[NewsletterController::class,'create'])->name('newsletter.create');
-    Route::post('/admin/newsletter/create',[NewsletterController::class,'store'])->name('newsletter.store');
-
+    Route::get('/admin/newsletter/create', [NewsletterController::class, 'create'])->name('newsletter.create');
+    Route::post('/admin/newsletter/create', [NewsletterController::class, 'store'])->name('newsletter.store');
 });
 //Генерация фейковых результатов
 Route::get('/generate-test-results', [GenerateTestResultsController::class, 'generate'])
-     ->middleware('auth'); // рекомендуется защитить маршрут
+    ->middleware('auth');
+//Статистика
+Route::get('/statistics/monthly', [StatisticsController::class, 'monthlyStatistics']);
+Route::get('/trend-analysis', [StatisticsController::class, 'trendAnalysis'])
+    ->name('stats.trend');
+Route::get('/statistics/model-analysis', [StatisticsController::class, 'modelAnalysis'])->name('statistics.model-analysis');
+Route::get('/isas/{isa}', [IsaController::class, 'show'])->name('isas.show');

@@ -1,0 +1,420 @@
+2025-05-01 20:29:14,214 - INFO - Starting prediction process
+2025-05-01 20:29:14,231 - ERROR - Prediction failed: 'Namespace' object has no attribute 'model_dir'
+2025-05-01 20:30:15,679 - INFO - Starting prediction process
+2025-05-01 20:30:15,679 - ERROR - Prediction failed: MLService.predict() takes 0 positional arguments but 2 were given
+2025-05-01 20:30:34,022 - INFO - Starting prediction process
+2025-05-01 20:30:34,028 - ERROR - Prediction failed: MLService.predict() takes 0 positional arguments but 2 were given
+2025-05-01 20:31:53,141 - INFO - Starting prediction process
+2025-05-01 20:31:53,258 - INFO - Prediction result: {'style_class': 'творец', 'chess_structure': 'слаба€'}
+2025-05-01 20:51:16,772 - INFO - Starting prediction process
+2025-05-01 20:51:16,828 - INFO - Prediction result: {'style_class': 'творец', 'chess_structure': 'слаба€'}
+2025-05-01 20:51:37,951 - INFO - Training model for style_class
+2025-05-01 20:51:38,371 - INFO - Training model for chess_structure
+2025-05-01 20:51:38,493 - INFO - All models trained successfully
+2025-05-01 20:51:45,182 - INFO - Starting prediction process
+2025-05-01 20:51:45,287 - INFO - Prediction result: {'style_class': 'творец', 'chess_structure': 'слаба€'}
+2025-05-02 00:11:11,394 - INFO - Training model for style_class
+2025-05-02 00:11:11,517 - INFO - Training model for chess_structure
+2025-05-02 00:11:11,588 - INFO - All models trained successfully
+2025-05-02 00:13:39,706 - INFO - Training model for style_class
+2025-05-02 00:13:39,802 - INFO - Training model for chess_structure
+2025-05-02 00:13:39,868 - INFO - All models trained successfully
+2025-05-29 13:10:23,295 - INFO - Evaluating model for style_class
+2025-05-29 13:10:24,051 - INFO - style_class - Mean CV accuracy: 0.9714 ± 0.0233
+2025-05-29 13:10:24,074 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       1.00      1.00      1.00        21
+    рационал       1.00      1.00      1.00        21
+     скептик       1.00      1.00      1.00        21
+   смешанный       1.00      1.00      1.00        21
+      творец       1.00      1.00      1.00        21
+
+    accuracy                           1.00       105
+   macro avg       1.00      1.00      1.00       105
+weighted avg       1.00      1.00      1.00       105
+
+2025-05-29 13:10:24,074 - INFO - Evaluating model for chess_structure
+2025-05-29 13:10:24,641 - INFO - chess_structure - Mean CV accuracy: 0.9619 ± 0.0555
+2025-05-29 13:10:24,643 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        46
+      слаба€       1.00      1.00      1.00        10
+     средн€€       1.00      1.00      1.00        49
+
+    accuracy                           1.00       105
+   macro avg       1.00      1.00      1.00       105
+weighted avg       1.00      1.00      1.00       105
+
+2025-05-29 13:11:51,012 - INFO - Evaluating model for style_class
+2025-05-29 13:11:51,677 - INFO - style_class - Mean CV accuracy: 0.9714 ± 0.0233
+2025-05-29 13:11:51,694 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       1.00      1.00      1.00        21
+    рационал       1.00      1.00      1.00        21
+     скептик       1.00      1.00      1.00        21
+   смешанный       1.00      1.00      1.00        21
+      творец       1.00      1.00      1.00        21
+
+    accuracy                           1.00       105
+   macro avg       1.00      1.00      1.00       105
+weighted avg       1.00      1.00      1.00       105
+
+2025-05-29 13:11:51,694 - INFO - Evaluating model for chess_structure
+2025-05-29 13:11:52,216 - INFO - chess_structure - Mean CV accuracy: 0.9619 ± 0.0555
+2025-05-29 13:11:52,227 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        46
+      слаба€       1.00      1.00      1.00        10
+     средн€€       1.00      1.00      1.00        49
+
+    accuracy                           1.00       105
+   macro avg       1.00      1.00      1.00       105
+weighted avg       1.00      1.00      1.00       105
+
+2025-05-29 13:20:50,881 - INFO - Evaluating model for style_class
+2025-05-29 13:20:51,579 - INFO - style_class - Mean CV accuracy: nan ± nan
+2025-05-29 13:20:51,584 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       1.00      1.00      1.00        21
+    рационал       1.00      1.00      1.00        21
+     скептик       1.00      1.00      1.00        21
+   смешанный       1.00      1.00      1.00        21
+      творец       1.00      1.00      1.00        21
+
+    accuracy                           1.00       105
+   macro avg       1.00      1.00      1.00       105
+weighted avg       1.00      1.00      1.00       105
+
+2025-05-29 13:20:51,584 - INFO - Evaluating model for chess_structure
+2025-05-29 13:20:52,012 - INFO - chess_structure - Mean CV accuracy: 0.9619 ± 0.0555
+2025-05-29 13:20:52,027 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        46
+      слаба€       1.00      1.00      1.00        10
+     средн€€       1.00      1.00      1.00        49
+
+    accuracy                           1.00       105
+   macro avg       1.00      1.00      1.00       105
+weighted avg       1.00      1.00      1.00       105
+
+2025-05-29 13:20:52,084 - ERROR - ќшибка визуализации: name 'plt' is not defined
+Traceback (most recent call last):
+  File "d:\xampp\xampp\htdocs\colortest\app\Services\MLService.py", line 160, in plot_class_distribution
+    plt.figure(figsize=(15, 10))
+    ^^^
+NameError: name 'plt' is not defined
+2025-05-29 13:21:39,431 - INFO - Evaluating model for style_class
+2025-05-29 13:21:39,874 - INFO - style_class - Mean CV accuracy: 0.9714 ± 0.0233
+2025-05-29 13:21:39,874 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       1.00      1.00      1.00        21
+    рационал       1.00      1.00      1.00        21
+     скептик       1.00      1.00      1.00        21
+   смешанный       1.00      1.00      1.00        21
+      творец       1.00      1.00      1.00        21
+
+    accuracy                           1.00       105
+   macro avg       1.00      1.00      1.00       105
+weighted avg       1.00      1.00      1.00       105
+
+2025-05-29 13:21:39,874 - INFO - Evaluating model for chess_structure
+2025-05-29 13:21:40,241 - INFO - chess_structure - Mean CV accuracy: 0.9619 ± 0.0555
+2025-05-29 13:21:40,241 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        46
+      слаба€       1.00      1.00      1.00        10
+     средн€€       1.00      1.00      1.00        49
+
+    accuracy                           1.00       105
+   macro avg       1.00      1.00      1.00       105
+weighted avg       1.00      1.00      1.00       105
+
+2025-05-29 13:24:41,564 - INFO - Evaluating model for style_class
+2025-05-29 13:24:41,969 - INFO - style_class - Mean CV accuracy: 0.9714 ± 0.0233
+2025-05-29 13:24:41,969 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       1.00      1.00      1.00        21
+    рационал       1.00      1.00      1.00        21
+     скептик       1.00      1.00      1.00        21
+   смешанный       1.00      1.00      1.00        21
+      творец       1.00      1.00      1.00        21
+
+    accuracy                           1.00       105
+   macro avg       1.00      1.00      1.00       105
+weighted avg       1.00      1.00      1.00       105
+
+2025-05-29 13:24:41,969 - INFO - Evaluating model for chess_structure
+2025-05-29 13:24:42,307 - INFO - chess_structure - Mean CV accuracy: 0.9619 ± 0.0555
+2025-05-29 13:24:42,307 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        46
+      слаба€       1.00      1.00      1.00        10
+     средн€€       1.00      1.00      1.00        49
+
+    accuracy                           1.00       105
+   macro avg       1.00      1.00      1.00       105
+weighted avg       1.00      1.00      1.00       105
+
+2025-05-29 13:25:37,139 - INFO - ¬изуализаци€ распределени€ классов сохранена в 'class_distribution.png'
+2025-05-29 13:34:55,955 - INFO - Evaluating model for style_class
+2025-05-29 13:34:56,065 - INFO - style_class - Test accuracy: 0.9375
+2025-05-29 13:34:56,065 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       0.88      1.00      0.93         7
+    рационал       1.00      0.67      0.80         6
+     скептик       1.00      1.00      1.00         6
+   смешанный       0.88      1.00      0.93         7
+      творец       1.00      1.00      1.00         6
+
+    accuracy                           0.94        32
+   macro avg       0.95      0.93      0.93        32
+weighted avg       0.95      0.94      0.93        32
+
+2025-05-29 13:34:56,065 - INFO - Evaluating model for chess_structure
+2025-05-29 13:34:56,153 - INFO - chess_structure - Test accuracy: 1.0000
+2025-05-29 13:34:56,161 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        14
+      слаба€       1.00      1.00      1.00         3
+     средн€€       1.00      1.00      1.00        15
+
+    accuracy                           1.00        32
+   macro avg       1.00      1.00      1.00        32
+weighted avg       1.00      1.00      1.00        32
+
+2025-05-29 13:39:04,354 - INFO - Evaluating model for style_class
+2025-05-29 13:39:04,446 - INFO - style_class - Test accuracy: 0.9375
+2025-05-29 13:39:04,454 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       0.88      1.00      0.93         7
+    рационал       1.00      0.67      0.80         6
+     скептик       1.00      1.00      1.00         6
+   смешанный       0.88      1.00      0.93         7
+      творец       1.00      1.00      1.00         6
+
+    accuracy                           0.94        32
+   macro avg       0.95      0.93      0.93        32
+weighted avg       0.95      0.94      0.93        32
+
+2025-05-29 13:39:04,455 - INFO - Evaluating model for chess_structure
+2025-05-29 13:39:04,530 - INFO - chess_structure - Test accuracy: 1.0000
+2025-05-29 13:39:04,539 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        14
+      слаба€       1.00      1.00      1.00         3
+     средн€€       1.00      1.00      1.00        15
+
+    accuracy                           1.00        32
+   macro avg       1.00      1.00      1.00        32
+weighted avg       1.00      1.00      1.00        32
+
+2025-05-29 13:42:54,633 - INFO - Evaluating model for style_class
+2025-05-29 13:42:54,870 - INFO - style_class - Test accuracy: 0.9375
+2025-05-29 13:42:54,870 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       1.00      1.00      1.00         7
+    рационал       1.00      0.67      0.80         6
+     скептик       1.00      1.00      1.00         6
+   смешанный       0.78      1.00      0.88         7
+      творец       1.00      1.00      1.00         6
+
+    accuracy                           0.94        32
+   macro avg       0.96      0.93      0.93        32
+weighted avg       0.95      0.94      0.94        32
+
+2025-05-29 13:42:54,870 - INFO - Evaluating model for chess_structure
+2025-05-29 13:42:55,067 - INFO - chess_structure - Test accuracy: 1.0000
+2025-05-29 13:42:55,067 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        14
+      слаба€       1.00      1.00      1.00         3
+     средн€€       1.00      1.00      1.00        15
+
+    accuracy                           1.00        32
+   macro avg       1.00      1.00      1.00        32
+weighted avg       1.00      1.00      1.00        32
+
+2025-05-29 13:45:24,390 - INFO - Evaluating model for style_class
+2025-05-29 13:45:24,641 - INFO - style_class - Test accuracy: 0.9375
+2025-05-29 13:45:24,651 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       1.00      1.00      1.00         7
+    рационал       1.00      0.67      0.80         6
+     скептик       1.00      1.00      1.00         6
+   смешанный       0.78      1.00      0.88         7
+      творец       1.00      1.00      1.00         6
+
+    accuracy                           0.94        32
+   macro avg       0.96      0.93      0.93        32
+weighted avg       0.95      0.94      0.94        32
+
+2025-05-29 13:45:24,651 - INFO - Evaluating model for chess_structure
+2025-05-29 13:45:24,878 - INFO - chess_structure - Test accuracy: 1.0000
+2025-05-29 13:45:24,894 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        14
+      слаба€       1.00      1.00      1.00         3
+     средн€€       1.00      1.00      1.00        15
+
+    accuracy                           1.00        32
+   macro avg       1.00      1.00      1.00        32
+weighted avg       1.00      1.00      1.00        32
+
+2025-05-29 13:50:47,471 - INFO - Evaluating model for style_class
+2025-05-29 13:50:47,544 - INFO - style_class - Test accuracy: 0.9688
+2025-05-29 13:50:47,554 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       1.00      1.00      1.00         7
+    рационал       1.00      0.83      0.91         6
+     скептик       1.00      1.00      1.00         6
+   смешанный       0.88      1.00      0.93         7
+      творец       1.00      1.00      1.00         6
+
+    accuracy                           0.97        32
+   macro avg       0.97      0.97      0.97        32
+weighted avg       0.97      0.97      0.97        32
+
+2025-05-29 13:50:47,554 - INFO - Evaluating model for chess_structure
+2025-05-29 13:50:47,618 - INFO - chess_structure - Test accuracy: 1.0000
+2025-05-29 13:50:47,627 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        14
+      слаба€       1.00      1.00      1.00         3
+     средн€€       1.00      1.00      1.00        15
+
+    accuracy                           1.00        32
+   macro avg       1.00      1.00      1.00        32
+weighted avg       1.00      1.00      1.00        32
+
+2025-05-29 13:51:38,899 - INFO - Evaluating model for style_class
+2025-05-29 13:51:39,276 - INFO - style_class - Test accuracy: 0.9688
+2025-05-29 13:51:39,289 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       1.00      1.00      1.00         7
+    рационал       1.00      0.83      0.91         6
+     скептик       1.00      1.00      1.00         6
+   смешанный       0.88      1.00      0.93         7
+      творец       1.00      1.00      1.00         6
+
+    accuracy                           0.97        32
+   macro avg       0.97      0.97      0.97        32
+weighted avg       0.97      0.97      0.97        32
+
+2025-05-29 13:51:39,290 - INFO - Evaluating model for chess_structure
+2025-05-29 13:51:39,502 - INFO - chess_structure - Test accuracy: 1.0000
+2025-05-29 13:51:39,523 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        14
+      слаба€       1.00      1.00      1.00         3
+     средн€€       1.00      1.00      1.00        15
+
+    accuracy                           1.00        32
+   macro avg       1.00      1.00      1.00        32
+weighted avg       1.00      1.00      1.00        32
+
+2025-05-29 13:52:09,268 - INFO - Evaluating model for style_class
+2025-05-29 13:52:09,312 - INFO - style_class - Test accuracy: 0.9688
+2025-05-29 13:52:09,312 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       1.00      1.00      1.00         7
+    рационал       1.00      0.83      0.91         6
+     скептик       1.00      1.00      1.00         6
+   смешанный       0.88      1.00      0.93         7
+      творец       1.00      1.00      1.00         6
+
+    accuracy                           0.97        32
+   macro avg       0.97      0.97      0.97        32
+weighted avg       0.97      0.97      0.97        32
+
+2025-05-29 13:52:09,312 - INFO - Evaluating model for chess_structure
+2025-05-29 13:52:09,352 - INFO - chess_structure - Test accuracy: 1.0000
+2025-05-29 13:52:09,372 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        14
+      слаба€       1.00      1.00      1.00         3
+     средн€€       1.00      1.00      1.00        15
+
+    accuracy                           1.00        32
+   macro avg       1.00      1.00      1.00        32
+weighted avg       1.00      1.00      1.00        32
+
+2025-05-29 14:52:52,746 - INFO - Evaluating model for style_class
+2025-05-29 14:52:52,838 - INFO - style_class - Test accuracy: 0.9688
+2025-05-29 14:52:52,850 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       1.00      1.00      1.00         7
+    рационал       1.00      0.83      0.91         6
+     скептик       1.00      1.00      1.00         6
+   смешанный       0.88      1.00      0.93         7
+      творец       1.00      1.00      1.00         6
+
+    accuracy                           0.97        32
+   macro avg       0.97      0.97      0.97        32
+weighted avg       0.97      0.97      0.97        32
+
+2025-05-29 14:52:52,851 - INFO - Evaluating model for chess_structure
+2025-05-29 14:52:52,905 - INFO - chess_structure - Test accuracy: 1.0000
+2025-05-29 14:52:52,917 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        14
+      слаба€       1.00      1.00      1.00         3
+     средн€€       1.00      1.00      1.00        15
+
+    accuracy                           1.00        32
+   macro avg       1.00      1.00      1.00        32
+weighted avg       1.00      1.00      1.00        32
+
+2025-05-29 14:57:12,426 - INFO - Evaluating model for style_class
+2025-05-29 14:57:12,541 - INFO - style_class - Test accuracy: 0.9688
+2025-05-29 14:57:12,573 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+ авангардист       1.00      1.00      1.00         7
+    рационал       1.00      0.83      0.91         6
+     скептик       1.00      1.00      1.00         6
+   смешанный       0.88      1.00      0.93         7
+      творец       1.00      1.00      1.00         6
+
+    accuracy                           0.97        32
+   macro avg       0.97      0.97      0.97        32
+weighted avg       0.97      0.97      0.97        32
+
+2025-05-29 14:57:12,573 - INFO - Evaluating model for chess_structure
+2025-05-29 14:57:12,672 - INFO - chess_structure - Test accuracy: 1.0000
+2025-05-29 14:57:12,688 - INFO - Classification report:
+              precision    recall  f1-score   support
+
+     сильна€       1.00      1.00      1.00        14
+      слаба€       1.00      1.00      1.00         3
+     средн€€       1.00      1.00      1.00        15
+
+    accuracy                           1.00        32
+   macro avg       1.00      1.00      1.00        32
+weighted avg       1.00      1.00      1.00        32
+

@@ -39,6 +39,7 @@ class AdminController extends Controller
         }
         return view('admin.index', compact('messages','topicStats'));
     }
+  
     public function indexUsers()
     {
         $users = User::all();

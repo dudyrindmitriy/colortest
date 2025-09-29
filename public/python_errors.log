@@ -1,0 +1,8 @@
+2025-05-01 00:53:33,982 - INFO - Script started
+2025-05-01 00:53:33,982 - DEBUG - Received encoded data: eyJyIjoyNTUsImciOjI1NSwiYiI6MjU1LCJ4Ijo0LCJ5IjozLCJ6IjoxMn0=
+2025-05-01 00:53:33,983 - DEBUG - Decoded string: {"r":255,"g":255,"b":255,"x":4,"y":3,"z":12}
+2025-05-01 00:53:33,983 - INFO - Features received: {'r': 255, 'g': 255, 'b': 255, 'x': 4, 'y': 3, 'z': 12}
+2025-05-01 01:04:11,785 - INFO - Script started
+2025-05-01 01:04:11,786 - DEBUG - Received encoded data: eyJyIjoyNTUsImciOjI1NSwiYiI6MjU1LCJ4Ijo0LCJ5IjozLCJ6IjoxMn0=
+2025-05-01 01:04:11,786 - DEBUG - Decoded string: {"r":255,"g":255,"b":255,"x":4,"y":3,"z":12}
+2025-05-01 01:04:11,786 - INFO - Features received: {'r': 255, 'g': 255, 'b': 255, 'x': 4, 'y': 3, 'z': 12}

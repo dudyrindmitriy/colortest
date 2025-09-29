@@ -1,0 +1,18 @@
+{
+    "left_wall_color_var": 55.9,
+    "left_wall_depth_grad": 64,
+    "left_wall_lum_std": 54.28,
+    "ceiling_color_var": 47.48,
+    "ceiling_depth_grad": 87.56,
+    "ceiling_lum_std": 60.13,
+    "right_wall_color_var": 44.53,
+    "right_wall_depth_grad": 59.5,
+    "right_wall_lum_std": 51.58,
+    "floor_color_var": 52.43,
+    "floor_depth_grad": 39,
+    "floor_lum_std": 61.73,
+    "vertical_symmetry": 70.07,
+    "horizontal_contrast": 26.5,
+    "depth_contrast": 17.28,
+    "pattern_consistency": 10.61
+}

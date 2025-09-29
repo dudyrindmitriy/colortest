@@ -279,7 +279,7 @@
                 .then(data => {
                     alert('Результат сохранен!');
                     console.log(data);
-                    window.location.href = '/colortest/public/results';
+                    // window.location.href = '/colortest/public/results';
                 })
                 .catch(error => console.error('Ошибка:', error))
                 .finally(() => {
