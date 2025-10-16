@@ -21,26 +21,17 @@ class User extends Authenticatable
         'email',
         'login',
         'password',
-        'address',
+        'user_type',
         'isAdmin',
     ];
     public function results()
     {
         return $this->hasMany(Results::class);
     }
-    public function topics() 
-    {
-        return $this->belongsToMany(NewsletterTopic::class, 'newsletter_topic_user');
-    }
 
-    public function reviews() {
-        return $this->hasMany(Review::class);
-    }
-    public function commentsToReviews() {
-        return $this->hasMany(CommentToReview::class);
-    }
-    public function messages() {
-        return $this->hasMany(Messages::class);
+    public function educationProgram()
+    {
+        return $this->belongsTo(EducationProgram::class);
     }
     /**
      * The attributes that should be hidden for serialization.

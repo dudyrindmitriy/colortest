@@ -34,61 +34,22 @@ Route::post('/save-result', [TestController::class, 'store'])->name('save.result
 // Профиль
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
 Route::post('/profile/update', [ProfileController::class, 'update'])->middleware('auth');
-Route::post('/profile/message', [ProfileController::class, 'sendMessage'])->name('profile.sendMessage')->middleware('auth');
-Route::post('/profile/subscriptions', [ProfileController::class, 'updateSubscriptions'])->name('profile.updateSubscriptions')->middleware("auth");
 Route::get('/results', [ProfileController::class, 'showResults'])->name('results')->middleware('auth');
 Route::get('/result/{id}', [ProfileController::class, 'showResult'])->name('result')->middleware('auth');
 Route::get('/results/search', [ProfileController::class, 'search'])->name('results.search')->middleware('auth');
 
-//PDF
-Route::get('/result/{id}/download-pdf', [PDFController::class, 'downloadResultPDF'])->name('result.downloadPDF');
-Route::get('/results/download-pdf', [PDFController::class, 'downloadResultsPDF'])->name('results.downloadPDF');
-Route::get('/home/download-pdf', [PDFController::class, 'downloadHomePDF'])->name('home.downloadPDF');
-
-// Отзывы
-Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews')->middleware('auth');
-Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create')->middleware('auth');
-Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
-Route::get('/reviews/search', [ReviewController::class, 'search'])->name('reviews.search');
-Route::post('/comments/{reviewId}', [CommentToReviewController::class, 'store'])->name('comments.store');
-
-//Форум
-Route::prefix('forum')->group(function () {
-    Route::get('/', [ForumController::class, 'index'])->name('forum');
-    Route::post('/', [ForumController::class, 'store'])->name('forum.store');
-    Route::post('/react', [ForumController::class, 'react'])->name('forum.react');
-    Route::delete('/reaction/{messageId}', [ForumController::class, 'removeReaction'])->name('forum.reaction.remove');
-});
-// Администрирование 
+// Администрирование
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/users', [AdminController::class, 'indexUsers'])->name('admin.users.index');
     Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
     Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
     Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
-    Route::get('/admin/users/{user}/message', [AdminController::class, 'showMessageForm'])->name('admin.users.message');
-    Route::post('/admin/users/{user}/message', [AdminController::class, 'sendMessage'])->name('admin.users.message');
-    Route::post('/admin/users/message', [AdminController::class, 'replyMessage'])->name('admin.users.reply');
 
-    Route::get('/admin/reviews', [AdminController::class, 'indexReviews'])->name('admin.reviews.index');
-    Route::get('/admin/reviews/{review}/edit', [AdminController::class, 'editReview'])->name('admin.reviews.edit');
-    Route::put('/admin/reviews/{review}', [AdminController::class, 'updateReview'])->name('admin.reviews.update');
-    Route::delete('/admin/reviews/{review}', [AdminController::class, 'destroyReview'])->name('admin.reviews.destroy');
 
     Route::get('/admin/results', [AdminController::class, 'indexResults'])->name('admin.results.index');
     Route::get('/admin/results/{result}/edit', [AdminController::class, 'editResult'])->name('admin.results.edit');
     Route::put('/admin/results/{result}', [AdminController::class, 'updateResult'])->name('admin.results.update');
     Route::delete('/admin/results/{result}', [AdminController::class, 'destroyResult'])->name('admin.results.destroy');
 
-    Route::get('/admin/newsletter/create', [NewsletterController::class, 'create'])->name('newsletter.create');
-    Route::post('/admin/newsletter/create', [NewsletterController::class, 'store'])->name('newsletter.store');
 });
-//Генерация фейковых результатов
-Route::get('/generate-test-results', [GenerateTestResultsController::class, 'generate'])
-    ->middleware('auth');
-//Статистика
-Route::get('/statistics/monthly', [StatisticsController::class, 'monthlyStatistics']);
-Route::get('/trend-analysis', [StatisticsController::class, 'trendAnalysis'])
-    ->name('stats.trend');
-Route::get('/statistics/model-analysis', [StatisticsController::class, 'modelAnalysis'])->name('statistics.model-analysis');
-Route::get('/isas/{isa}', [IsaController::class, 'show'])->name('isas.show');

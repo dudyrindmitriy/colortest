@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Console\Commands\ExportTrainingData;
 use App\Models\Chess;
 use App\Models\Isa;
-use App\Models\RectanglesForIsa;
 use App\Models\RectanglesForResult;
 use App\Models\Results;
 use Exception;
@@ -13,8 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Intervention\Image\ImageManager;
-use App\Http\Controllers\PHPMailerController;
 use App\Services\FeatureCalculator;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -61,7 +58,6 @@ class TestController extends Controller
 
 
             $this->analyzeResult($result, $request->svg);
-            $this->sendMessage();
             return response()->json(
                 ['message' => 'Результат успешно сохранен'],
                 200,
@@ -78,51 +74,7 @@ class TestController extends Controller
         }
     }
 
-    // private function analyzeResult($result, $svg)
-    // {
 
-    //     $userRectangles = RectanglesForResult::where('result_id', $result->id)->get();
-
-    //     $bestMatch = null;
-    //     $highestMatch = 0;
-    //     $match = '';
-
-    //     $isas = Isa::all();
-    //     foreach ($isas as $isa) {
-    //         $templateRectangles = RectanglesForIsa::where('isa_id', $isa->id)->get();
-
-
-
-    //         $matches = $this->compareRectangles($templateRectangles, $userRectangles);
-
-    //         $matchPercentage = $matches['count'];
-    //         if ($isa->individual_style_of_activity == 'авангардист') {
-    //             $matchPercentage *= 0.8;
-    //         }
-    //         $match .= $isa->individual_style_of_activity . "-" . $matchPercentage . "     ";
-
-    //         if ($matchPercentage > $highestMatch) {
-    //             $highestMatch = $matchPercentage;
-    //             $bestMatch = $isa;
-    //         }
-    //     }
-
-
-    //     $contrastScore = $this->calculateContrastScore($userRectangles);
-
-
-    //     $chessStructureLevel = $this->getChessStructureLevel($contrastScore);
-
-
-
-    //     $result->isa_id = $bestMatch->id;
-    //     $result->industry = $bestMatch->individual_style_of_activity;
-    //     $result->recommendation =  $this->generateRecommendation($bestMatch->individual_style_of_activity, $svg, $chessStructureLevel->chess_structure);
-    //     $result->chess_structure = $chessStructureLevel->chess_structure;
-    //     $result->chess_structure_id = $chessStructureLevel->id;
-    //     $result->match = $match;
-    //     $result->save();
-    // }
     public function analyzeResult(Results $result, string $svgContent)
     {
         try {
@@ -137,8 +89,16 @@ class TestController extends Controller
                 $features
             );
             $features['chess_structure'] = $chessScore;
-
-            $tempFile = tempnam(sys_get_temp_dir(), 'ml_data_');
+            $tempDir = storage_path('app/temp');
+            if (!is_dir($tempDir)) {
+                if (!mkdir($tempDir, 0755, true)) {
+                    throw new Exception("Cannot create temp directory: " . $tempDir);
+                }
+            }
+            if (!is_writable($tempDir)) {
+                throw new Exception("Temp directory is not writable: " . $tempDir);
+            }
+            $tempFile = $tempDir . '/ml_data_' . uniqid() . '.json';
             file_put_contents($tempFile, json_encode($features));
             Log::debug('Temp file content', [
                 'content' => file_get_contents($tempFile),
@@ -152,7 +112,7 @@ class TestController extends Controller
             }
             // Формируем команду с передачей путей
             $command = sprintf(
-                'python "%s" --model_dir "%s" --input "%s" 2>&1',
+               '/opt/homebrew/bin/python3 "%s" --model_dir "%s" --input "%s" 2>&1',
                 str_replace('\\', '/', $pythonScriptPath),
                 str_replace('\\', '/', $modelIndustryPath),
                 str_replace('\\', '/', $tempFile)
@@ -165,13 +125,17 @@ class TestController extends Controller
             // exec("{$command}", $output, $returnVar);
             // // exec("{$command} 2>&1", $output, $returnVar);
             // $pythonResponse = implode("\n", $output);
-            exec("{$command} 2>errors.log", $output, $returnVar); // Логи ошибок в файл
-            $pythonResponse = end($output);
+            // Добавьте перед exec()
+// Проверим что видит Python при запуске из Apache
 
+            exec("{$command} 2>&1", $output, $returnVar); // Логи ошибок в файл
+            // $pythonResponse = end($output);
+$pythonResponse = implode("\n", $output);
+Log::debug('Full Python output', ['full_output' => $pythonResponse]);
             // Логируем сырой ответ
             Log::debug('Raw Python response', ['response' => $pythonResponse]);
 
-            // $response = json_decode($pythonResponse, true);
+            $response = json_decode($pythonResponse, true);
 
             if (json_last_error() !== JSON_ERROR_NONE || isset($response['error'])) {
                 throw new Exception("Ошибка Python: " . ($response['error'] ?? 'Invalid JSON'));
@@ -180,11 +144,6 @@ class TestController extends Controller
             // Удаляем временный файл
             unlink($tempFile);
             // Логирование полного вывода
-            Log::debug('Python output', [
-                'exit_code' => $returnVar,
-                'output' => $output,
-                'error' => ($returnVar !== 0) ? implode("\n", $output) : ''
-            ]);
 
             if ($returnVar !== 0) {
                 throw new Exception("Python process failed: " . implode("\n", $output));
@@ -199,25 +158,17 @@ class TestController extends Controller
             $industryName = $response['style_class'];
             $chessStructureName = $response['chess_structure'];
 
-            $isa = Isa::where('individual_style_of_activity', $industryName)->first();
-            $chessStructure = Chess::where('chess_structure', $chessStructureName)->first();
 
-            if (!$isa || !$chessStructure) {
-                throw new Exception("Reference data not found for: " . ($isa ? '' : $industryName) . ($chessStructure ? '' : $chessStructureName));
-            }
-
-            $recommendation = $this->generateRecommendation(
-                $industryName,
-                $svgContent,
-                $chessStructureName
-            );
+            // $recommendation = $this->generateRecommendation(
+            //     $industryName,
+            //     $svgContent,
+            //     $chessStructureName
+            // );
 
             $result->update([
-                'isa_id' => $isa->id,
-                'industry' => $industryName,
-                'chess_structure_id' => $chessStructure->id,
-                'chess_structure' => $chessStructureName,
-                'recommendation' => $recommendation
+                // 'industry' => $industryName,
+                // 'chess_structure' => $chessStructureName,
+                // 'recommendation' => $recommendation
             ]);
             // return $response;
 
@@ -231,243 +182,40 @@ class TestController extends Controller
         }
     }
 
-    private function validateOutput($value)
-    {
-        return preg_match('/^[\p{Cyrillic}a-zA-Z0-9_\- ]+$/u', $value)
-            ? $value
-            : 'неизвестно';
-    }
-    private function extractFeatures($rectangles)
-    {
-        $features = [];
-        foreach ($rectangles as $rect) {
-            $rgb = $this->extractRgb($rect->color);
-            $features[] = array_merge($rgb, [
-                'x' => $rect->x,
-                'y' => $rect->y,
-                'z' => $rect->z
-            ]);
-        }
-
-        // Агрегация признаков (первые 10 прямоугольков)
-        return $features;
-    }
-    private function compareRectangles($templateRectangles, $userRectangles)
-    {
-        $matchCount = 0;
-        foreach ($userRectangles as $uRect) {
-            foreach ($templateRectangles as $tRect) {
-                if (
-                    $this->areColorsSimilar($tRect->color == "white" ? "rgb(255, 255, 255)" : $tRect->color, $uRect->color == "white" ? "rgb(255, 255, 255)" : $uRect->color) &&
-                    abs($tRect->x - $uRect->x) <= 1 &&
-                    abs($tRect->y - $uRect->y) <= 1 &&
-                    abs($tRect->z - $uRect->z) <= 3
-                ) {
-                    $matchCount++;
-                }
-            }
-        }
-        return ['count' => $matchCount];
-    }
-
-    private function areColorsSimilar($color1, $color2, $tolerance = 125)
-    {
-
-        $rgb1 = $this->extractRgb($color1);
-        $rgb2 = $this->extractRgb($color2);
-
-
-        return abs($rgb1['r'] - $rgb2['r']) <= $tolerance &&
-            abs($rgb1['g'] - $rgb2['g']) <= $tolerance &&
-            abs($rgb1['b'] - $rgb2['b']) <= $tolerance;
-    }
-
-    private function extractRgb($color)
-    {
-
-        $rgb = [];
-        preg_match('/rgb\((\d+),\s*(\d+),\s*(\d+)\)/', $color, $matches);
-        $rgb['r'] = (int)$matches[1];
-        $rgb['g'] = (int)$matches[2];
-        $rgb['b'] = (int)$matches[3];
-        return $rgb;
-    }
-    private function calculateContrastScore($rectangles)
-    {
-        $totalContrast = 0;
-        $comparisonCount = 0;
-
-
-        $rectangles = $rectangles->sortBy('x')->sortBy('y')->sortBy('z');
-
-        foreach ($rectangles as $i => $rect1) {
-            foreach ($rectangles as $j => $rect2) {
-
-                if (
-                    ($rect1->x == $rect2->x && (
-                        (abs($rect1->y - $rect2->y) == 1 && $rect1->z == $rect2->z) ||
-                        (abs($rect1->z - $rect2->z) == 1 && $rect1->y == $rect2->y)
-                    )) ||
-                    (
-                        (($rect1->y == 1 && $rect2->y == 3) || ($rect1->y == 3 && $rect2->y == 1)) &&
-                        $rect1->z == $rect2->z &&
-                        abs($rect1->x - $rect2->x) == 1)
-
-                ) {
-                    $rgb1 = $this->extractRgb($rect1->color);
-                    $rgb2 = $this->extractRgb($rect2->color);
-
-
-                    $luminance1 = $this->calculateLuminance($rgb1);
-                    $luminance2 = $this->calculateLuminance($rgb2);
-
-                    $contrastRatio = ($luminance1 > $luminance2)
-                        ? (($luminance1 + 0.05) / ($luminance2 + 0.05))
-                        : (($luminance2 + 0.05) / ($luminance1 + 0.05));
-
-                    $totalContrast += $contrastRatio;
-                    $comparisonCount++;
-                }
-            }
-        }
-
-
-        return $comparisonCount > 0 ? $totalContrast / $comparisonCount : 0;
-    }
-
-    private function calculateLuminance($rgb)
-    {
-        $r = $rgb['r'] / 255;
-        $g = $rgb['g'] / 255;
-        $b = $rgb['b'] / 255;
-
-        $r = ($r <= 0.03928) ? $r / 12.92 : pow(($r + 0.055) / 1.055, 2.4);
-        $g = ($g <= 0.03928) ? $g / 12.92 : pow(($g + 0.055) / 1.055, 2.4);
-        $b = ($b <= 0.03928) ? $b / 12.92 : pow(($b + 0.055) / 1.055, 2.4);
-
-        return 0.2126 * $r + 0.7152 * $g + 0.0722 * $b;
-    }
-
-    private function getChessStructureLevel($contrastScore)
-    {
-
-        if ($contrastScore >= 4.5) {
-            return Chess::find(1);
-        } elseif ($contrastScore >= 3) {
-            return Chess::find(2);
-        } else {
-            return Chess::find(3);
-        }
-    }
-    private function generateRecommendation($style, $svg, $chessStructureLevel)
-    {
-
-        $result = [
-            'творец' => [
-                'сильная' => '<ol><li>Программная инженерия</li><li>Актерское искусство</li><li>Дизайн</li></ol>',
-                'средняя' => '<ol><li>Программная инженерия</li><li>Архитектура</li><li>Искусство народного пения</li></ol>',
-                'слабая' => '<ol><li>Веб-дизайн</li><li>Программная инженерия</li><li>Архитектура и строительство</li></ol>'
-            ],
-            'авангардист' => [
-                'сильная' => '<ol><li>Математика и компьютерные науки</li><li>Фундаментальная информатика и информационные технологии</li><li>Фотоника и оптоинформатика</li></ol>',
-                'средняя' => '<ol><li>Информационные технологии</li><li>Информатика и вычислительная техника</li><li>Медиакоммуникации</li></ol>',
-                'слабая' => '<ol><li>Бизнес-информатика</li><li>Фундаментальная информатика и информационные технологии</li><li>Математика и компьютерные науки</li><li>Теология</li></ol>'
-            ],
-            'смешанный' => [
-                'сильная' => '<ol><li>Программная инженерия</li><li>Информатика и вычислительная техника</li><li>Прикладная математика</li></ol>',
-                'средняя' => '<ol><li>Прикладная математика и информатика</li><li>Математика и компьютерные науки</li><li>Фундаментальная информатика и информационные технологии</li></ol>',
-                'слабая' => '<ol><li>Математика и компьютерные науки</li><li>Программная инженерия</li><li>Информатика и вычислительная техника</li></ol>'
-            ],
-            'рационал' => [
-                'сильная' => '<ol><li>Фундаментальная информатика и информационные технологии</li><li>Физика/Химия</li><li>Фотоника и оптоинформатика</li></ol>',
-                'средняя' => '<ol><li>Программная инженерия</li><li>Фундаментальная и прикладная химия</li><li>Радиоэлектронные системы и комплексы</li></ol>',
-                'слабая' => '<ol><li>Математика и компьютерные науки</li><li>Электроника/электротехника</li><li>Безопасность</li></ol>'
-            ],
-            'скептик' => [
-                'сильная' => '<ol><li>Психология</li><li>Социология</li><li>Социальная работа</li></ol>',
-                'средняя' => '<ol><li>Политология</li><li>Государственное и муниципальное управление</li><li>Бизнес-информатика</li></ol>',
-                'слабая' => '<ol><li>Юриспруденция</li><li>Правоохранительная деятельность</li><li>Экономическая безопасность</li></ol>'
-            ]
-        ];
-
-
-        $response = $result[$style][$chessStructureLevel];
-
-        return $response;
-    }
-
-
-    // public function showResults()
+    // private function generateRecommendation($style, $svg, $chessStructureLevel)
     // {
-    //     $userId = Auth::id();
 
-    //     $results = Results::where('user_id', $userId)->get();
-    //     if (!$results) {
-    //         return redirect()->route('profile.index')->with('error', 'Результаты не найдены');
-    //     }
-    //     return view('profile.results', compact('results'));
+    //     $result = [
+    //         'творец' => [
+    //             'сильная' => '<ol><li>Программная инженерия</li><li>Актерское искусство</li><li>Дизайн</li></ol>',
+    //             'средняя' => '<ol><li>Программная инженерия</li><li>Архитектура</li><li>Искусство народного пения</li></ol>',
+    //             'слабая' => '<ol><li>Веб-дизайн</li><li>Программная инженерия</li><li>Архитектура и строительство</li></ol>'
+    //         ],
+    //         'авангардист' => [
+    //             'сильная' => '<ol><li>Математика и компьютерные науки</li><li>Фундаментальная информатика и информационные технологии</li><li>Фотоника и оптоинформатика</li></ol>',
+    //             'средняя' => '<ol><li>Информационные технологии</li><li>Информатика и вычислительная техника</li><li>Медиакоммуникации</li></ol>',
+    //             'слабая' => '<ol><li>Бизнес-информатика</li><li>Фундаментальная информатика и информационные технологии</li><li>Математика и компьютерные науки</li><li>Теология</li></ol>'
+    //         ],
+    //         'смешанный' => [
+    //             'сильная' => '<ol><li>Программная инженерия</li><li>Информатика и вычислительная техника</li><li>Прикладная математика</li></ol>',
+    //             'средняя' => '<ol><li>Прикладная математика и информатика</li><li>Математика и компьютерные науки</li><li>Фундаментальная информатика и информационные технологии</li></ol>',
+    //             'слабая' => '<ol><li>Математика и компьютерные науки</li><li>Программная инженерия</li><li>Информатика и вычислительная техника</li></ol>'
+    //         ],
+    //         'рационал' => [
+    //             'сильная' => '<ol><li>Фундаментальная информатика и информационные технологии</li><li>Физика/Химия</li><li>Фотоника и оптоинформатика</li></ol>',
+    //             'средняя' => '<ol><li>Программная инженерия</li><li>Фундаментальная и прикладная химия</li><li>Радиоэлектронные системы и комплексы</li></ol>',
+    //             'слабая' => '<ol><li>Математика и компьютерные науки</li><li>Электроника/электротехника</li><li>Безопасность</li></ol>'
+    //         ],
+    //         'скептик' => [
+    //             'сильная' => '<ol><li>Психология</li><li>Социология</li><li>Социальная работа</li></ol>',
+    //             'средняя' => '<ol><li>Политология</li><li>Государственное и муниципальное управление</li><li>Бизнес-информатика</li></ol>',
+    //             'слабая' => '<ol><li>Юриспруденция</li><li>Правоохранительная деятельность</li><li>Экономическая безопасность</li></ol>'
+    //         ]
+    //     ];
+
+
+    //     $response = $result[$style][$chessStructureLevel];
+
+    //     return $response;
     // }
-    // public function showResult($id)
-    // {
-    //     $userId = Auth::id();
-
-    //     $result = Results::where('id', $id)
-    //         ->where('user_id', $userId)
-    //         ->first();
-
-    //     if (!$result) {
-    //         return redirect()->route('profile.results')->with('error', 'Результат не найден');
-    //     }
-
-    //     return view('profile.result', compact('result'));
-    // }
-    // public function search(Request $request)
-    // {
-    //     $field = $request->input('field');
-    //     $query = $request->input('query');
-
-
-    //     $validFields = ['isa', 'chess_structure', 'created_at', 'recommendation'];
-
-    //     if (!in_array($field, $validFields)) {
-    //         return redirect()->route('results')->with('error', 'Неверное поле для поиска.');
-    //     }
-
-
-    //     $currentUserId = Auth::id();
-
-
-    //     if ($field === 'chess_structure') {
-    //         $results = Results::join('chesses', 'results.chess_structure_id', '=', 'chesses.id')
-    //             ->where('results.user_id', $currentUserId)
-    //             ->where('chesses.chess_structure', 'LIKE', "%{$query}%")
-    //             ->select('results.*')
-    //             ->get();
-    //     } elseif ($field === 'isa') {
-    //         $results = Results::join('isas', 'results.isa_id', '=', 'isas.id')
-    //             ->where('results.user_id', $currentUserId)
-    //             ->where('isas.individual_style_of_activity', 'LIKE', "%{$query}%")
-    //             ->select('results.*')
-    //             ->get();
-    //     } else {
-    //         $results = Results::where('user_id', $currentUserId)
-    //             ->where($field, 'LIKE', "%{$query}%")
-    //             ->get();
-    //     }
-
-    //     return view('profile.results', compact('results'));
-    // }
-    private function sendMessage()
-    {
-        try {
-            $user = Auth::user();
-            $emailTo = $user->email;
-            $subject = 'Поздравляем с успешным прохождением тестирования';
-            $body = 'Вы прошли тестирование на сайте colortest.ru. С результатами можно ознакомиться в личном кабинете.';
-            $mailController = new PHPMailerController();
-            $mailController->send($emailTo, $subject, $body);
-        } catch (Exception $e) {
-            return response()->json(['message' => 'Ошибка: ' . $e->getMessage()], 500);
-        }
-    }
 }

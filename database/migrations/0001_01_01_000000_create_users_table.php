@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('email')->unique();
             $table->string('login')->unique();
-            $table->string('address')->nullable();
             $table->boolean('isAdmin')->default(false);
+            $table->string('user_type')->default('applicant');
             $table->rememberToken();
             $table->timestamps();
         });

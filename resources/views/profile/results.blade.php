@@ -10,7 +10,7 @@
         <option value="created_at">Дата</option>
         <option value="recommendation">Рекомендации</option>
     </select>
-    
+
     <input type="text" name="query" placeholder="Поиск..." required>
     <button type="submit">Поиск</button>
 </form>
@@ -27,9 +27,6 @@
     @else
         <p>У вас пока нет результатов тестирований.</p>
     @endif
-    <a target="_blank" href="{{ route('results.downloadPDF') }}" class="btn btn-primary">
-    Сохранить результаты в PDF
-</a>
 <br>
 <br>
 <br>

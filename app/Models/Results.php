@@ -9,7 +9,7 @@ class Results extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'isa_id', 'industry', 'recommendation', 'user_image','chess_structure','chess_structure_id', 'match'];
+    protected $fillable = ['user_id', 'user_image','match'];
 
     public function user()
     {
@@ -19,13 +19,5 @@ class Results extends Model
     public function rectanglesForResult()
     {
         return $this->hasMany(RectanglesForResult::class, 'result_id');
-    }
-    public function isa()
-    {
-      return $this->belongsTo(Isa::class);
-    }
-    public function chess()
-    {
-      return $this->belongsTo(Chess::class, 'chess_structure_id');
     }
 }

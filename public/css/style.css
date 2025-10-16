@@ -1,0 +1,171 @@
+:root {
+    --pico-border-radius: 1rem !important;
+}
+
+
+
+[data-theme='dark'] .background-gradient {
+    position: fixed;
+    background-size: 100% auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    z-index: -2;
+    background: linear-gradient(to bottom, var(--pico-background-color) 30%, var(--pico-primary-background));
+}
+
+[data-theme='light'] .background-pattern {
+    background-color: var(--pico-primary-background);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    z-index: -1;
+    opacity: 0.2;
+    /* Используем паттерн как маску */
+    mask-image: url('../images/pattern.png');
+    mask-size: cover;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: url('../images/pattern.png');
+    -webkit-mask-size: cover;
+    -webkit-mask-repeat: no-repeat;
+}
+
+[data-theme='dark'] .background-pattern {
+    filter: invert(1) opacity(0.1);
+}
+.svg svg {
+    width: 80%;
+    height: auto;
+}
+.svg path {
+    stroke: lightgray;
+    stroke-width: 1;
+    fill: transparent;
+    cursor: pointer;
+}
+
+.svg path:hover {
+    fill: lightgray;
+}
+.error {
+    color: var(--pico-primary-background);
+}
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+
+}
+
+li {
+    list-style: none !important;
+}
+
+.color-input {
+    width: 200px;
+    height: 100px;
+    cursor: pointer;
+    border: none;
+
+}
+
+.coordinates-tooltip {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    pointer-events: none;
+
+    z-index: 1000;
+    white-space: nowrap;
+
+}
+
+
+@media (min-width: 768px) {
+    .test-grid {
+        grid-template-columns: 2fr 1fr !important;
+    }
+}
+
+.text-center {
+    text-align: center;
+}
+
+.spinner {
+    border: 8px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 8px solid #3498db;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+#themeToggler {
+    border: 2px solid var(--pico-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 25px;
+}
+
+.ico {
+    border: 2px solid var(--pico-primary);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+    margin: 25px auto;
+    background-color: var(--pico-primary-background);
+}
+
+@media (max-width: 768px) {
+    header nav a[role="button"] svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    #themeToggler {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    header nav a[role="button"] svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    #themeToggler {
+        width: 40px;
+        height: 40px;
+    }
+}

@@ -1,422 +1,117 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="container">
+        <div class="text-center">
+            <h1>Профориентация через творчество</h1>
+            <p>Раскройте свои профессиональные склонности через искусство цветового самовыражения</p>
+        </div>
+
+        <section class="section">
+            <div class="grid">
+                <article class="text-center">
 
 
-<h2>О сайте</h2>
-<p>Профориентация является важным этапом в жизни каждого человека, который помогает определить наиболее подходящие профессии и направления деятельности. В этом процессе важным аспектом является индивидуальный стиль активности, который позволяет понять, какие виды работ могут приносить удовлетворение и успех.</p>
-<ul>
-    <li><strong>Цветовые ассоциации и профессии:</strong> Разные цвета могут ассоциироваться с определёнными профессиями. Например, яркие и динамичные цвета могут указывать на склонность к творческим областям, таким как дизайн или искусство; в то время как спокойные и нейтральные цвета могут быть связаны с аналитическими и научными профессиями.</li>
-    <li><strong>Анализ предпочтений в контексте карьеры:</strong> Сопоставление цветовых предпочтений с известными ассоциациями может осветить стиль активности человека, ориентированный на конкретные профессии. Например, выбор ярких цветов может указывать на желание работать в динамичной и Интерктивной среде.</li>
-</ul>
-<p>Процесс тестирования включает в себя раскрашивание предложенного шаблона, после чего осуществляется анализ результатов для выявления индивидуального стиля активности и уровня выраженности шахматной структуры. На основе полученных данных пользователю будут рекомендованы подходящие профессии.</p>
-<div id="timeChart" style="width: 100%; height: 400px;"></div>
+                    <h3>Творческое раскрытие</h3>
+                    <div class="ico">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px"
+                            fill="#EFEFEF">
+                            <path
+                                d="M437-80q-24 0-42-17.63-18-17.62-18-42.37v-200H220q-24 0-42-18t-18-42v-303q0-55 39.66-96 39.65-41 95.34-41h505v440q0 24-18 42t-42 18H583v200q0 24.75-18 42.37Q547-80 523-80h-86ZM220-554h520v-226h-56v171h-60v-171h-71v85h-60v-85H295q-32 0-53.5 23T220-703v149Zm0 154h520v-94H220v94Zm0 0v-94 94Z" />
+                        </svg>
+                    </div>
+                    <p>Раскрашивайте шаблон интуитивно, доверяя своим ощущениям и позволяя цветам выразить ваше внутреннее
+                        состояние.</p>
+                </article>
 
-@foreach($isas as $index => $isa)
-<div class="svg">
-    <div class="isa-container" style="display: flex; align-items: center; margin-bottom: 10px;justify-content: flex-start;">
-        <?= $isa->image; ?>
-        <p style="max-width: 60%;">{{$descriptions[$index]}}</p>
+                <article class="text-center">
+                    <h3>Глубокий
+                         анализ</h3>
+                         <h3> </h3>
+                    <div class="ico">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#EFEFEF"><path d="M284-277h60v-205h-60v205Zm332 0h60v-420h-60v420Zm-166 0h60v-118h-60v118Zm0-205h60v-60h-60v60ZM180-120q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h600q24 0 42 18t18 42v600q0 24-18 42t-42 18H180Zm0-60h600v-600H180v600Zm0-600v600-600Z"/></svg>
+                    </div>
+                    <p>Система анализирует цветовые предпочтения и композиционные решения, раскрывая особенности мышления.
+                    </p>
+                </article>
+
+                <article class="text-center">
+
+                    <h3>Персональные рекомендации</h3>
+                      <div class="ico">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#EFEFEF"><path d="M716-120H272v-512l278-288 39 31q6 5 9 14t3 22v10l-45 211h299q24 0 42 18t18 42v81.84q0 7.16 1.5 14.66T915-461L789-171q-8.88 21.25-29.59 36.12Q738.69-120 716-120Zm-384-60h397l126-299v-93H482l53-249-203 214v427Zm0-427v427-427Zm-60-25v60H139v392h133v60H79v-512h193Z"/></svg>
+                    </div>
+                    <p>Получите список направлений подготовки, соответствующих вашему уникальному стилю и потенциалу.</p>
+                </article>
+            </div>
+        </section>
+        <hr>
+        <section class="section">
+                    <h2 class="text-center">Примеры результатов тестирования</h2>
+
+            <div class="grid">
+                <article class="text-center" >
+                   <img src="images/Frame 1.png" alt="">
+                </article>
+                <article class="text-center">
+                   <img src="images/Frame 2.png" alt="">
+                </article>
+                <article class="text-center">
+                   <img src="images/Frame 3.png" alt="">
+                </article>
+                 <article class="text-center">
+                   <img src="images/Frame 4.png" alt="">
+                </article>
+            </div>
+        </section>
+        <hr>
+        <section>
+            <div class="text-center">
+                <h2>Ваш творческий подход имеет значение</h2>
+                <p>Для точных результатов важно полностью погрузиться в процесс</p>
+            </div>
+
+            <div class="grid">
+                <article class="text-center">
+                    <h4>Доверяйте интуиции</h4>
+                    <div class="ico">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#EFEFEF"><path d="M240-80v-172q-57-52-88.5-121.5T120-520q0-150 105-255t255-105q125 0 221.5 73.5T827-615l55 218q4 14-5 25.5T853-360h-93v140q0 24.75-17.62 42.37Q724.75-160 700-160H600v80h-60v-140h160v-200h114l-45-180q-24-97-105-158.5T480-820q-125 0-212.5 86.5T180-522.46q0 64.42 26.32 122.39Q232.65-342.09 281-297l19 18v199h-60Zm257-370Zm-17 130q17 0 28.5-11.5T520-360q0-17-11.5-28.5T480-400q-17 0-28.5 11.5T440-360q0 17 11.5 28.5T480-320Zm-30-128h61q0-25 6.5-40.5T544-526q18-20 35-40.5t17-53.5q0-42-32.5-71T483-720q-40 0-72.5 23T365-637l55 23q7-22 24.5-35.5T483-663q22 0 36.5 12t14.5 31q0 21-12.5 37.5T492-549q-20 21-31 42t-11 59Z"/></svg>
+                    </div>
+                    <p>Выбирайте цвета, которые отражают ваше настроение, а не кажутся «правильными»</p>
+                </article>
+
+                <article class="text-center">
+                    <h4>Создавайте гармонию</h4>
+                    <div class="ico"><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#EFEFEF"><path d="M377-80v-297H80v-60h297v-87H80v-60h297v-296h60v296h87v-296h60v296h296v60H584v87h296v60H584v297h-60v-297h-87v297h-60Zm60-357h87v-87h-87v87Z"/></svg></div>
+                    <p>Стремитесь к композиции, которая воспринимается целостной и отражает ваше видение</p>
+                </article>
+
+                <article class="text-center">
+                    <h4>Избегайте шаблонов</h4>
+                    <div class="ico"><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#EFEFEF"><path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"/></svg></div>
+                    <p>Не пытайтесь нарисовать конкретный объект — ценность в абстрактном выражении</p>
+                </article>
+            </div>
+        </section>
+        <hr>
+        <section>
+            <h2 class="text-center">Выберите свою роль</h2>
+
+            <div class="grid">
+                <article class="text-center">
+                    <h3>Для абитуриентов</h3>
+                    <div class="ico"><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#EFEFEF"><path d="M480.08-734q-30.08 0-51.58-21.42t-21.5-51.5q0-30.08 21.42-51.58t51.5-21.5q30.08 0 51.58 21.42t21.5 51.5q0 30.08-21.42 51.58t-51.5 21.5ZM373-80v-533q-68-5-131.5-14T120-650l15-60q85 20 169 28.5t176 8.5q92 0 176-8.5T825-710l15 60q-58 14-121.5 23T587-612.88V-80h-60v-260h-94v260h-60Z"/></svg></div>
+                    <p>Откройте направления обучения, которые полностью соответствуют вашему складу ума и творческим
+                        способностям</p>
+                </article>
+
+                <article class="text-center">
+                    <h3>Для студентов</h3>
+                    <div class="ico"><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#EFEFEF"><path d="M479-120 189-279v-240L40-600l439-240 441 240v317h-60v-282l-91 46v240L479-120Zm0-308 315-172-315-169-313 169 313 172Zm0 240 230-127v-168L479-360 249-485v170l230 127Zm1-240Zm-1 74Zm0 0Z"/></svg></div>
+                    <p>Помогите обучать аналитическую систему своими результатами и получите обратную связь о своих
+                        склонностях</p>
+                </article>
+            </div>
+        </section>
     </div>
-</div>
-@endforeach
-<div id="isaChart" style="width: 100%; height: 400px;"></div>
-
-@foreach($chess as $index => $ches)
-<div class="svg">
-    <div class="chess-container" style="display: flex;justify-content: center; align-items: center; margin-bottom: 10px;">
-        <div style="max-width: 300px;  "><?= $ches->image; ?></div>
-        <p style="max-width: 60%;">Степень выраженности шахматной структуры - {{$ches->chess_structure}}</p>
-    </div>
-</div>
-@endforeach
-<div id="chessChart" style="width: 100%; height: 400px;"></div>
-<div id="areaChart" style="width: 100%; height: 400px;"></div>
-<div id="bubbleChart" style="width: 100%; height: 500px;"></div>
-<div id="calendarChart" style="width: 100%; height: 200px;"></div>
-<div id="orgChart" style="width: 100%; height: 200px;"></div>
-<div id="sankeyChart" style="width: 100%; height: 500px;"></div>
-<div id="timelineChart" style="width: 100%; height: 1900px;"></div>
-<a target="_blank" href="{{ route('home.downloadPDF') }}" class="btn btn-primary">
-    Сохранить методичку в PDF
-</a>
-<br>
-<script type="text/javascript">
-    var globalIsaData = @json($isaStats);
-    var globalChessData = @json($chessStats);
-    var globalTimeData = @json($timeStats);
-    var globalAreaData = @json($areaStats);
-    var globalBubbleData = @json($bubbleStats);
-    var globalCalendarData = @json($calendarStats);
-    var globalOrgData = @json($orgStats);
-    var globalSankeyData = @json($sankeyStats);
-    var globalTimelineData = @json($timelineStats);
-    google.charts.load('current', {
-        'packages': ['corechart', 'calendar', 'orgchart', 'sankey', 'timeline']
-    });
-    google.charts.setOnLoadCallback(function() {
-        drawIsaChart(globalIsaData);
-        drawChessChart(globalChessData);
-        drawTimeChart(globalTimeData);
-        drawAreaChart(globalAreaData);
-        drawBubbleChart(globalBubbleData);
-        drawCalendarChart(globalCalendarData);
-        drawOrgChart(globalOrgData);
-        drawSankeyChart(globalSankeyData);
-        drawTimelineChart(globalTimelineData);
-    });
-
-    function drawIsaChart(isaData) {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Стиль активности');
-        data.addColumn('number', 'Количество');
-
-        data.addRows(isaData.map(item => [item.style, item.count]));
-
-        var options = {
-            title: 'Распределение стилей активности',
-            pieHole: 0.4,
-            chartArea: {
-                width: '90%',
-                height: '90%'
-            }
-        };
-
-        var chart = new google.visualization.PieChart(
-            document.getElementById('isaChart')
-        );
-        chart.draw(data, options);
-    }
-
-    function drawChessChart(chessData) {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Шахматная структура');
-        data.addColumn('number', 'Количество');
-
-        chessData.sort((a, b) => b.count - a.count);
-
-        data.addRows(chessData.map(item => [item.chess_structure, item.count]));
-
-        var options = {
-            title: 'Распределение шахматных структур',
-            width: '100%',
-            height: 400,
-            chartArea: {
-                width: '90%',
-                height: '90%'
-            },
-            hAxis: {
-                title: 'Тип структуры',
-            },
-            vAxis: {
-                title: 'Количество результатов',
-                minValue: 0
-            },
-            legend: {
-                position: 'none'
-            },
-            colors: ['#e12100'],
-            bar: {
-                groupWidth: '75%'
-            }
-        };
-
-        var chart = new google.visualization.ColumnChart(
-            document.getElementById('chessChart')
-        );
-        chart.draw(data, options);
-
-        window.addEventListener('resize', function() {
-            chart.draw(data, options);
-        });
-    }
-
-    function drawTimeChart(timeData) {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Дата');
-        data.addColumn('number', 'Количество прохождений');
-
-        data.addRows(timeData.map(item => [item.date, item.count]));
-
-        var options = {
-            title: 'Количество прохождений тестов по времени',
-            legend: {
-                position: 'bottom'
-            },
-            chartArea: {
-                width: '80%',
-                height: '70%'
-            },
-            hAxis: {
-                title: 'Дата'
-            },
-            vAxis: {
-                title: 'Количество'
-            }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('timeChart'));
-        chart.draw(data, options);
-
-        window.addEventListener('resize', function() {
-            chart.draw(data, options);
-        });
-    }
-
-    function drawAreaChart(areaData) {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Месяц');
-        data.addColumn('number', 'Ожидаемое количество тестов');
-        data.addColumn('number', 'Фактическое количество тестов');
-
-        data.addRows(areaData.map(item => [item.month, item.expected, item.actual]));
-
-        var options = {
-            title: 'Динамика прохождения тестов по месяцам',
-            hAxis: {
-                title: 'Месяц'
-            },
-            vAxis: {
-                title: 'Количество тестов'
-            },
-            isStacked: false,
-            colors: ['#FFC107', '#4CAF50'],
-            chartArea: {
-                width: '85%',
-                height: '75%'
-            }
-        };
-
-        var chart = new google.visualization.AreaChart(
-            document.getElementById('areaChart')
-        );
-        chart.draw(data, options);
-    }
-
-    
-    function drawBubbleChart(bubbleData) {
-    
-    const uniqueColors = [...new Set(bubbleData.map(item => item.color_code))];
-    const colorMap = new Map(uniqueColors.map((color, index) => [color, index]));
-
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Цвет');
-    data.addColumn('number', 'Яркость');
-    data.addColumn('number', 'Контраст');
-    data.addColumn('number', 'Цветовой индекс');  
-    data.addColumn('number', 'Частота');
-
-    bubbleData.forEach(item => {
-        data.addRow([
-            item.color_name,
-            item.brightness,
-            item.contrast,
-            colorMap.get(item.color_code),  
-            item.frequency
-        ]);
-    });
-
-    var options = {
-        title: 'Цветовые предпочтения по яркости и контрасту',
-        hAxis: { title: 'Яркость', minValue: 0, maxValue: 1 },
-        vAxis: { title: 'Контраст', minValue: 0, maxValue: 1 },
-        bubble: {
-            textStyle: { fontSize: 11 },
-        },
-        colorAxis: {
-            minValue: 0,
-            maxValue: uniqueColors.length - 1,
-            colors: uniqueColors  
-        },
-        sizeAxis: { minValue: 0, minSize: 1 },
-        tooltip: {
-            trigger: 'focus',
-            isHtml: true,
-            textStyle: { fontSize: 12 }
-        }
-    };
-
-    var chart = new google.visualization.BubbleChart(
-        document.getElementById('bubbleChart')
-    );
-    chart.draw(data, options);
-}
-
-    
-    function drawCalendarChart(calendarData) {
-        var data = new google.visualization.DataTable();
-        data.addColumn({
-            type: 'date',
-            id: 'Date'
-        });
-        data.addColumn({
-            type: 'number',
-            id: 'Tests'
-        });
-
-        calendarData.forEach(item => {
-            data.addRow([new Date(item.year, item.month - 1, item.day), item.count]);
-        });
-
-        var options = {
-            title: "Активность прохождения тестов по дням",
-            calendar: {
-                cellSize: 15,
-                monthOutlineColor: {
-                    stroke: '#4CAF50',
-                    strokeOpacity: 0.8,
-                    strokeWidth: 2
-                },
-                unusedMonthOutlineColor: {
-                    stroke: '#9E9E9E',
-                    strokeOpacity: 0.8,
-                    strokeWidth: 1
-                },
-                focusedCellColor: {
-                    stroke: '#FF5722'
-                }
-            },
-            colorAxis: {
-                minValue: 0,
-                colors: ['#E0F7FA', '#4CAF50']
-            }
-        };
-
-        var chart = new google.visualization.Calendar(
-            document.getElementById('calendarChart')
-        );
-        chart.draw(data, options);
-    }
-
-    
-    function drawOrgChart(orgData) {
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'ID');
-    data.addColumn('string', 'Parent');
-    data.addColumn('string', 'ToolTip');
-    data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}}); 
-
-    orgData.forEach(item => {
-        data.addRow([
-            {
-                v: item.id, 
-                f: item.display || item.tooltip || item.id 
-            },
-            item.parent || '',
-            item.tooltip || '',
-            item.tooltip ? `<div class="custom-tooltip">${item.tooltip}</div>` : '' 
-        ]);
-    });
-
-    var options = {
-        title: 'Структура цветовых ассоциаций с профессиями',
-        allowHtml: true, 
-        size: 'small',
-        allowCollapse: true,
-        tooltip: { 
-            isHtml: true 
-        }
-    };
-
-    var chart = new google.visualization.OrgChart(
-        document.getElementById('orgChart')
-    );
-    chart.draw(data, options);
-}
-function drawSankeyChart(sankeyData) {
-    google.charts.load('current', { packages: ['sankey'] });
-    
-    google.charts.setOnLoadCallback(function() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'From');
-        data.addColumn('string', 'To');
-        data.addColumn('number', 'Weight');
-        
-        
-        sankeyData.links.forEach(function(link) {
-            data.addRow([link.source, link.target, link.value]);
-        });
-        
-        var options = {
-           
-            sankey: {
-                node: {
-                    width: 20,
-                    label: { fontName: 'Arial', fontSize: 12 }
-                },
-                link: {
-                    colorMode: 'gradient'
-                }
-            }
-        };
-        
-        var chart = new google.visualization.Sankey(
-            document.getElementById('sankeyChart')
-        );
-        chart.draw(data, options);
-    });
-}
-
-    
-    function drawTimelineChart(timelineData) {
-    
-    if (!timelineData || timelineData.length === 0) {
-        console.error("Нет данных для построения диаграммы");
-        document.getElementById('timelineChart').innerHTML = 
-            '<div class="alert alert-info">Нет данных для отображения</div>';
-        return;
-    }
-
-    try {
-        var data = new google.visualization.DataTable();
-        data.addColumn({ type: 'string', id: 'User' });
-        data.addColumn({ type: 'string', id: 'UserID', role: 'tooltip' });
-        data.addColumn({ type: 'date', id: 'Start' });
-        data.addColumn({ type: 'date', id: 'End' });
-
-        
-        timelineData.forEach(user => {
-            try {
-                data.addRow([
-                    user.user_name, 
-                    `ID: ${user.user_id}\nТестов: ${user.duration_days} дней`, 
-                    new Date(user.start_year, user.start_month - 1, user.start_day),
-                    new Date(user.end_year, user.end_month - 1, user.end_day)
-                ]);
-            } catch (e) {
-                console.error("Ошибка обработки пользователя:", user, e);
-            }
-        });
-
-        
-        var options = {
-            title: 'Хронология тестирования пользователей',
-            timeline: {
-                groupByRowLabel: false,
-                colorByRowLabel: false,
-                showRowLabels: true
-            },
-            colors: ['#4CAF50', '#2196F3', '#FFC107', '#F44336'],
-            tooltip: { isHtml: true },
-            height: Math.max(400, timelineData.length * 40 + 100),
-            chartArea: { width: '80%' }
-        };
-
-        
-        var container = document.getElementById('timelineChart');
-        var chart = new google.visualization.Timeline(container);
-        chart.draw(data, options);
-
-        
-        window.addEventListener('resize', function() {
-            chart.draw(data, options);
-        });
-
-    } catch (error) {
-        console.error("Ошибка построения диаграммы:", error);
-        document.getElementById('timelineChart').innerHTML = 
-            `<div class="alert alert-danger">Ошибка: ${error.message}</div>`;
-    }
-}
-</script>
 @endsection

@@ -11,8 +11,9 @@ class RectanglesForResult extends Model
 
     protected $fillable = ['result_id', 'color', 'x', 'y', 'z'];
 
-    public function isa()
+    public function result()
     {
-        return $this->belongsTo(Isa::class);
+        return $this->belongsTo(Results::class);
     }
+
 }
