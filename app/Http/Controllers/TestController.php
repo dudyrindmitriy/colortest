@@ -112,7 +112,7 @@ class TestController extends Controller
             }
             // Формируем команду с передачей путей
             $command = sprintf(
-               '/opt/homebrew/bin/python3 "%s" --model_dir "%s" --input "%s" 2>&1',
+               env('PYTHON_PATH').' "%s" --model_dir "%s" --input "%s" 2>&1',
                 str_replace('\\', '/', $pythonScriptPath),
                 str_replace('\\', '/', $modelIndustryPath),
                 str_replace('\\', '/', $tempFile)
