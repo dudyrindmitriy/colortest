@@ -6,7 +6,7 @@
 <hr>
     <div>
         <p><strong>Логин:</strong> {{ $user->login }}</p>
-        <p><strong>Email:</strong> {{ $user->email }}</p>
+        {{-- <p><strong>Email:</strong> {{ $user->email }}</p> --}}
         <p><strong>Тип учётной записи:</strong> {{ $user->user_type == 'applicant' ? 'абитуриент' : 'студент' }}</p>
         @if ($user->user_type == 'student' && $user->educationProgram)
             <p><strong>Направление подготовки:</strong>

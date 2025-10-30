@@ -8,9 +8,9 @@
 
             <label for="name">Логин</label>
             <input type="text" id="name" name="login">
-            <label for="name">Email</label>
+            {{-- <label for="name">Email</label>
 
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email"> --}}
             <label for="password">Пароль</label>
             <input type="password" id="password" name="password">
             <fieldset>

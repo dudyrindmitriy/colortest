@@ -6,9 +6,9 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <label for="email">Email:</label>
-            <input required type="email" id="email" name="email">
-            <label for="password">Пароль:</label>
+            <label for="login">Логин</label>
+            <input required type="text" id="login" name="login">
+            <label for="password">Пароль</label>
             <input required type="password" id="password" name="password">
             <input type="submit" value="Войти">
         </form>
