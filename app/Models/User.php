@@ -18,7 +18,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        // 'email',
         'login',
         'password',
         'user_type',
@@ -54,10 +53,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function username()
-    {
-        return 'login';
     }
 }

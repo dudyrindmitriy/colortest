@@ -33,10 +33,7 @@ Route::post('/save-result', [TestController::class, 'store'])->name('save.result
 
 // Профиль
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
-Route::post('/profile/update', [ProfileController::class, 'update'])->middleware('auth');
-Route::get('/results', [ProfileController::class, 'showResults'])->name('results')->middleware('auth');
 Route::get('/result/{id}', [ProfileController::class, 'showResult'])->name('result')->middleware('auth');
-Route::get('/results/search', [ProfileController::class, 'search'])->name('results.search')->middleware('auth');
 
 // Администрирование
 Route::middleware(['auth', 'admin'])->group(function () {

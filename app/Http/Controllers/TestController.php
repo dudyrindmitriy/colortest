@@ -80,10 +80,8 @@ class TestController extends Controller
         try {
             Log::debug('Raw features data', ['features' => $result->rectanglesForResult]);
 
-            // Создаем временный файл
             $rectangles = $result->rectanglesForResult;
 
-            // Рассчитываем признаки
             $features = FeatureCalculator::calculate($rectangles);
             $chessScore = (new ExportTrainingData())->calculateChessStructureScore(
                 $features
@@ -110,7 +108,6 @@ class TestController extends Controller
             if (!file_exists($tempFile)) {
                 throw new Exception("Temp file not created: " . $tempFile);
             }
-            // Формируем команду с передачей путей
             $command = sprintf(
                env('PYTHON_PATH').' "%s" --model_dir "%s" --input "%s" 2>&1',
                 str_replace('\\', '/', $pythonScriptPath),
@@ -122,17 +119,10 @@ class TestController extends Controller
 
             $output = [];
             $returnVar = null;
-            // exec("{$command}", $output, $returnVar);
-            // // exec("{$command} 2>&1", $output, $returnVar);
-            // $pythonResponse = implode("\n", $output);
-            // Добавьте перед exec()
-// Проверим что видит Python при запуске из Apache
 
-            exec("{$command} 2>&1", $output, $returnVar); // Логи ошибок в файл
-            // $pythonResponse = end($output);
+            exec("{$command} 2>&1", $output, $returnVar);
 $pythonResponse = implode("\n", $output);
 Log::debug('Full Python output', ['full_output' => $pythonResponse]);
-            // Логируем сырой ответ
             Log::debug('Raw Python response', ['response' => $pythonResponse]);
 
             $response = json_decode($pythonResponse, true);
@@ -141,15 +131,12 @@ Log::debug('Full Python output', ['full_output' => $pythonResponse]);
                 throw new Exception("Ошибка Python: " . ($response['error'] ?? 'Invalid JSON'));
             }
 
-            // Удаляем временный файл
             unlink($tempFile);
-            // Логирование полного вывода
 
             if ($returnVar !== 0) {
                 throw new Exception("Python process failed: " . implode("\n", $output));
             }
 
-            // Обработка результатов
             $response = json_decode(implode("\n", $output), true);
 
             if (json_last_error() !== JSON_ERROR_NONE) {

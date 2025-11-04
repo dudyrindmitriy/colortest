@@ -37,19 +37,4 @@ class ProfileController extends Controller
 
         return view('profile.result', compact('result'));
     }
-
-    public function update(Request $request)
-    {
-        $user = Auth::user();
-        if (!$user) {
-            return redirect('/login')->with('error', 'Вы не авторизованы!');
-        }
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        if (!($user instanceof \App\Models\User)) {
-            return redirect()->back()->with('error', 'Ошибка: неверный объект пользователя.');
-        }
-        $user->save();
-        return redirect()->route('profile')->with('success', 'Профиль обновлен!');
-    }
 }
