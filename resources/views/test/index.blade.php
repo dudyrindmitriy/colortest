@@ -312,6 +312,8 @@
             {{-- </article> --}}
         </div>
         <div style="display: flex; flex-direction: column">
+            <article  class="text-center"><p>Выбор цвета</p>
+            <input type="color" class="color-input" id="colorPicker" value="#ffffff" onchange="setColor(this.value)"></article>
             <section>
 
 
@@ -348,8 +350,7 @@
                     </article>
 
             </section>
-            <article  class="text-center"><p>Выбор цвета</p>
-            <input type="color" class="color-input" id="colorPicker" value="#ffffff" onchange="setColor(this.value)"></article>
+
 
             <button id="saveResult" data-route="{{ route('save.result') }}">Сохранить результат</button>
         </div>
