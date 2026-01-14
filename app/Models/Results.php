@@ -9,7 +9,11 @@ class Results extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'user_image','match'];
+    protected $fillable = ['user_id', 'user_image','match', 'ml_predictions'];
+
+    protected $casts = [
+        'ml_predictions' => 'array'
+    ];
 
     public function user()
     {
@@ -20,4 +24,5 @@ class Results extends Model
     {
         return $this->hasMany(RectanglesForResult::class, 'result_id');
     }
+
 }

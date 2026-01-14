@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Isa;
+use App\Models\Results;
 use Illuminate\Console\Command;
 use League\Csv\Writer;
 
@@ -41,123 +42,60 @@ class ExportTrainingData extends Command
         'floor_depth_grad',
         'floor_lum_std',
         'vertical_symmetry',
+        'horizontal_symmetry',
+        'vertical_contrast',
         'horizontal_contrast',
         'depth_contrast',
         'pattern_consistency',
-        'chess_structure',
-        'style_class'
+        'education_program'
     ];
 
     public function handle()
     {
-        $isas = Isa::with(['rectanglesForIsa'])->get();
+        $results = Results::with(['user.educationProgram'])
+            ->whereHas('user', function ($query) {
+                $query->where('user_type', 'student');
+            })
+            ->get();
         $csv = Writer::createFromString('');
         $csv->insertOne(self::CSV_HEADERS);
 
-        foreach ($isas as $isa) {
-            $this->processIsa($isa, $csv);
-
-            for ($i = 0; $i < 20; $i++) {
-                $modifiedIsa = $this->generateVariant($isa);
-                $this->processIsa($modifiedIsa, $csv);
-            }
+        foreach ($results as $result) {
+            $this->processResult($result, $csv);
         }
 
-        file_put_contents('training_data.csv', $csv->toString());
+        file_put_contents('app/Services/training_data.csv', $csv->toString());
     }
 
-    public function processIsa($isa, $csv)
+    public function processResult($result, $csv)
     {
-        $walls = $this->groupRectanglesByWall($isa->rectanglesForIsa);
+        $walls = $this->groupRectanglesByWall($result->rectanglesForResult);
         $features = [];
 
         foreach (self::WALL_MAP as $x => $wallName) {
             $wallRects = $walls[$x] ?? [];
             $features += $this->processWall($wallName, $wallRects);
         }
+        $symmetryMetrics = $this->calculateSymmetryMetrics($walls);
+        $features = array_merge($features, $symmetryMetrics);
+
+        $contrastMetrics = $this->calculateContrastMetrics($walls);
+        $features = array_merge($features, $contrastMetrics);
 
         $patternMetrics = $this->calculatePatternMetrics($walls);
         $features = array_merge($features, $patternMetrics);
 
+        $educationProgram = $result->user->educationProgram->code ?? 'unknown';
         $csv->insertOne([
             ...array_values($features),
-            $this->calculateChessStructureScore($patternMetrics),
-            $isa->individual_style_of_activity
+            // $this->calculateChessStructureScore($patternMetrics),
+            $educationProgram
         ]);
     }
 
-    public function generateVariant($originalIsa)
-    {
-        $modifiedIsa = clone $originalIsa;
 
-        $rectangles = $modifiedIsa->rectanglesForIsa->map(function ($rect) {
-            $newRect = clone $rect;
 
-            $color = $this->modifyColor($newRect->color);
-            $newRect->color = sprintf(
-                'rgb(%d, %d, %d)',
-                $color[0],
-                $color[1],
-                $color[2]
-            );
 
-            return $newRect;
-        })->all();
-
-        $processed = [];
-        $zMap = [];
-
-        foreach ($rectangles as $index => $rect) {
-            $zMap[$rect->z] = $index;
-        }
-
-        foreach ($rectangles as $index => $rect) {
-            if (in_array($index, $processed)) continue;
-
-            $originalZ = $rect->z;
-            $newZ = max(1, min(12, $rect->z + rand(-2, 2)));
-
-            if ($newZ == $originalZ) {
-                $processed[] = $index;
-                continue;
-            }
-
-            if (isset($zMap[$newZ])) {
-                $targetIndex = $zMap[$newZ];
-                $targetRect = $rectangles[$targetIndex];
-
-                $rect->z = $newZ;
-                $targetRect->z = $originalZ;
-
-                $zMap[$newZ] = $index;
-                $zMap[$originalZ] = $targetIndex;
-
-                $processed[] = $index;
-                $processed[] = $targetIndex;
-            } else {
-                $rect->z = $newZ;
-                unset($zMap[$originalZ]);
-                $zMap[$newZ] = $index;
-                $processed[] = $index;
-            }
-        }
-
-        $modifiedIsa->setRelation('rectanglesForIsa', collect($rectangles));
-
-        return $modifiedIsa;
-    }
-
-    public function modifyColor($originalColor)
-    {
-        preg_match('/rgb\((\d+),\s*(\d+),\s*(\d+)\)/', $originalColor, $matches);
-        $components = array_map('intval', array_slice($matches, 1));
-
-        return [
-            max(0, min(255, $components[0] + rand(-30, 30))),
-            max(0, min(255, $components[1] + rand(-30, 30))),
-            max(0, min(255, $components[2] + rand(-30, 30)))
-        ];
-    }
 
     public function calculatePercentile(array $data, float $percentile): float
     {
@@ -190,25 +128,25 @@ class ExportTrainingData extends Command
 
         return $this->normalizeFeature($geometricMean, 'color_var');
     }
-    public function calculateChessStructureScore(array $metrics): string
-    {
+    // public function calculateChessStructureScore(array $metrics): string
+    // {
 
-        $adjusted = [
-            'pattern' => $metrics['pattern_consistency'],
-            'h_contrast' => $this->normalizeFeature($metrics['horizontal_contrast'], 'contrast'),
-            'd_contrast' => $this->normalizeFeature($metrics['depth_contrast'], 'contrast')
-        ];
+    //     $adjusted = [
+    //         'pattern' => $metrics['pattern_consistency'],
+    //         'h_contrast' => $this->normalizeFeature($metrics['horizontal_contrast'], 'contrast'),
+    //         'd_contrast' => $this->normalizeFeature($metrics['depth_contrast'], 'contrast')
+    //     ];
 
-        $score = ($adjusted['pattern'] * 0.5)
-            + ($adjusted['h_contrast'] * 0.3)
-            + ($adjusted['d_contrast'] * 0.2);
+    //     $score = ($adjusted['pattern'] * 0.5)
+    //         + ($adjusted['h_contrast'] * 0.3)
+    //         + ($adjusted['d_contrast'] * 0.2);
 
-        return match (true) {
-            $score > 35 => 'сильная',
-            $score > 25 => 'средняя',
-            default => 'слабая'
-        };
-    }
+    //     return match (true) {
+    //         $score > 35 => 'сильная',
+    //         $score > 25 => 'средняя',
+    //         default => 'слабая'
+    //     };
+    // }
 
     public function calculatePatternConsistency(array $walls): float
     {
@@ -259,8 +197,20 @@ class ExportTrainingData extends Command
         return count($distances) ? array_sum($distances) / count($distances) * 0.7 : 100;
     }
 
+    public function calculateSymmetryMetrics(array $walls): array
+    {
+        $left = $walls[1] ?? [];
+        $right = $walls[3] ?? [];
+        $ceiling = $walls[2] ?? [];
+        $floor = $walls[4] ?? [];
 
-    public function calculateSymmetry(array $left, array $right): float
+        return [
+            'vertical_symmetry' => $this->calculateVerticalSymmetry($left, $right),
+            'horizontal_symmetry' => $this->calculateHorizontalSymmetry($ceiling, $floor),
+        ];
+    }
+
+    public function calculateVerticalSymmetry(array $left, array $right): float
     {
         $diff = 0;
         $pairs = 0;
@@ -277,8 +227,70 @@ class ExportTrainingData extends Command
                 }
             }
         }
+        if ($pairs === 0) return 0.0;
+
         $raw = $diff / $pairs;
         return $this->normalizeFeature(pow($raw, 2), 'symmetry');
+    }
+
+    public function calculateHorizontalSymmetry(array $top, array $bottom): float
+    {
+        $diff = 0;
+        $pairs = 0;
+
+        foreach ($top as $tRect) {
+            foreach ($bottom as $bRect) {
+                if ($tRect->x == $bRect->x && $tRect->z == $bRect->z) {
+                    $distance = $this->colorDistance(
+                        $this->extractColorComponents($tRect),
+                        $this->extractColorComponents($bRect)
+                    );
+                    $diff += $this->normalizeFeature($distance, 'color_distance');
+                    $pairs++;
+                }
+            }
+        }
+
+        if ($pairs === 0) return 0.0;
+
+        $raw = $diff / $pairs;
+        return $this->normalizeFeature(pow($raw, 2), 'symmetry');
+    }
+    public function calculateContrastMetrics(array $walls): array
+    {
+        return [
+            'vertical_contrast' => $this->calculateVerticalContrast($walls),
+            'horizontal_contrast' => $this->calculateHorizontalContrast($walls),
+            'depth_contrast' => $this->calculateDepthContrast($walls)
+        ];
+    }
+    public function calculateVerticalContrast(array $walls): float
+    {
+        $contrasts = [];
+
+        foreach ($walls as $wallRects) {
+            $sorted = [];
+            foreach ($wallRects as $rect) {
+                $sorted[$rect->x][$rect->z] = $this->extractColorComponents($rect);
+            }
+
+            foreach ($sorted as $x => $zs) {
+                ksort($zs);
+                $prev = null;
+                foreach ($zs as $z => $color) {
+                    if ($prev !== null) {
+                        $contrasts[] = $this->colorDistance($prev, $color);
+                    }
+                    $prev = $color;
+                }
+            }
+        }
+        $filtered = array_filter($contrasts, fn($v) => $v > 10 && $v < 200);
+
+        if (empty($filtered)) return 0.0;
+
+        $avg = array_sum($filtered) / count($filtered);
+        return $this->normalizeFeature($avg, 'contrast');
     }
     public function calculateHorizontalContrast(array $walls): float
     {
@@ -327,8 +339,10 @@ class ExportTrainingData extends Command
                 }
             }
         }
+        $filtered = array_filter($contrasts, fn($v) => $v > 10 && $v < 200);
+        if (empty($filtered)) return 0.0;
 
-        $avg = empty($contrasts) ? 0 : array_sum($contrasts) / count($contrasts);
+        $avg = empty($filtered) ? 0 : array_sum($filtered) / count($filtered);
         return $this->normalizeFeature($avg, 'contrast');
     }
 
@@ -431,13 +445,13 @@ class ExportTrainingData extends Command
 
     public function calculatePatternMetrics(array $walls): array
     {
-        $left = $walls[1] ?? [];
-        $right = $walls[3] ?? [];
+        // $left = $walls[1] ?? [];
+        // $right = $walls[3] ?? [];
 
         return [
-            'vertical_symmetry' => $this->calculateSymmetry($left, $right),
-            'horizontal_contrast' => $this->calculateHorizontalContrast($walls),
-            'depth_contrast' => $this->calculateDepthContrast($walls),
+            // 'vertical_symmetry' => $this->calculateVerticalSymmetry($left, $right),
+            // 'horizontal_contrast' => $this->calculateHorizontalContrast($walls),
+            // 'depth_contrast' => $this->calculateDepthContrast($walls),
             'pattern_consistency' => $this->calculatePatternConsistency($walls)
         ];
     }

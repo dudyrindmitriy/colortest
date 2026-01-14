@@ -83,10 +83,10 @@ class TestController extends Controller
             $rectangles = $result->rectanglesForResult;
 
             $features = FeatureCalculator::calculate($rectangles);
-            $chessScore = (new ExportTrainingData())->calculateChessStructureScore(
-                $features
-            );
-            $features['chess_structure'] = $chessScore;
+            // $chessScore = (new ExportTrainingData())->calculateChessStructureScore(
+            //     $features
+            // );
+            // $features['chess_structure'] = $chessScore;
             $tempDir = storage_path('app/temp');
             if (!is_dir($tempDir)) {
                 if (!mkdir($tempDir, 0755, true)) {
@@ -109,7 +109,7 @@ class TestController extends Controller
                 throw new Exception("Temp file not created: " . $tempFile);
             }
             $command = sprintf(
-               env('PYTHON_PATH').' "%s" --model_dir "%s" --input "%s" 2>&1',
+                env('PYTHON_PATH') . ' "%s" --model_dir "%s" --input "%s" 2>&1',
                 str_replace('\\', '/', $pythonScriptPath),
                 str_replace('\\', '/', $modelIndustryPath),
                 str_replace('\\', '/', $tempFile)
@@ -121,8 +121,8 @@ class TestController extends Controller
             $returnVar = null;
 
             exec("{$command} 2>&1", $output, $returnVar);
-$pythonResponse = implode("\n", $output);
-Log::debug('Full Python output', ['full_output' => $pythonResponse]);
+            $pythonResponse = implode("\n", $output);
+            Log::debug('Full Python output', ['full_output' => $pythonResponse]);
             Log::debug('Raw Python response', ['response' => $pythonResponse]);
 
             $response = json_decode($pythonResponse, true);
@@ -142,29 +142,41 @@ Log::debug('Full Python output', ['full_output' => $pythonResponse]);
             if (json_last_error() !== JSON_ERROR_NONE) {
                 throw new Exception("Invalid JSON response from Python");
             }
-            $industryName = $response['style_class'];
-            $chessStructureName = $response['chess_structure'];
+            $educationProgram = $response['education_program'];
+            $topPredictions = $educationProgram['top_k'] ?? [];
+            // $chessStructureName = $response['chess_structure'];
 
-
+Log::debug('Python predictions raw', [
+            'predictions' => $topPredictions,
+            'count' => count($topPredictions),
+            'first_item' => $topPredictions[0] ?? null
+        ]);
             // $recommendation = $this->generateRecommendation(
             //     $industryName,
             //     $svgContent,
             //     $chessStructureName
             // );
+            $result->ml_predictions = $topPredictions;
 
-            $result->update([
-                // 'industry' => $industryName,
-                // 'chess_structure' => $chessStructureName,
-                // 'recommendation' => $recommendation
-            ]);
-            // return $response;
+            // Сохраняем отдельно, чтобы не трогать другие поля
+            $result->save();
+            // $result->update([
+            //     'ml_predictions' => $topPredictions,
+            //     // 'industry' => $industryName,
+            //     // 'chess_structure' => $chessStructureName,
+            //     // 'recommendation' => $recommendation
+            // ]);
 
+            return $response;
         } catch (Exception $e) {
             Log::error('Temp file status', [
                 'exists' => file_exists($tempFile),
                 'path' => $tempFile,
                 'size' => file_exists($tempFile) ? filesize($tempFile) : 0
             ]);
+            if ($tempFile && file_exists($tempFile)) {
+                unlink($tempFile);
+            }
             throw new Exception("Ошибка анализа данных: " . $e->getMessage());
         }
     }

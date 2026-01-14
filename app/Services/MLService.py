@@ -14,15 +14,27 @@ from sklearn.metrics import classification_report
 
 class MLService:
     FEATURES = [
-        'left_wall_color_var', 'left_wall_depth_grad', 'left_wall_lum_std',
-        'ceiling_color_var', 'ceiling_depth_grad', 'ceiling_lum_std',
-        'right_wall_color_var', 'right_wall_depth_grad', 'right_wall_lum_std',
-        'floor_color_var', 'floor_depth_grad', 'floor_lum_std',
-        'vertical_symmetry', 'horizontal_contrast', 'depth_contrast',
+        'left_wall_color_var',
+        'left_wall_depth_grad',
+        'left_wall_lum_std',
+        'ceiling_color_var',
+        'ceiling_depth_grad',
+        'ceiling_lum_std',
+        'right_wall_color_var',
+        'right_wall_depth_grad',
+        'right_wall_lum_std',
+        'floor_color_var',
+        'floor_depth_grad',
+        'floor_lum_std',
+        'vertical_symmetry',
+        'horizontal_symmetry',
+        'vertical_contrast',
+        'horizontal_contrast',
+        'depth_contrast',
         'pattern_consistency'
     ]
 
-    TARGETS = ['style_class', 'chess_structure']
+    TARGETS = ['education_program']
 
 
     @staticmethod
@@ -112,7 +124,7 @@ class MLService:
             raise
 
     @staticmethod
-    def predict(features, model_dir='models'):
+    def predict(features, model_dir='models', top_k=5):
         model_dir= Path(__file__).parent.absolute()
         """Предсказание по готовым признакам"""
 
@@ -134,8 +146,32 @@ class MLService:
                 model = joblib.load(model_path / f'model_{target}.pkl')
                 encoder = joblib.load(model_path / f'encoder_{target}.pkl')
 
-                pred = model.predict([input_data])[0]
-                results[target] = encoder.inverse_transform([pred])[0]
+                # pred = model.predict([input_data])[0]
+                # results[target] = encoder.inverse_transform([pred])[0]
+                if hasattr(model, 'predict_proba'):
+                # Получаем вероятности для всех классов
+                    probabilities = model.predict_proba([input_data])[0]
+
+                    # Сортируем по убыванию вероятности
+                    class_indices = np.argsort(probabilities)[::-1][:top_k]
+
+                    # Формируем топ-K
+                    top_predictions = []
+                    for idx in class_indices:
+                        class_name = encoder.inverse_transform([idx])[0]
+                        probability = float(probabilities[idx]) * 100  # в процентах
+
+                        top_predictions.append({
+                            'class': class_name,
+                            'probability': round(probability, 2),
+                            'rank': len(top_predictions) + 1
+                        })
+
+                    results[target] = {
+                        'top_k': top_predictions,
+                        'best_prediction': top_predictions[0]['class'],
+                        'best_confidence': top_predictions[0]['probability']
+                    }
 
             return results
 

@@ -8,7 +8,7 @@
     @csrf
     @method('PUT')
 
-   
+
 
     <div class="form-group">
         <label for="user_id">Пользователь</label>
@@ -21,7 +21,7 @@
         </select>
     </div>
 
-    <div class="form-group">
+    {{-- <div class="form-group">
         <label for="isa_id">ISA</label>
         <select name="isa_id" id="isa_id" class="form-control">
             @foreach($isas as $isa)
@@ -30,9 +30,9 @@
                 </option>
             @endforeach
         </select>
-    </div>
+    </div> --}}
 
-    <div class="form-group">
+    {{-- <div class="form-group">
         <label for="chess_structure_id">Chess Structure</label>
         <select name="chess_structure_id" id="chess_structure_id" class="form-control">
             @foreach($chessStructures as $chessStructure)
@@ -41,11 +41,11 @@
                 </option>
             @endforeach
         </select>
-    </div>
-    <div class="form-group">
+    </div> --}}
+    {{-- <div class="form-group">
             <label for="recommendation">Рекомендация:</label>
             <textarea name="recommendation" id="recommendation" class="form-control" required>{{ old('recommendation', $result->recommendation) }}</textarea>
-        </div>
+        </div> --}}
     <button type="submit">Сохранить изменения</button>
 </form>
 </div>
