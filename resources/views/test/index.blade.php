@@ -507,7 +507,7 @@
                     return response.json()
                 })
                 .then(data => {
-                    ModalManager.showAlert('Результат успешно сохранен!', 'Успех');
+                    ModalManager.showAlert('Результат успешно сохранен! Ознакомиться с ним можно в профиле', 'Успех');
                     console.log(data);
                     // window.location.href = '/colortest/public/results';
                 })
