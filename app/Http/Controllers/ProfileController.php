@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EducationProgram;
 use App\Models\Messages;
 use App\Models\NewsletterTopic;
 use App\Models\Results;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\TestResult;
+use App\Services\AnalysisService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +21,8 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $results = $user->results()->orderBy('created_at','desc')->get();
-        return view('profile.index', compact('user', 'results'));
+        $educationPrograms = EducationProgram::orderBy('name')->orderBy('code')->get();
+        return view('profile.index', compact('user', 'results', 'educationPrograms'));
     }
 
 
@@ -36,5 +39,20 @@ class ProfileController extends Controller
         }
 
         return view('profile.result', compact('result'));
+    }
+
+    public function downloadPdf()
+    {
+        $user = Auth::user();
+        $analysisService = new AnalysisService();
+        return $analysisService->streamAnalysisPdf($user);
+    }
+
+    public function showReport()
+    {
+        $user = Auth::user();
+        $analysisService = new AnalysisService();
+        return $analysisService->showAnalysis($user);
+
     }
 }

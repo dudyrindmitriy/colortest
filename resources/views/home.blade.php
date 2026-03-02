@@ -53,7 +53,7 @@
                 </article>
             </div>
             <div class="text-center">
-                <a href="{{ route('test') }}" role="button" style="border: 2px solid var(--pico-primary);">Приступить к тестированию</a>
+                <a href="{{ route('tests.index') }}" role="button" style="border: 2px solid var(--pico-primary);">Приступить к тестированию</a>
             </div>
         </section>
         <hr>
@@ -117,7 +117,7 @@
                 </article>
             </div>
              <div class="text-center">
-                                <a href="{{ route('test') }}" role="button" style="border: 2px solid var(--pico-primary);">Приступить к тестированию</a>
+                                <a href="{{ route('tests.index') }}" role="button" style="border: 2px solid var(--pico-primary);">Приступить к тестированию</a>
 
             </div>
         </section>
@@ -149,7 +149,7 @@
                 </article>
             </div>
              <div class="text-center">
-                               <a href="{{ route('test') }}" role="button" style="border: 2px solid var(--pico-primary);">Приступить к тестированию</a>
+                               <a href="{{ route('tests.index') }}" role="button" style="border: 2px solid var(--pico-primary);">Приступить к тестированию</a>
 
             </div>
         </section>

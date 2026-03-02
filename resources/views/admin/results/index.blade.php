@@ -3,90 +3,71 @@
 @section('content')
     <div class="main-content">
         <h2>Управление результатами</h2>
+
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
+
         <style>
             .table-container {
                 width: 100%;
-                overflow-x: auto
+                overflow-x: auto;
             }
-
             .table {
                 border-collapse: collapse;
                 width: 100%;
             }
 
-            /*
-                        .table th,
-                        .table td {
-                            border: 1px solid #000;
-                            padding: 8px;
-                            text-align: left;
-                        } */
         </style>
+
         <div class="table-container">
             <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>User</th>
+                        <th>Пользователь</th>
+                        <th>Email</th>
                         <th>Направление</th>
-                        <th>Изображение</th>
-                        <th>Результат</th>
-
-                        {{-- <th>ISA</th>
-                <th>CHESS</th>
-                <th>Рекомендации</th> --}}
-                        {{-- <th>Редактирование</th> --}}
-                        <th>Удаление</th>
+                        <th>Тесты</th>
+                        <th>Отчет</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($results as $result)
+                    @foreach ($results->groupBy('user_id') as $userId => $userResults)
+                        @php
+                            $user = $userResults->first()->user;
+                            $hasTests = $userResults->count() > 0;
+                        @endphp
                         <tr>
-                            <td>{{ $result->id }}</td>
-                            <td>{{ $result->user->login }}</td>
-                            <td>{{ $result->user->user_type == 'student' ? $result->user->educationProgram->code . ' ' . $result->user->educationProgram->name : 'Нет' }}
-                            </td>
-                            <td>{!! $result->user_image !!}</td>
-
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->login }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->user_type == 'student' && $user->educationProgram ? $user->educationProgram->code . ' ' . $user->educationProgram->name : 'Нет' }}</td>
                             <td>
-                                @if ($result->ml_predictions && count($result->ml_predictions) > 0)
-                                    @php
-                                        $predictions = collect($result->ml_predictions)->sortBy('rank')->take(5);
-
-                                        // Получаем коды программ
-                                        $codes = $predictions->pluck('class')->toArray();
-                                        $programs = App\Models\EducationProgram::whereIn('code', $codes)
-                                            ->get()
-                                            ->keyBy('code');
-                                    @endphp
-
-                                    @foreach ($predictions as $prediction)
-                                        @php $program = $programs[$prediction['class']] ?? null; @endphp
-                                            <p>{{ $program ? $program->code . ' ' . $program->name : $prediction['class'] }} -
-                                           {{ round($prediction['probability'], 1) }}%</p>
-                                    @endforeach
+                                @if($hasTests)
+                                    <ul style="margin: 0; padding-left: 20px;">
+                                        @foreach($userResults as $result)
+                                            @php $test = App\Models\Test::find($result->test_id); @endphp
+                                            <li>
+                                                {{ $test ? $test->name : 'Тест #' . $result->test_id }}
+                                                <small>({{ $result->created_at->format('d.m.Y') }})</small>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 @else
-                                    <span class="text-muted">Не анализировано</span>
+                                    <span class="text-muted">Нет тестов</span>
                                 @endif
                             </td>
-                            {{-- <td>{{ $result->isa->individual_style_of_activity }}</td> --}}
-                            {{-- <td>{{ $result->chess_structure }}</td> --}}
-                            {{-- <td>{!! $result->recommendation !!}</td> --}}
-
-                            {{-- <td>
-                    <a href="{{ route('admin.results.edit', $result) }}" class="nav-button">Редактировать</a>
-                </td> --}}
                             <td>
-                                <form action="{{ route('admin.results.destroy', $result) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="button_red">Удалить</button>
-                                </form>
+                                @if($hasTests)
+                                    <a href="{{ route('admin.results.download-pdf', $user->id) }}"
+
+                                       target="_blank">
+                                        Скачать PDF
+                                    </a>
+                                @endif
                             </td>
+
                         </tr>
                     @endforeach
                 </tbody>

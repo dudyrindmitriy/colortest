@@ -5,13 +5,14 @@
 <div>
     {{-- <a href="{{ route('admin.users.index') }}" class="nav-button">Управление пользователями</a> --}}
 </div>
-<br><br>
 <div>
     {{-- <a href="{{ route('admin.reviews.index') }}" class="nav-button">Управление отзывами</a> --}}
 </div>
-<br><br>
 <div>
     <a href="{{ route('admin.results.index') }}" class="nav-button">Управление результатами тестирований</a>
+</div>
+<div>
+    <a href="{{ route('admin.purchases.index') }}" class="nav-button">Управление покупками</a>
 </div>
 
 <!--

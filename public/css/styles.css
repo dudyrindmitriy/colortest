@@ -208,10 +208,10 @@ a:hover {
     border-radius: 4px;
     font-size: 12px;
     pointer-events: none;
-    
+
     z-index: 1000;
     white-space: nowrap;
-    
+
 }
 
 #loading {
@@ -225,7 +225,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    
+
 }
 
 .spinner {
@@ -246,27 +246,29 @@ a:hover {
         transform: rotate(360deg);
     }
 }
+
 select {
     /* width: 200px;  */
-    padding: 10px; 
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-    font-size: 16px; 
-    background-color: #f9f9f9; 
-    /* appearance: none; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    /* appearance: none;
     background-image:  url('data:image/svg+xml,%3Csvg width="24" height="24" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath fill="none" stroke="%23333" d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');  */
-    background-repeat: no-repeat; 
-    background-position: right 10px center; 
+    background-repeat: no-repeat;
+    background-position: right 10px center;
 }
 
 select:hover {
-    border-color: #888; 
+    border-color: #888;
 }
 
 select:focus {
-    border-color: #555; 
-    outline: none; 
+    border-color: #555;
+    outline: none;
 }
+
 /* Существующие стили остаются без изменений */
 
 /* Медиа-запросы для адаптивности */
@@ -303,7 +305,8 @@ select:focus {
     input,
     textarea,
     button {
-        font-size: 16px; /* Оптимальный размер для мобильных */
+        font-size: 16px;
+        /* Оптимальный размер для мобильных */
     }
 
     .button_red {
@@ -360,6 +363,7 @@ select:focus {
         margin: 5px 0;
     }
 }
+
 .reaction-btn {
     background-color: #9f9f9f;
     border: none;
@@ -367,8 +371,9 @@ select:focus {
     cursor: pointer;
     padding: 0 5px;
 }
+
 .reaction-btn:hover {
-    background-color:#757575;
+    background-color: #757575;
 
 
     transform: scale(1.2);
@@ -376,10 +381,12 @@ select:focus {
 
 /* Медиа-запрос для улучшения взаимодействия на тач-устройствах */
 @media (hover: none) {
+
     .nav-button,
     button,
     .button_red {
-        padding: 12px 20px; /* Увеличенная область касания */
+        padding: 12px 20px;
+        /* Увеличенная область касания */
     }
 
     input,
@@ -399,5 +406,82 @@ select:focus {
         display: inline-block;
         width: auto;
         margin: 5px;
+    }
+}
+
+
+.questions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.question-pair:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.question-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--pico-secondary-border);
+}
+
+.question-number {
+    background: var(--pico-primary);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.option:hover {
+    background: #f9f9f9;
+}
+
+.option input[type="radio"] {
+    margin-top: 3px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+
+
+.test-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .questions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .test-actions {
+        flex-direction: column;
     }
 }

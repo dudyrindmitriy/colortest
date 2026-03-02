@@ -9,14 +9,16 @@ use App\Http\Controllers\GeneralPageController;
 use App\Http\Controllers\GenerateTestResultsController;
 use App\Http\Controllers\IsaController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PHPMailerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\TestController;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Route;
-
+use League\Csv\Query\Row;
 
 Route::get('/', [GeneralPageController::class, 'showGeneralPage'])->name('home')->middleware('auth'); // Главная, доступна после авторизации
 
@@ -28,25 +30,40 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Тест
-Route::get('/test', [TestController::class, 'index'])->name('test')->middleware('auth');
-Route::post('/save-result', [TestController::class, 'store'])->name('save.result')->middleware('auth');
+// Route::get('/test', [TestController::class, 'colortest'])->name('test')->middleware('auth');
+// Route::get('/tests', [TestController::class, 'index'])->name('tests')->middleware('auth');
+// Route::post('/save-result', [TestController::class, 'store'])->name('save.result')->middleware('auth');
 
 // Профиль
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
+Route::patch('/profile/update', [AuthController::class, 'update'])->name('profile.update')->middleware('auth');
 Route::get('/result/{id}', [ProfileController::class, 'showResult'])->name('result')->middleware('auth');
+Route::get('/packages/{package}/purchase', [PackageController::class, 'purchase'])->name('packages.purchase')->middleware('auth');
+Route::get('/payment/{purchase}', [PackageController::class, 'payment'])->name('packages.payment')->middleware('auth');
+Route::get('/profile/download-pdf', [ProfileController::class, 'downloadPdf'])->name('profile.download-pdf')->middleware('auth');
+Route::get('/profile/report', [ProfileController::class, 'showReport'])->name('profile.report')->middleware('auth');
 
+Route::prefix('/tests')->middleware('auth')->name('tests.')->group(function () {
+    Route::get('/', [TestController::class, 'index'])->name('index');
+    Route::get('/{test}', [TestController::class, 'show'])->name('show');
+    Route::post('/{test}/save', [TestController::class, 'save'])->name('save');
+});
 // Администрирование
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-    Route::get('/admin/users', [AdminController::class, 'indexUsers'])->name('admin.users.index');
-    Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
-    Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
-    Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
+Route::middleware(['auth', 'admin'])->prefix('/admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+    // Route::get('/users', [AdminController::class, 'indexUsers'])->name('users.index');
+    // Route::get('/users/{user}/edit', [AdminController::class, 'editUser'])->name('users.edit');
+    // Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('users.update');
+    // Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('users.destroy');
 
 
-    Route::get('/admin/results', [AdminController::class, 'indexResults'])->name('admin.results.index');
-    Route::get('/admin/results/{result}/edit', [AdminController::class, 'editResult'])->name('admin.results.edit');
-    Route::put('/admin/results/{result}', [AdminController::class, 'updateResult'])->name('admin.results.update');
-    Route::delete('/admin/results/{result}', [AdminController::class, 'destroyResult'])->name('admin.results.destroy');
+    Route::get('/results', [AdminController::class, 'indexResults'])->name('results.index');
+    // Route::get('/results/{result}/edit', [AdminController::class, 'editResult'])->name('results.edit');
+    // Route::put('/results/{result}', [AdminController::class, 'updateResult'])->name('results.update');
+    // Route::delete('/results/{result}', [AdminController::class, 'destroyResult'])->name('results.destroy');
 
+     Route::get('/purchases', [AdminController::class, 'purchases'])->name('purchases.index');
+     Route::post('/purchases/{purchase}/verify', [AdminController::class, 'verifyPurshase'])->name('purchases.verify');
+
+     Route::get('/admin/results/download-pdf/{userId}', [AdminController::class, 'downloadUserPdf'])->name('results.download-pdf')->middleware('auth');
 });

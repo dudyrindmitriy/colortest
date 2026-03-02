@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>ColorTest</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="{{ asset('js/script.js') }}"></script>
@@ -68,6 +69,35 @@
     </dialog>
 @endif
 
+@if (session('info'))
+    <dialog open>
+        <article>
+            <header>
+                <button aria-label="Close" rel="prev" onclick="closeModal(this.closest('dialog'))"></button>
+                <p>Информация</p>
+            </header>
+            <div role="alert" class="info">
+                {{ session('info') }}
+            </div>
+        </article>
+    </dialog>
+@endif
+
+@if (session('success'))
+    <dialog open>
+        <article>
+            <header>
+                <button aria-label="Close" rel="prev" onclick="closeModal(this.closest('dialog'))"></button>
+                <p>Успех</p>
+            </header>
+            <div role="alert" class="success">
+                {{ session('success') }}
+            </div>
+        </article>
+    </dialog>
+@endif
+
+
 <body>
     <header>
         <nav class="container">
@@ -82,16 +112,21 @@
                         <path
                             d="M220-180h150v-250h220v250h150v-390L480-765 220-570v390Zm-60 60v-480l320-240 320 240v480H530v-250H430v250H160Zm320-353Z" />
                     </svg></a>
-                <a href="{{ route('test') }}" role="button"><svg xmlns="http://www.w3.org/2000/svg" height="48px"
+                <a href="{{ route('tests.index') }}" role="button"><svg xmlns="http://www.w3.org/2000/svg"
+                        height="48px" viewBox="0 -960 960 960" width="48px" fill="#e3e3e3">
+                        <path
+                            d="M657-121 544-234l56-56 57 57 127-127 56 56-183 183Zm-537 1v-80h360v80H120Zm0-160v-80h360v80H120Zm0-160v-80h720v80H120Zm0-160v-80h720v80H120Zm0-160v-80h720v80H120Z" />
+                    </svg></a>
+                {{-- <a href="{{ route('test') }}" role="button"><svg xmlns="http://www.w3.org/2000/svg" height="48px"
                         viewBox="0 -960 960 960" width="48px" fill="#EFEFEF">
                         <path
                             d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-85 32-158t87.5-127q55.5-54 130-84.5T489-880q79 0 150 26.5T763.5-780q53.5 47 85 111.5T880-527q0 108-63 170.5T650-294h-75q-18 0-31 14t-13 31q0 27 14.5 46t14.5 44q0 38-21 58.5T480-80Zm0-400Zm-233 26q20 0 35-15t15-35q0-20-15-35t-35-15q-20 0-35 15t-15 35q0 20 15 35t35 15Zm126-170q20 0 35-15t15-35q0-20-15-35t-35-15q-20 0-35 15t-15 35q0 20 15 35t35 15Zm214 0q20 0 35-15t15-35q0-20-15-35t-35-15q-20 0-35 15t-15 35q0 20 15 35t35 15Zm131 170q20 0 35-15t15-35q0-20-15-35t-35-15q-20 0-35 15t-15 35q0 20 15 35t35 15ZM480-140q11 0 15.5-4.5T500-159q0-14-14.5-26T471-238q0-46 30-81t76-35h73q76 0 123-44.5T820-527q0-132-100-212.5T489-820q-146 0-247.5 98.5T140-480q0 141 99.5 240.5T480-140Z" />
-                    </svg></a>
+                    </svg></a> --}}
             </div>
         </nav>
     </header>
     <main class="container">
-        <article >
+        <article>
             @yield('content')
         </article>
     </main>
