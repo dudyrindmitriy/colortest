@@ -36,18 +36,27 @@ class MailService
     /**
      * Отправка письма одному получателю
      */
-    public function send(string $to, string $subject, string $body, bool $isHtml = true)
+    public function send(string $to, string $subject, string $body, bool $isHtml = true, array $attachments = [])
     {
         $result['success'] = false;
+        $result['message'] = '';
         try {
             $this->mailer->clearAddresses();
+            $this->mailer->clearAttachments();
             $this->mailer->addAddress($to);
 
             $this->mailer->isHTML($isHtml);
             $this->mailer->Subject = $subject;
             $this->mailer->Body = $body;
             $this->mailer->AltBody = $isHtml ? strip_tags($body) : $body;
-
+            foreach ($attachments as $attachment) {
+                if (isset($attachment['path']) && file_exists($attachment['path'])) {
+                    $this->mailer->addAttachment(
+                        $attachment['path'],
+                        $attachment['name'] ?? basename($attachment['path'])
+                    );
+                }
+            }
             $this->mailer->send();
             $result['success'] = true;
             $result['message'] = "Письмо успешно отправлено на адрес: {$to}";
@@ -56,6 +65,8 @@ class MailService
             Log::error("Ошибка отправки письма на {$to}: " . $e->getMessage());
             if (strpos($e, 'non-local recipient verification failed') !== false) {
                 $result['message'] = "Email {$to} не существует или недоступен, не удалось отправить письмо";
+            } else {
+                $result['message'] = "Не удалось отправить письмо на почту";
             }
         }
         return $result;

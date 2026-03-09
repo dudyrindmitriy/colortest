@@ -320,12 +320,49 @@ const TestFormManager = {
     }
 };
 
+const PhoneMaskManager = {
+    init() {
+        document.querySelectorAll('.phone').forEach(input => {
+            input.addEventListener('input', this.maskPhone);
+        });
+    },
+
+    maskPhone(e) {
+        let digits = e.target.value.replace(/\D/g, '');
+
+        // нормализация начала номера
+        if (digits.startsWith('8')) digits = '7' + digits.slice(1);
+        if (!digits.startsWith('7')) digits = '7' + digits;
+
+        digits = digits.slice(0, 11);
+
+        let result = '+7';
+
+        if (digits.length > 1) {
+            result += ' (' + digits.slice(1, 4);
+        }
+        if (digits.length >= 5) {
+            result += ') ' + digits.slice(4, 7);
+        }
+        if (digits.length >= 8) {
+            result += '-' + digits.slice(7, 9);
+        }
+        if (digits.length >= 10) {
+            result += '-' + digits.slice(9, 11);
+        }
+
+        e.target.value = result;
+    }
+};
+
+
 document.addEventListener('DOMContentLoaded', function () {
 
     // ==================== INITIALIZATION ====================
     ThemeManager.init();
     FormManager.init();
     TestFormManager.init();
+    PhoneMaskManager.init();
     // ModalManager.init();
 
     console.log('All modules initialized successfully');

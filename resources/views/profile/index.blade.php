@@ -29,8 +29,12 @@
     @include('components.packages')
     @if ($hasPaidPackage)
         <div>
-            <a href="{{ route('profile.download-pdf') }}">
-                Скачать отчет по пройденным тестам
+            <a href="{{ route('profile.download-pdf') }}" class="button">
+                Скачать отчет PDF
+            </a>
+<br>
+            <a href="{{ route('profile.download-doc') }}" class="button outline">
+                Скачать отчет DOC
             </a>
         </div>
     @endif
@@ -53,7 +57,7 @@
             <p>У вас пока нет результатов тестирований.</p>
         @endif
     </article> --}}
-<br>
+    <br>
     <form action="{{ route('logout') }}" method="POST">
         @csrf
         <button type="submit" style="width: 100%;">

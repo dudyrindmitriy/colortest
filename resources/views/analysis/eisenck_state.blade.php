@@ -39,7 +39,7 @@
     @foreach ($states as $key => $state)
         <div style="margin-bottom: 10px;">
             <div>
-                Баллы {{ $stateTitles[$key] ?? $key }}: {{ $state['score'] }}
+                Баллы {{ $stateTitles[$key] ?? $key }}: {{ $state['percent'] }}%
             </div>
             <div>
                 {{ $levelTexts[$key][$state['level']] ?? 'Уровень: ' . $state['level'] }}

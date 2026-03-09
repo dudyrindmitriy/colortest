@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('service_package_id')->constrained()->onDelete('cascade');
+            $table->decimal('amount', 10, 2)->nullable();
             $table->string('payment_status')->default('pending'); // pending, paid, cancelled
             $table->timestamp('admin_verified_at')->nullable();
             $table->foreignId('admin_verified_by')->nullable()->constrained('users')->onDelete('set null');

@@ -13,10 +13,10 @@
     @foreach($interests as $key => $value)
         @php
             $name = is_array($value) ? $value['name'] : $key;
-            $score = is_array($value) ? $value['score'] : $value;
+            $score = is_array($value) ? $value['percentage'] : $value;
         @endphp
         <div style="margin: 3px 0;">
-            {{ $name }}: {{ $score }}
+            {{ $name }}: {{ $score }}%
         </div>
     @endforeach
 </div>

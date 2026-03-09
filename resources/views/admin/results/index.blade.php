@@ -65,6 +65,10 @@
                                        target="_blank">
                                         Скачать PDF
                                     </a>
+                                    <a href="{{ route('admin.results.download-doc', $user->id) }}"
+>
+                                        Скачать DOC
+                                    </a>
                                 @endif
                             </td>
 

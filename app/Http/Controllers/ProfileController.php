@@ -20,7 +20,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $results = $user->results()->orderBy('created_at','desc')->get();
+        $results = $user->results()->orderBy('created_at', 'desc')->get();
         $educationPrograms = EducationProgram::orderBy('name')->orderBy('code')->get();
         return view('profile.index', compact('user', 'results', 'educationPrograms'));
     }
@@ -48,11 +48,17 @@ class ProfileController extends Controller
         return $analysisService->streamAnalysisPdf($user);
     }
 
+    public function downloadDoc()
+    {
+        $user = Auth::user();
+        $analysisService = new AnalysisService();
+        return $analysisService->downloadAnalysisDoc($user);
+    }
+
     public function showReport()
     {
         $user = Auth::user();
         $analysisService = new AnalysisService();
         return $analysisService->showAnalysis($user);
-
     }
 }

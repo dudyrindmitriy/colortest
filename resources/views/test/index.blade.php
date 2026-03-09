@@ -12,6 +12,7 @@
     }
 </style>
 @section('content')
+<article class="instruction">На прохождение всех тестов потребуется примерно 1,5 часа. Результаты сохраняются автоматически после завершения каждого теста — можно проходить их в несколько подходов.</article>
     {{-- <div class="grid-container">
         @foreach ($tests as $test)
             @php

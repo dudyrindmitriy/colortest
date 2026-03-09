@@ -23,6 +23,8 @@ class User extends Authenticatable
         'password',
         'user_type',
         'isAdmin',
+        'name',
+        'phone'
     ];
     public function results()
     {

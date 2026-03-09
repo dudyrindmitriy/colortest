@@ -3,7 +3,7 @@
 
         // var_dump($test['color_result']['ml_predictions']);
     @endphp
-    <img src="{!! $test['color_result']['user_image'] !!}" width="70%"  alt="Result Image">
+    <img src="{!! $test['color_result']['user_image'] !!}" width="70%"  alt="Result Image"/>
      @if ($test['color_result']['ml_predictions'] && count($test['color_result']['ml_predictions']) > 0)
             @php
                 $predictions = collect($test['color_result']['ml_predictions'])->sortBy('rank')->take(5);

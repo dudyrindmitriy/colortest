@@ -2,11 +2,87 @@
 
 @section('content')
     <div class="container">
-        <div class="text-center">
-            <h1>Профориентация через творчество</h1>
-            <p>Раскройте свои профессиональные склонности через искусство цветового самовыражения</p>
-        </div>
+        <section class="section">
+            <h2 class="text-center">12 комплексных методик для точной диагностики</h2>
 
+            <div class="grid tests-grid">
+                <article class="text-center">
+                    <h4>Цветовой тест</h4>
+                    <p>Интуитивное раскрашивание шаблона для анализа творческого мышления и эмоционального состояния.
+                        Основанный на методах машинного обучения тест, настроенный на определение направления подготовки.
+                    </p>
+                </article>
+
+                <article class="text-center">
+                    <h4>Дж. Холланд</h4>
+                    <p>Определение профессионального типа личности: реалистический, интеллектуальный, социальный,
+                        конвенциальный, предприимчивый, артистичный</p>
+                </article>
+
+                <article class="text-center">
+                    <h4>Карта интересов</h4>
+                    <p>Выявление сфер профессиональных интересов: физика, математика, техника, химия, биология, медицина,
+                        история, искусство, педагогика и другие</p>
+                </article>
+
+                <article class="text-center">
+                    <h4>ДДО Климова</h4>
+                    <p>Дифференциально-диагностический опросник: человек-природа, человек-техника, человек-человек,
+                        человек-знаковая система, человек-художественный образ</p>
+                </article>
+
+                <article class="text-center">
+                    <h4>Л. Йовайши</h4>
+                    <p>Опросник профессиональных склонностей: работа с людьми, исследовательская работа, практическая
+                        деятельность, эстетические виды, экстремальные виды, планово-экономическая деятельность</p>
+                </article>
+
+                <article class="text-center">
+                    <h4>Матрица профессий</h4>
+                    <p>Подбор профессий на пересечении предпочитаемых объектов труда и видов деятельности</p>
+                </article>
+
+                <article class="text-center">
+                    <h4>Айзенк</h4>
+                    <p>Самооценка психических состояний: тревожность, фрустрация, агрессивность, ригидность</p>
+                </article>
+
+                <article class="text-center">
+                    <h4>К. Юнг</h4>
+                    <p>Определение типа характера: интроверт, амбиверт, экстраверт</p>
+                </article>
+
+                <article class="text-center">
+                    <h4>Томас</h4>
+                    <p>Типы поведения в конфликте: соперничество, сотрудничество, компромисс, избегание, приспособление</p>
+                </article>
+
+                <article class="text-center">
+                    <h4>Д. Кейрси</h4>
+                    <p>Определение типа темперамента и соционического типа личности с подробным описанием</p>
+                </article>
+
+                <article class="text-center">
+                    <h4>Организаторские способности</h4>
+                    <p>Оценка лидерских качеств и склонности к управленческой деятельности</p>
+                </article>
+
+                <article class="text-center">
+                    <h4>Саморазвитие</h4>
+                    <p>Оценка способности к саморазвитию и самообразованию</p>
+                </article>
+            </div>
+
+            <div class="text-center" style="margin-top: 30px;">
+                <p>Пройдите все 12 тестов для получения полного профиля профессиональных склонностей</p>
+            </div>
+        </section>
+
+        <hr>
+        <div class="text-center">
+            <h2>Цветовое тестирование</h2>
+
+        </div>
         <section class="section">
             <div class="grid">
                 <article class="text-center">
@@ -53,7 +129,8 @@
                 </article>
             </div>
             <div class="text-center">
-                <a href="{{ route('tests.index') }}" role="button" style="border: 2px solid var(--pico-primary);">Приступить к тестированию</a>
+                <a href="{{ route('tests.index') }}" role="button"
+                    style="border: 2px solid var(--pico-primary);">Приступить к тестированию</a>
             </div>
         </section>
         <hr>
@@ -116,8 +193,9 @@
                     <p>Не пытайтесь нарисовать конкретный объект — ценность в абстрактном выражении</p>
                 </article>
             </div>
-             <div class="text-center">
-                                <a href="{{ route('tests.index') }}" role="button" style="border: 2px solid var(--pico-primary);">Приступить к тестированию</a>
+            <div class="text-center">
+                <a href="{{ route('tests.index') }}" role="button"
+                    style="border: 2px solid var(--pico-primary);">Приступить к тестированию</a>
 
             </div>
         </section>
@@ -148,8 +226,9 @@
                         склонностях</p>
                 </article>
             </div>
-             <div class="text-center">
-                               <a href="{{ route('tests.index') }}" role="button" style="border: 2px solid var(--pico-primary);">Приступить к тестированию</a>
+            <div class="text-center">
+                <a href="{{ route('tests.index') }}" role="button"
+                    style="border: 2px solid var(--pico-primary);">Приступить к тестированию</a>
 
             </div>
         </section>

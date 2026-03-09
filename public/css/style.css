@@ -262,7 +262,16 @@ li {
     }
 }
 
-button[type="submit"]
-{
+button[type="submit"] {
     width: auto !important;
+}
+
+.tests-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+}
+
+@media (max-width: 768px) {
+    .tests-grid {
+        grid-template-columns: 1fr !important;
+    }
 }

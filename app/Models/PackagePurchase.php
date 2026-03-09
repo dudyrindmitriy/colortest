@@ -11,6 +11,7 @@ class PackagePurchase extends Model
     protected $fillable = [
         'user_id',
         'service_package_id',
+        'amount',
         'payment_status',
         'admin_verified_at',
         'admin_verified_by',
@@ -20,6 +21,7 @@ class PackagePurchase extends Model
     protected $casts = [
         'admin_verified_at' => 'datetime',
         'paid_at' => 'datetime',
+         'amount' => 'decimal:2'
     ];
 
     public function user()

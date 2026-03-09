@@ -366,10 +366,16 @@ class TestController extends Controller
                     $score += $scores[$answers[$question]];
                 }
             }
-            $results[$scale] = $score;
+            $percentage = ($score / 12) * 100;
+            $results[$scale] = [
+                'score' => $score,
+                'percentage' => round($percentage, 2)
+            ];
         }
 
-        arsort($results); // сортировка по убыванию
+        uasort($results, function ($a, $b) {
+            return $b['score'] <=> $a['score'];
+        });
 
         $userId = Auth::id();
         $result = Results::create([
@@ -849,7 +855,7 @@ class TestController extends Controller
             2 => ['a' => 3, 'b' => 2, 'c' => 1],
             3 => ['a' => 3, 'b' => 2, 'c' => 1],
             4 => ['a' => 2, 'b' => 3, 'c' => 1],
-            5 => ['a' => 3, 'b' => 2, 'c' => 2],
+            5 => ['a' => 3, 'b' => 2, 'c' => 1],
             6 => ['a' => 2, 'b' => 3, 'c' => 1],
             7 => ['a' => 3, 'b' => 2, 'c' => 1],
             8 => ['a' => 2, 'b' => 3, 'c' => 1],
@@ -872,12 +878,12 @@ class TestController extends Controller
             }
         }
 
-        $percentage = round(($score / 51) * 100);
+        $percentage = round((($score - 17) / 51) * 100);
 
         $level = '';
         $levelName = '';
 
-        if ($score >= 18 && $score <= 25) {
+        if ($score >= 17 && $score <= 25) {
             $level = 1;
             $levelName = 'Очень низкий';
         } elseif ($score >= 26 && $score <= 28) {
@@ -943,7 +949,6 @@ class TestController extends Controller
                     $user->login ?? $user->email,
                     $test->name
                 );
-
             }
 
             // Отправляем уведомления администраторам

@@ -12,17 +12,17 @@ class ServicePackageSeeder extends Seeder
         $packages = [
             [
                 'code' => 'basic',
-                'price' => 1990.00,
+                'price' => 500.00,
                 'sort_order' => 1,
             ],
             [
                 'code' => 'standard',
-                'price' => 3990.00,
+                'price' => 3000.00,
                 'sort_order' => 2,
             ],
             [
                 'code' => 'pro',
-                'price' => 5990.00,
+                'price' => 5000.00,
                 'sort_order' => 3,
             ]
         ];

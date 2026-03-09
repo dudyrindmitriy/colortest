@@ -117,6 +117,7 @@ class AdminController extends Controller
             if ($basicPackage && !PackagePurchase::hasPackage($userId, 'basic')) {
                 PackagePurchase::create([
                     'user_id' => $userId,
+                    'amount' => 0,
                     'service_package_id' => $basicPackage->id,
                     'payment_status' => 'paid',
                     'paid_at' => now()
@@ -126,6 +127,7 @@ class AdminController extends Controller
             if ($standardPackage && !PackagePurchase::hasPackage($userId, 'standard')) {
                 PackagePurchase::create([
                     'user_id' => $userId,
+                    'amount' => 0,
                     'service_package_id' => $standardPackage->id,
                     'payment_status' => 'paid',
                     'paid_at' => now()
@@ -138,6 +140,7 @@ class AdminController extends Controller
             if ($basicPackage && !PackagePurchase::hasPackage($userId, 'basic')) {
                 PackagePurchase::create([
                     'user_id' => $userId,
+                    'amount' => 0,
                     'service_package_id' => $basicPackage->id,
                     'payment_status' => 'paid',
                     'paid_at' => now()
@@ -148,11 +151,19 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Платеж подтвержден');
     }
 
+
     public function downloadUserPdf($userId)
     {
         $user = User::findOrFail($userId);
         $analysisService = new AnalysisService();
         return $analysisService->streamAnalysisPdf($user);
+    }
+
+    public function downloadUserDoc($userId)
+    {
+        $user = User::findOrFail($userId);
+        $analysisService = new AnalysisService();
+        return $analysisService->saveAnalysisDoc($user);
     }
 
     private function sendPaymentNotifications(PackagePurchase $purchase)
@@ -166,13 +177,40 @@ class AdminController extends Controller
                 ->whereNotNull('email')
                 ->pluck('email')
                 ->toArray();
+            $attachments = [];
+            try {
+                // Генерируем PDF
+                $pdfResponse = $this->downloadUserPdf($user->id);
+                $pdfContent = $pdfResponse->getContent();
+                $pdfPath = storage_path('app/temp/report_' . $user->id . '.pdf');
+                file_put_contents($pdfPath, $pdfContent);
 
+                // Генерируем DOC
+                $doc = $this->downloadUserDoc($user->id);
+                if ($doc['saved'] && file_exists($doc['path'])) {
+                    $docPath = $doc['path'];
+                    $attachments = [
+                        ['path' => $pdfPath, 'name' => 'report.pdf'],
+                        ['path' => $docPath, 'name' => 'report.docx']
+                    ];
+                } else {
+                    // Если DOC не создался, прикрепляем только PDF
+                    $attachments = [
+                        ['path' => $pdfPath, 'name' => 'report.pdf']
+                    ];
+                    Log::warning('DOC файл не создался для пользователя ' . $user->id);
+                }
+            } catch (Exception $e) {
+                Log::warning('Не удалось сгенерировать отчеты: ' . $e->getMessage());
+            }
             // Отправляем уведомление пользователю
             if (!empty($user->email)) {
                 $userResult = $mailService->send(
                     $user->email,
                     'Платеж подтвержден',
-                    $this->getUserPaymentBody($user->login ?? $user->email, $purchase)
+                    $this->getUserPaymentBody($user, $purchase, $adminEmails),
+                    true,
+                    $attachments
                 );
 
                 if (!$userResult['success']) {
@@ -186,7 +224,9 @@ class AdminController extends Controller
                     $adminResult = $mailService->send(
                         $adminEmail,
                         'Платеж подтвержден администратором',
-                        $this->getAdminPaymentBody($user->login ?? $user->email, $purchase, Auth::user()->login)
+                        $this->getAdminPaymentBody($user, $purchase, Auth::user()->login),
+                        true,
+                        $attachments
                     );
 
                     if (!$adminResult['success']) {
@@ -194,14 +234,20 @@ class AdminController extends Controller
                     }
                 }
             }
+            foreach ($attachments as $attachment) {
+                if (file_exists($attachment['path'])) {
+                    unlink($attachment['path']);
+                }
+            }
         } catch (Exception $e) {
             Log::error('Ошибка отправки уведомлений о платеже: ' . $e->getMessage());
         }
     }
-    private function getUserPaymentBody(string $userName, PackagePurchase $purchase): string
+    private function getUserPaymentBody(User $user, PackagePurchase $purchase, array $adminEmails): string
     {
         $package = $purchase->package;
-
+        $adminEmailsList = implode('<br>', $adminEmails);
+        $userName = $user->name ?? $user->login;
         return "
     <html>
     <head>
@@ -226,7 +272,7 @@ class AdminController extends Controller
                 <div class='info'>
                     <p><strong>Детали платежа:</strong></p>
                     <p>Пакет: {$package->code}</p>
-                    <p>Сумма: {$package->price} руб.</p>
+                    <p>Номер телефона для связи: {$user->phone}</p>
                     <p>Дата подтверждения: " . now()->format('d.m.Y H:i') . "</p>
                 </div>
 
@@ -234,6 +280,8 @@ class AdminController extends Controller
             </div>
             <div class='footer'>
                 <p>Это автоматическое сообщение, пожалуйста, не отвечайте на него.</p>
+                <p><strong>Контакты администраторов:</strong></p>
+                    <p>{$adminEmailsList}</p>
             </div>
         </div>
     </body>
@@ -244,7 +292,7 @@ class AdminController extends Controller
     /**
      * Текст письма для администраторов
      */
-    private function getAdminPaymentBody(string $userName, PackagePurchase $purchase, string $adminName): string
+    private function getAdminPaymentBody(User $user, PackagePurchase $purchase, string $adminName): string
     {
         $package = $purchase->package;
 
@@ -270,9 +318,10 @@ class AdminController extends Controller
 
                 <div class='info'>
                     <p><strong>Детали:</strong></p>
-                    <p>Пользователь: {$userName}</p>
+                    <p>Пользователь: {$user->login}</p>
+                    <p>Имя: {$user->name}</p>
+                    <p>Номер телефона: {$user->phone}</p>
                     <p>Пакет: {$package->code}</p>
-                    <p>Сумма: {$package->price} руб.</p>
                     <p>Дата подтверждения: " . now()->format('d.m.Y H:i') . "</p>
                 </div>
             </div>

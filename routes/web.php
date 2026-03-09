@@ -20,7 +20,7 @@ use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Route;
 use League\Csv\Query\Row;
 
-Route::get('/', [GeneralPageController::class, 'showGeneralPage'])->name('home')->middleware('auth'); // Главная, доступна после авторизации
+Route::get('/', [GeneralPageController::class, 'showGeneralPage'])->name('home'); // Главная, доступна после авторизации
 
 // Авторизация и регистрация
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -38,9 +38,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
 Route::patch('/profile/update', [AuthController::class, 'update'])->name('profile.update')->middleware('auth');
 Route::get('/result/{id}', [ProfileController::class, 'showResult'])->name('result')->middleware('auth');
-Route::get('/packages/{package}/purchase', [PackageController::class, 'purchase'])->name('packages.purchase')->middleware('auth');
-Route::get('/payment/{purchase}', [PackageController::class, 'payment'])->name('packages.payment')->middleware('auth');
+// Route::get('/packages/{package}/purchase', [PackageController::class, 'purchase'])->name('packages.purchase')->middleware('auth');
+// Route::get('/payment/{purchase}', [PackageController::class, 'payment'])->name('packages.payment')->middleware('auth');
+// Route::post('/packages/{package}/store', [PackageController::class, 'store'])->name('packages.store')->middleware('auth');
+Route::get('/packages/{package}/payment', [PackageController::class, 'payment'])->name('packages.payment')->middleware('auth');
+Route::post('/packages/{package}/store', [PackageController::class, 'store'])->name('packages.store')->middleware('auth');
 Route::get('/profile/download-pdf', [ProfileController::class, 'downloadPdf'])->name('profile.download-pdf')->middleware('auth');
+Route::get('/profile/download-doc', [ProfileController::class, 'downloadDoc'])->name('profile.download-doc')->middleware('auth');
 Route::get('/profile/report', [ProfileController::class, 'showReport'])->name('profile.report')->middleware('auth');
 
 Route::prefix('/tests')->middleware('auth')->name('tests.')->group(function () {
@@ -62,8 +66,10 @@ Route::middleware(['auth', 'admin'])->prefix('/admin')->name('admin.')->group(fu
     // Route::put('/results/{result}', [AdminController::class, 'updateResult'])->name('results.update');
     // Route::delete('/results/{result}', [AdminController::class, 'destroyResult'])->name('results.destroy');
 
-     Route::get('/purchases', [AdminController::class, 'purchases'])->name('purchases.index');
-     Route::post('/purchases/{purchase}/verify', [AdminController::class, 'verifyPurshase'])->name('purchases.verify');
+    Route::get('/purchases', [AdminController::class, 'purchases'])->name('purchases.index');
+    Route::post('/purchases/{purchase}/verify', [AdminController::class, 'verifyPurshase'])->name('purchases.verify');
 
-     Route::get('/admin/results/download-pdf/{userId}', [AdminController::class, 'downloadUserPdf'])->name('results.download-pdf')->middleware('auth');
+    Route::get('/admin/results/download-pdf/{userId}', [AdminController::class, 'downloadUserPdf'])->name('results.download-pdf')->middleware('auth');
+    Route::get('/admin/results/download-doc/{userId}', [AdminController::class, 'downloadUserDoc'])->name('results.download-doc')->middleware('auth');
 });
+

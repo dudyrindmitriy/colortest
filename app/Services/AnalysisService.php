@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Test;
 use App\Models\Results;
 use App\Services\PdfService;
+use App\Services\DocService;
 use Illuminate\Support\Facades\Log;
 
 class AnalysisService
@@ -18,6 +19,33 @@ class AnalysisService
         return $pdfService->stream('pdf.report', [
             'analysis' => $analysis
         ], 'analysis_' . $user->id . '.pdf');
+    }
+
+    public function downloadAnalysisDoc(User $user)
+    {
+        $analysis = $this->getFullAnalysis($user);
+        $docService = new DocService();
+        return $docService->downloadDocx(
+            'pdf.report',
+            ['analysis' => $analysis],
+            'analysis_' . $user->id . '.docx'
+        );
+    }
+
+    public function saveAnalysisDoc(User $user)
+    {
+        $analysis = $this->getFullAnalysis($user);
+        $tempDir = storage_path('app/temp');
+        $docPath = $tempDir . '/report_' . $user->id . '.docx';
+        $docService = new DocService();
+        return [
+            'path' => $docPath,
+            'saved' => $docService->saveDocx(
+                'pdf.report',
+                ['analysis' => $analysis],
+                $docPath
+            )
+        ];
     }
 
     public function showAnalysis(User $user)
@@ -189,17 +217,17 @@ class AnalysisService
             $data = (array) $data;
         }
 
-        // Сортируем по убыванию баллов
-        arsort($data);
+
 
         $result = [
             'interests' => []
         ];
 
-        foreach ($data as $key => $score) {
+        foreach ($data as $key => $item) {
             $interest = [
-                'name' => $key,  // Используем оригинальное название из ключа
-                'score' => (int)$score
+                'name' => $key,
+                'score' => (int)$item['score'],
+                'percentage' => (float)$item['percentage']
             ];
 
             $result['interests'][$key] = $interest;
@@ -459,7 +487,7 @@ class AnalysisService
                 $result[$scale] = [
                     'score' => $scaleData['score'],
                     'level' => $scaleData['level'],
-                    'percent' => $scaleData['percent'] ?? round(($scaleData['score'] / 20) * 100, 2)
+                    'percent' => $scaleData['percentage'] ?? round(($scaleData['score'] / 20) * 100, 2)
                 ];
             }
         }
@@ -643,9 +671,9 @@ class AnalysisService
             return null;
         }
 
-        $magickPath = '/opt/homebrew/bin/magick';
+        $magickPath = env('MAGICK_PATH');
 
-        $command = "/opt/homebrew/bin/magick -define registry:temporary-path={$tempDir} \"{$svgFile}\" \"{$pngFile}\" 2>&1";
+        $command = "{$magickPath} -define registry:temporary-path={$tempDir} \"{$svgFile}\" \"{$pngFile}\" 2>&1";
 
         exec($command, $output, $returnCode);
 

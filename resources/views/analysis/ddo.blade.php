@@ -145,7 +145,7 @@
 
             @foreach($weakTypes as $type => $data)
                 <div style="margin: 5px 0;">
-                    Степень склонности к сфере деятельности «{{ $type }}» – {{ $data['percentage'] }}%.
+                    Степень склонности к сфере деятельности «{{ $type }}» - {{ $data['percentage'] }}%.
                 </div>
             @endforeach
         </div>
