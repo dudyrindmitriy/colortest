@@ -163,7 +163,7 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($userId);
         $analysisService = new AnalysisService();
-        return $analysisService->saveAnalysisDoc($user);
+        return $analysisService->downloadAnalysisDoc($user);
     }
 
     private function sendPaymentNotifications(PackagePurchase $purchase)
