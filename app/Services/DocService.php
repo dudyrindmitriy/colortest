@@ -9,14 +9,11 @@ use Illuminate\Support\Facades\View;
 
 class DocService
 {
-    /**
-     * Сгенерировать DOC из Blade шаблона
-     */
+
     public function generateFromView(string $view, array $data)
     {
         $html = View::make($view, $data)->render();
 
-        // Добавляем мета-тег для корректного открытия в Word
         $html = '
         <html>
         <head>
@@ -31,9 +28,7 @@ class DocService
         return $html;
     }
 
-    /**
-     * Скачать DOC (как HTML в .doc обертке)
-     */
+
     public function download(string $view, array $data, string $filename = 'report.doc')
     {
         $html = $this->generateFromView($view, $data);
@@ -46,21 +41,17 @@ class DocService
         ]);
     }
 
-    /**
-     * Скачать настоящий DOCX с конвертацией из Blade
-     */
+
     public function downloadDocx(string $view, array $data, string $filename = 'report.docx')
     {
         $html = View::make($view, $data)->render();
         $html = preg_replace('/<div class="test-header"/', '<div class="test-header" style="font-size: 14pt"', $html);
-        // Убираем DOCTYPE и лишние теги
         $html = preg_replace('/<!DOCTYPE[^>]*>/i', '', $html);
         $html = preg_replace('/<html[^>]*>/i', '', $html);
         $html = preg_replace('/<\/html>/i', '', $html);
         $html = preg_replace('/<head[^>]*>.*?<\/head>/is', '', $html);
         $html = preg_replace('/<br([^>]*)(?<!\s\/)>/i', '<br$1 />', $html);
         $html = preg_replace('/<hr([^>]*)(?<!\s\/)>/i', '<hr$1 />', $html);
-        // Настройка временной директории
         $tempDir = storage_path('app/temp');
         $phpWordTemp = $tempDir . '/phpword';
 
@@ -68,7 +59,6 @@ class DocService
             mkdir($phpWordTemp, 0777, true);
         }
 
-        // Критически важно!
         \PhpOffice\PhpWord\Settings::setTempDir($phpWordTemp);
         putenv("TMPDIR={$phpWordTemp}");
         putenv("TEMP={$phpWordTemp}");
@@ -86,21 +76,17 @@ class DocService
         return response()->download($tempFile, $filename)->deleteFileAfterSend(true);
     }
 
-    /**
-     * Сохранить DOCX в файл (без скачивания)
-     */
+
     public function saveDocx(string $view, array $data, string $outputPath)
     {
         $html = View::make($view, $data)->render();
         $html = preg_replace('/<div class="test-header"/', '<div class="test-header" style="font-size: 14pt"', $html);
-        // Убираем DOCTYPE и лишние теги
         $html = preg_replace('/<!DOCTYPE[^>]*>/i', '', $html);
         $html = preg_replace('/<html[^>]*>/i', '', $html);
         $html = preg_replace('/<\/html>/i', '', $html);
         $html = preg_replace('/<head[^>]*>.*?<\/head>/is', '', $html);
         $html = preg_replace('/<br([^>]*)(?<!\s\/)>/i', '<br$1 />', $html);
         $html = preg_replace('/<hr([^>]*)(?<!\s\/)>/i', '<hr$1 />', $html);
-        // Настройка временной директории
         $tempDir = storage_path('app/temp');
         $phpWordTemp = $tempDir . '/phpword';
 
@@ -108,7 +94,6 @@ class DocService
             mkdir($phpWordTemp, 0777, true);
         }
 
-        // Критически важно!
         \PhpOffice\PhpWord\Settings::setTempDir($phpWordTemp);
         putenv("TMPDIR={$phpWordTemp}");
         putenv("TEMP={$phpWordTemp}");

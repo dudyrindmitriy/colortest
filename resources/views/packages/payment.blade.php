@@ -8,7 +8,7 @@
         $packageNames = [
             'basic' => 'Базовый',
             'standard' => 'Стандарт',
-            'pro' => 'Расширенный',
+            'pro' => 'VIP',
         ];
 
         $statusNames = [
