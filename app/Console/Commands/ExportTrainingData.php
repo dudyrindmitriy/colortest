@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Isa;
 use App\Models\Results;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use League\Csv\Writer;
 
 class ExportTrainingData extends Command
@@ -56,7 +57,17 @@ class ExportTrainingData extends Command
             ->whereHas('user', function ($query) {
                 $query->where('user_type', 'student');
             })
-            ->get();
+            ->where(function ($query) {
+                $query->where('test_id', 13)
+                    ->orWhereNull('test_id');
+            })
+            ->orderByRaw('CASE WHEN test_id IS NULL THEN 0 ELSE 1 END')
+            ->get()
+            ->groupBy('user_id')
+            ->map(function ($userResults) {
+                return $userResults->sortByDesc('created_at')->first();
+            })
+            ->values();
         $csv = Writer::createFromString('');
         $csv->insertOne(self::CSV_HEADERS);
 
@@ -65,6 +76,8 @@ class ExportTrainingData extends Command
         }
 
         file_put_contents('app/Services/training_data.csv', $csv->toString());
+        $this->info('Обучающие данные обновлены');
+        Log::info('Обучающие данные обновлены');
     }
 
     public function processResult($result, $csv)

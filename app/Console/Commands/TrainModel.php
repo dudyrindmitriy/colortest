@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class TrainModel extends Command
 {
@@ -47,9 +48,11 @@ class TrainModel extends Command
 
         if ($returnCode === 0) {
             $this->info('✅ Обучение завершено успешно');
+            Log::info('✅ Обучение завершено успешно');
             return 0;
         } else {
             $this->error('❌ Ошибка при обучении модели');
+            Log::info('❌ Ошибка при обучении модели');
             return 1;
         }
     }

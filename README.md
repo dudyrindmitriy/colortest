@@ -1,10 +1,14 @@
 
 
-## requires
+# requires
+composer install  
+## imagick  
+```
+wget https://imagemagick.org/archive/binaries/magick  
+chmod +x magick  
+sudo mv magick /usr/local/bin/magick  
+```
+MAGICK_PATH="/usr/local/bin/magick" in .env
+## python
 
-composer require barryvdh/laravel-dompdf
-composer require phpmailer/phpmailer
-composer require phpoffice/phpword
-imagick
-
-PYTHON_PATH in .env
+PYTHON_PATH="/Applications/XAMPP/xamppfiles/htdocs/colortest/venv/bin/python3" in .env  
