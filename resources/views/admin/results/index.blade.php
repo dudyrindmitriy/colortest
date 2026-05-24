@@ -13,11 +13,11 @@
                 width: 100%;
                 overflow-x: auto;
             }
+
             .table {
                 border-collapse: collapse;
                 width: 100%;
             }
-
         </style>
 
         <div class="table-container">
@@ -29,6 +29,7 @@
                         <th>Email</th>
                         <th>Направление</th>
                         <th>Тесты</th>
+                        <th>Результат цветового тестирования</th>
                         <th>Отчет</th>
                     </tr>
                 </thead>
@@ -42,11 +43,13 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->login }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->user_type == 'student' && $user->educationProgram ? $user->educationProgram->code . ' ' . $user->educationProgram->name : 'Нет' }}</td>
+                            <td>{{ $user->user_type == 'student' && $user->educationProgram ? $user->educationProgram->code . ' ' . $user->educationProgram->name : 'Нет' }}
+                            </td>
+
                             <td>
-                                @if($hasTests)
+                                @if ($hasTests)
                                     <ul style="margin: 0; padding-left: 20px;">
-                                        @foreach($userResults as $result)
+                                        @foreach ($userResults as $result)
                                             @php $test = App\Models\Test::find($result->test_id); @endphp
                                             <li>
                                                 {{ $test ? $test->name : 'Тест #' . $result->test_id }}
@@ -59,14 +62,23 @@
                                 @endif
                             </td>
                             <td>
-                                @if($hasTests)
-                                    <a href="{{ route('admin.results.download-pdf', $user->id) }}"
+                                @php
+                                    $lastImageResult = $userResults
+                                        ->whereIn('test_id', [13, null])
+                                        ->sortByDesc('created_at')
+                                        ->first();
+                                @endphp
 
-                                       target="_blank">
+                                @if ($lastImageResult && $lastImageResult->user_image)
+                                    {!! $lastImageResult->user_image !!}
+                                @endif
+                            </td>
+                            <td>
+                                @if ($hasTests)
+                                    <a href="{{ route('admin.results.download-pdf', $user->id) }}" target="_blank">
                                         Скачать PDF
                                     </a>
-                                    <a href="{{ route('admin.results.download-doc', $user->id) }}"
->
+                                    <a href="{{ route('admin.results.download-doc', $user->id) }}">
                                         Скачать DOC
                                     </a>
                                 @endif

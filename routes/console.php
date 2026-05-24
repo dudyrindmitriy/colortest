@@ -15,5 +15,7 @@ Schedule::command('generate:training-data')
         Log::info("Сработала команда generate:training-data");
         Artisan::call('model:train');
         Log::info("Сработала команда model:train");
+        Artisan::call('parse:education-programs');
+        Log::info("Сработала команда parse:education-programs — Синхронизация направлений выполнена.");
     })
    ;

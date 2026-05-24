@@ -6,6 +6,7 @@ use App\Models\Isa;
 use App\Models\Results;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use League\Csv\Writer;
 
 class ExportTrainingData extends Command
@@ -98,11 +99,14 @@ class ExportTrainingData extends Command
         $patternMetrics = $this->calculatePatternMetrics($walls);
         $features = array_merge($features, $patternMetrics);
 
-        $educationProgram = $result->user->educationProgram->code ?? 'unknown';
+        // $educationProgram = $result->user->educationProgram->code ?? 'unknown';
+        $programName = $result->user->educationProgram->name ?? 'unknown';
+
+        $educationProgramLat = Str::slug($programName);
         $csv->insertOne([
             ...array_values($features),
             // $this->calculateChessStructureScore($patternMetrics),
-            $educationProgram
+            $educationProgramLat
         ]);
     }
 
